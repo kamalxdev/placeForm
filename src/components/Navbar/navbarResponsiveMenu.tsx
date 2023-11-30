@@ -11,6 +11,7 @@ interface iNavbarResponsiveMenu{
     email?:string | null,
     menuItems:Array<any>,
     userItems:Array<any>
+    key?:number
 }
 
 
@@ -73,7 +74,7 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                       className=" dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                     >
                       {user.userItems.map((item) => (
-                        <li>
+                        <li key={item.name}>
                           <Link
                             href={item.href}
                             className="transition hover:bg-gray-300 hover:font-medium rounded-md"

@@ -55,32 +55,9 @@ const formNewFields = [
 export default function ChooseFormFields() {
     const [formFields, setFormFields] = useState<Object[]>();
     useEffect(() => {
-      // setInterval(() => {
-      // }, 100);
-      // const data = updateFieldsData();
-      const inputFields = document.querySelectorAll(
-        ".main-field"
-      ) as NodeListOf<HTMLInputElement>;
-      var fieldData: Object[] = [];
-      inputFields.forEach((field) => {
-        const fieldOptions: Object[] = [];
-        (
-          field.querySelectorAll(
-            ".checkbox-option-input-field"
-          ) as NodeListOf<HTMLInputElement>
-        ).forEach((option) => {
-          fieldOptions.push(option.value);
-        });
-        fieldData.push({
-          title: (field.querySelector("#title-input-field") as HTMLInputElement)
-            .value,
-          required: (field.querySelector(".checkbox") as HTMLInputElement).checked,
-          options: fieldOptions,
-          type: (field.querySelector("#answer-input-field") as HTMLInputElement)
-            .title,
-        });
-      });
-      setFormFields(fieldData);
+      setInterval(() => {
+        setFormFields(updateFieldsData());
+      }, 100);
     },[]);
 
     return (
