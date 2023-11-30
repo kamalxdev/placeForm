@@ -8,38 +8,46 @@ const formNewFields = [
   {
     name: "Text",
     action: getNewTextField,
+    title: "Add a new text field",
   },
   {
     name: "Text Box",
     action: (event: React.MouseEvent<HTMLButtonElement>) => {
       console.log("Text Box");
     },
+    title: "Add a new text box",
   },
   {
     name: "Email",
     action: getNewEmailField,
+    title: "Add a new email field",
   },
   {
     name: "Number",
     action: getNewNumberField,
+    title: "Add a new number field",
   },
   {
     name: "Checkbox(many)",
     action: getNewCheckboxManyField,
+    title: "Add a new checkbox field with multiple selection",
   },
   {
     name: "Checkbox(one)",
     action: getNewCheckboxOneField,
+    title: "Add a new checkbox field with single selection",
   },
   {
     name: "Dropdown",
     action: (event: React.MouseEvent<HTMLButtonElement>) => {
       console.log("Dropdown");
     },
+    title: "Add a new dropdown field",
   },
   {
     name: "TextArea",
     action: getNewTextAreaField,
+    title: "Add a new text area field",
   },
 ];
 
@@ -47,9 +55,32 @@ const formNewFields = [
 export default function ChooseFormFields() {
     const [formFields, setFormFields] = useState<Object[]>();
     useEffect(() => {
-      setInterval(() => {
-        setFormFields(updateFieldsData());
-      }, 100);
+      // setInterval(() => {
+      // }, 100);
+      // const data = updateFieldsData();
+      const inputFields = document.querySelectorAll(
+        ".main-field"
+      ) as NodeListOf<HTMLInputElement>;
+      var fieldData: Object[] = [];
+      inputFields.forEach((field) => {
+        const fieldOptions: Object[] = [];
+        (
+          field.querySelectorAll(
+            ".checkbox-option-input-field"
+          ) as NodeListOf<HTMLInputElement>
+        ).forEach((option) => {
+          fieldOptions.push(option.value);
+        });
+        fieldData.push({
+          title: (field.querySelector("#title-input-field") as HTMLInputElement)
+            .value,
+          required: (field.querySelector(".checkbox") as HTMLInputElement).checked,
+          options: fieldOptions,
+          type: (field.querySelector("#answer-input-field") as HTMLInputElement)
+            .title,
+        });
+      });
+      setFormFields(fieldData);
     },[]);
 
     return (
@@ -71,6 +102,7 @@ export default function ChooseFormFields() {
                 type="button"
                 onClick={field.action}
                 className="text-black"
+                title={field.title}
               >
                 {field.name}
               </button>

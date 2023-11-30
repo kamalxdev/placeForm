@@ -43,7 +43,6 @@ export default function LoginPage() {
             callbackUrl: "/",
             redirect: true,
           });
-          return alert("User Logined successfully");
         } else {
           if (typeof data.msg == "string") {
             setAuthError(data.msg);
