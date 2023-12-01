@@ -91,7 +91,7 @@ export default function FormTable() {
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {forms.map((form) => (
-                      <AddForm name={`${form.name}`} image={`${form.image}`} title={`${form.title}`} department={`${form.department}`} role={`${form.role}`} email={`${form.email}`}/>
+                      <AddForm key={`${form.name}`} name={`${form.name}`} image={`${form.image}`} title={`${form.title}`} department={`${form.department}`} role={`${form.role}`} email={`${form.email}`}/>
                     ))}
                   </tbody>
                 </table>
