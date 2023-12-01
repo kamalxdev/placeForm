@@ -58,33 +58,33 @@ export default function FormTable() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th
+                      <th key="title"
                         scope="col"
                         className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
                       >
                         <span>Title</span>
                       </th>
-                      <th
+                      <th key="titles"
                         scope="col"
                         className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
                       >
                         Title
                       </th>
 
-                      <th
+                      <th key="Status"
                         scope="col"
                         className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
                       >
                         Status
                       </th>
 
-                      <th
+                      <th key="Role"
                         scope="col"
                         className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
                       >
                         Role
                       </th>
-                      <th scope="col" className="relative px-4 py-3.5">
+                      <th scope="col" className="relative px-4 py-3.5" key="Edit">
                         <span className="sr-only">Edit</span>
                       </th>
                     </tr>
@@ -100,38 +100,38 @@ export default function FormTable() {
           </div>
         </div>
         <div className="flex items-center justify-center pt-6">
-          <a href="#" className="mx-1 cursor-not-allowed text-sm font-semibold text-gray-900">
+          <Link href="#" className="mx-1 cursor-not-allowed text-sm font-semibold text-gray-900">
             <span className="hidden lg:block">&larr; Previous</span>
             <span className="block lg:hidden">&larr;</span>
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
           >
             1
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
           >
             2
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
           >
             3
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
           >
             4
-          </a>
-          <a href="#" className="mx-2 text-sm font-semibold text-gray-900">
+          </Link>
+          <Link href="#" className="mx-2 text-sm font-semibold text-gray-900">
             <span className="hidden lg:block">Next &rarr;</span>
             <span className="block lg:hidden">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </section>
     </>
