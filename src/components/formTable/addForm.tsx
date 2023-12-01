@@ -24,6 +24,8 @@ export default function AddForm(props: addFormProps) {
                 className="h-10 w-10 rounded-full object-cover"
                 src={props.image}
                 alt=""
+                width={40}
+                height={40}
               />
             
             </div>

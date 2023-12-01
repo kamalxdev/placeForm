@@ -30,13 +30,13 @@ export async function POST(req:NextRequest) {
 
 
         // hashing password
-        var salt= bcrypt.genSaltSync(10);
-        var hashedPassword= bcrypt.hashSync(output.password,salt);
+        const salt= bcrypt.genSaltSync(10);
+        const hashedPassword= bcrypt.hashSync(output.password,salt);
+        await User.create({...body,password:hashedPassword})
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
             return NextResponse.json({msg:error.messages,status:400},{status:200});
         }
     }
-    await User.create({...body,password:hashedPassword})
     return NextResponse.json({msg:"User created successfully. Please Login ",status:200},{status:200});
 }
