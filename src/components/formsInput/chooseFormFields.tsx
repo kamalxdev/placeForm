@@ -2,29 +2,28 @@
 
 import { PlusSquare } from "lucide-react";
 import { useEffect, useState } from "react";
-import {getNewCheckboxOneField,getNewCheckboxManyField,getNewTextField,getNewNumberField,updateFieldsData,getNewEmailField,getNewTextAreaField} from "@/controllers/textField/getNewTextField";
+import {getNewCheckboxOneField,getNewCheckboxManyField,getNewTextField,updateFieldsData,getNewDropdownField,getNewTextAreaField,getNewTextBoxField} from "@/controllers/textField/getNewTextField";
+import { get } from "http";
 
 const formNewFields = [
   {
     name: "Text",
-    action: getNewTextField,
+    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("text"),
     title: "Add a new text field",
   },
   {
     name: "Text Box",
-    action: (event: React.MouseEvent<HTMLButtonElement>) => {
-      console.log("Text Box");
-    },
+    action: getNewTextBoxField,
     title: "Add a new text box",
   },
   {
     name: "Email",
-    action: getNewEmailField,
+    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("email"),
     title: "Add a new email field",
   },
   {
     name: "Number",
-    action: getNewNumberField,
+    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("number"),
     title: "Add a new number field",
   },
   {
@@ -39,9 +38,7 @@ const formNewFields = [
   },
   {
     name: "Dropdown",
-    action: (event: React.MouseEvent<HTMLButtonElement>) => {
-      console.log("Dropdown");
-    },
+    action: getNewDropdownField,
     title: "Add a new dropdown field",
   },
   {
@@ -77,7 +74,7 @@ export default function ChooseFormFields() {
             <li key={field.name}>
               <button
                 type="button"
-                onClick={field.action}
+                onClick={field.action as VoidFunction}
                 className="text-black"
                 title={field.title}
               >
