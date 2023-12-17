@@ -22,12 +22,10 @@ export async function POST(req:NextRequest) {
 
         // checking if user exists
         const userExists:any= await User.findOne({email});
-        console.log(userExists);
-        
         if(userExists){
             const comparePassword= bcrypt.compareSync(password,userExists.password);
             if(comparePassword){
-                return NextResponse.json({msg:"User logged in successfully" ,status:200},{status:200})
+                return NextResponse.json({msg:"User logged in successfully. Redirecting..." ,status:200},{status:200})
             }
             return NextResponse.json({msg:"Invalid password",status:400},{status:200});
         }
@@ -36,7 +34,10 @@ export async function POST(req:NextRequest) {
         }
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
-            return NextResponse.json({msg:error.messages,status:400},{status:200});
+            return NextResponse.json({msg:error.messages,status:400},{status:404});
+        }
+        else{
+            console.log("Error from login/route.ts:-------->",error);
         }
     }
 }

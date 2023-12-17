@@ -23,7 +23,7 @@ export default function LoginPage() {
     password: "",
   });
   const [AuthError, setAuthError] = React.useState("");
-
+  const [greenbox, setGreenbox] = React.useState(params.get("msg"));
 
 
 
@@ -37,6 +37,7 @@ export default function LoginPage() {
         setLoading(false);
         const data = res.data;
         if (data.status == 200) {
+          setGreenbox(data.msg);
           signIn("credentials", {
             email: Auth.email,
             password: Auth.password,
@@ -84,8 +85,8 @@ export default function LoginPage() {
               <Ban size={16} />
               <span className="ml-1">{AuthError}</span>
             </div>
-          ) : params.get("msg") ? <div className=" mt-4 transition flex items-center justify-center rounded-md w-full h-full p-1 bg-green-400 text-black font-bold">
-          <span className="ml-1">{params.get("msg")}</span>
+          ) : greenbox ? <div className=" mt-4 transition flex items-center justify-center rounded-md w-full h-full p-1 bg-green-400 text-black font-bold">
+          <span className="ml-1">{greenbox}</span>
         </div> : null}
           <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">

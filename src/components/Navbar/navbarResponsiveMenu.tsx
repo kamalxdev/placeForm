@@ -2,6 +2,7 @@
 import React from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
+import SignOutBtn from "./signOutBtn";
 
 
 
@@ -62,7 +63,7 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                   </nav>
                 </div>
                 {user.name ? (
-                  <div className="hidden dropdown dropdown-hover lg:block">
+                  <div className=" dropdown dropdown-hover lg:block">
                     <label
                       tabIndex={0}
                       className="transition flex items-center border-2 px-3 py-1 hover:border-black rounded-md font-bold"
@@ -83,6 +84,9 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                           </Link>
                         </li>
                       ))}
+                      <li>
+                <SignOutBtn />
+              </li>
                     </ul>
                   </div>
                 ) : (
