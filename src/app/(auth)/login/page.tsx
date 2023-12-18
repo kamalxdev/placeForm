@@ -60,7 +60,11 @@ export default function LoginPage() {
       });
   }
 
-
+async function loginWithGoogle() {
+  const data=await signIn("google", { callbackUrl: "/", redirect: true });
+  console.log("Data :",data);
+  
+}
 
 
   return (
@@ -165,6 +169,7 @@ export default function LoginPage() {
           <div className="mt-3 space-y-3">
             <button
               type="button"
+              onClick={loginWithGoogle}
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">
