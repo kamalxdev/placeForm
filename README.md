@@ -1,4 +1,4 @@
-This is a clone app of GOOGLE forms and the site is live at [`placeform`](placeform.vercel.app)
+This is a clone app of GOOGLE forms and the site is live at [placeform](placeform.vercel.app)
 
 ## Getting Started
 First, run the development server:
