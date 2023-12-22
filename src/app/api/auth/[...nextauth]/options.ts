@@ -3,12 +3,14 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/user";
 import GoogleProvider from "next-auth/providers/google";
+import {createJWTtoken} from "@/controllers/registerJWTtoken";
+
 
 
 export const authOptions: AuthOptions = {
   pages: {
-    signIn: "/",
-    signOut: "/",
+    signIn: "/login",
+    signOut: "/"
   },
   providers: [
     CredentialsProvider({
@@ -40,14 +42,15 @@ export const authOptions: AuthOptions = {
   ],
   // it runs before the user is created in the database for LOGin with Google
   callbacks: {
-    async signIn(profile) {
+    async signIn({user}) {
       connect();
-      const email =profile.user.email
-      const user = await User.findOne({ email});
-      if (user) {
+      const email =user.email;
+      const checkUSER = await User.findOne({email});
+      if (checkUSER) {
         return true
       }
-      return false
+      const token= createJWTtoken({...user,"loginWith":"google"});
+      return `/register/${token}`
     }
   },
   session: {

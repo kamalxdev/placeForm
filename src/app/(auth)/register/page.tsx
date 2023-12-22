@@ -4,12 +4,9 @@ import { ArrowRight, Ban } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import ShowAuthError from "@/components/showAuthError";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-
-
-
-
+import jwt from "jsonwebtoken";
 
 
 export default function RegisterPage() {
@@ -26,45 +23,30 @@ export default function RegisterPage() {
   });
   const [AuthError, setAuthError] = React.useState("");
   const router = useRouter();
-  
 
-
-
-
-async function PostRegisterData() {
+  async function PostRegisterData(loginwith: string, userdata: any) {
     setLoading(true);
     await axios
-      .post("/api/auth/register", { ...Auth, loginWith: "credentials" })
+      .post("/api/auth/register", { ...userdata, loginWith: loginwith })
       .then((res) => {
         setLoading(false);
         const data = res.data;
         if (data.status == 200) {
-
           router.push(`/login?msg=${data.msg}`);
-
-          // return alert("User Registered successfully");
         } else {
           if (typeof data.msg == "string") {
-
-
             setAuthError(data.msg);
-            // return alert(data.msg);
           } else {
             setValidateError(data.msg);
-
-            // return alert(Object.values(data.error));
           }
         }
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
+        console.log("RegisterWithToken error------>", err);
       });
   }
-function registerUsingGoogle() {
-  signIn("google", { callbackUrl: "/?registerWithGoogle=true", redirect: true });
-}
-
+ 
   return (
     <>
       <section>
@@ -84,11 +66,11 @@ function registerUsingGoogle() {
               </Link>
             </p>
             {AuthError ? (
-            <div className=" mt-4 transition flex items-center justify-center rounded-md w-full h-full p-1 bg-red-400 text-black font-bold">
-              <Ban size={16} />
-              <span className="ml-1">{AuthError}</span>
-            </div>
-          ) : null}
+              <div className=" mt-4 transition flex items-center justify-center rounded-md w-full h-full p-1 bg-red-400 text-black font-bold">
+                <Ban size={16} />
+                <span className="ml-1">{AuthError}</span>
+              </div>
+            ) : null}
             <form className="mt-8">
               <div className="space-y-5">
                 <div>
@@ -113,7 +95,9 @@ function registerUsingGoogle() {
                     ></input>
                   </div>
                 </div>
-                {validateError?.name ? <ShowAuthError msg={validateError.name} /> : null}
+                {validateError?.name ? (
+                  <ShowAuthError msg={validateError.name} />
+                ) : null}
                 <div>
                   <label
                     htmlFor="email"
@@ -136,7 +120,9 @@ function registerUsingGoogle() {
                     ></input>
                   </div>
                 </div>
-                {validateError?.email ? <ShowAuthError msg={validateError.email} /> : null}
+                {validateError?.email ? (
+                  <ShowAuthError msg={validateError.email} />
+                ) : null}
                 <div>
                   <div className="flex items-center justify-between">
                     <label
@@ -167,7 +153,7 @@ function registerUsingGoogle() {
                 <div>
                   <button
                     type="button"
-                    onClick={PostRegisterData}
+                    onClick={(e) => PostRegisterData("credentials", Auth)}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
                     Create Account{" "}
@@ -183,7 +169,10 @@ function registerUsingGoogle() {
             <div className="mt-3 space-y-3">
               <button
                 type="button"
-                onClick={registerUsingGoogle}
+                onClick={e=>signIn("google", {
+                  callbackUrl: "/?registerWithGoogle=true",
+                  redirect: false,
+                })}
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               >
                 <span className="mr-2 inline-block">
@@ -198,7 +187,6 @@ function registerUsingGoogle() {
                 </span>
                 Sign up with Google
               </button>
-              
             </div>
           </div>
         </div>

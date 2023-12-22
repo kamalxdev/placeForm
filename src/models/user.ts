@@ -4,7 +4,7 @@ const UserSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String },
-  loginWith: { type: String, default: "google" },
+  loginWith: { type: String, default: "credentials" },
 });
 
 
