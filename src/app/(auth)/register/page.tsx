@@ -4,9 +4,8 @@ import { ArrowRight, Ban } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import ShowAuthError from "@/components/showAuthError";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter} from "next/navigation";
 import { signIn } from "next-auth/react";
-import jwt from "jsonwebtoken";
 
 
 export default function RegisterPage() {

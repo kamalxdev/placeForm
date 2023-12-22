@@ -1,9 +1,5 @@
-"use client";
-
 import { PlusSquare } from "lucide-react";
-import { useEffect, useState } from "react";
 import {getNewCheckboxOneField,getNewCheckboxManyField,getNewTextField,updateFieldsData,getNewDropdownField,getNewTextAreaField,getNewTextBoxField} from "@/controllers/textField/getNewTextField";
-import { get } from "http";
 
 const formNewFields = [
   {
@@ -50,16 +46,8 @@ const formNewFields = [
 
 
 export default function ChooseFormFields() {
-    const [formFields, setFormFields] = useState<Object[]>();
-    useEffect(() => {
-      setInterval(() => {
-        setFormFields(updateFieldsData());
-      }, 100);
-    },[]);
-
     return (
       <div className="dropdown dropdown-right">
-        <p>${JSON.stringify(formFields)}</p>
         <label
           tabIndex={0}
           className="transition flex items-center border-2 px-3 py-1 hover:bg-slate-300 rounded-md font-bold"
