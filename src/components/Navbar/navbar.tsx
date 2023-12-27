@@ -8,8 +8,8 @@ import NavbarResponsiveMenu from "./navbarResponsiveMenu";
 
 const menuItems = [
   {
-    name: "Home",
-    href: "/",
+    name: "Dashboard",
+    href: "/dashboard",
   },
   {
     name: "About",
@@ -20,9 +20,10 @@ const menuItems = [
     href: "/contact",
   },
   {
-    name: "Forms",
-    href: "/forms",
+    name: "Blog",
+    href: "/blog",
   },
+  
 ];
 const userItems = [
   {

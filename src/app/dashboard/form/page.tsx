@@ -16,6 +16,6 @@ export default async function NewFormID() {
         console.log("NewFormID error ------>",error);
     }
     if (formID) {
-        return redirect(`/forms/new/${formID._id}`);
+        return redirect(`/dashboard/form/${formID._id}`);
     }
 }

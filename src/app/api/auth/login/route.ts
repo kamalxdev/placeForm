@@ -25,7 +25,7 @@ export async function POST(req:NextRequest) {
         const validator=vine.compile(loginSchema);
         validator.errorReporter=()=>new ErrorReporter(); 
         await validator.validate({email,password});
-          
+
 
         // checking if user exists
         const userExists:any= await user.findOne({email});

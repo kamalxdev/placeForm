@@ -1,13 +1,9 @@
 import React from "react";
-import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/options";
+import getUSER from "@/controllers/getUSER";
 
 
 export default async function Home() {
-  // const { data: user, status, update } = useSession();
-  // console.log("getting user",user,"status",status);
-  	const user = await getServerSession(authOptions)
+  	const user = await getUSER();
   return (
     <>
       <p className="relative">Hello {JSON.stringify(user)}</p>
