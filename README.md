@@ -1,12 +1,17 @@
 This is a clone app of GOOGLE forms and the site is live at [`placeform`](https://placeform.vercel.app/)
 
 ## Getting Started
-First, run the development server:
+First, install packages:
+
+```bash
+npm i
+```
+Second, run the development server:
 
 ```bash
 npm run dev
 ```
-Second, Copy .env.example into .env
+Third, copy .env.example into .env
 
 ```bash
 cp .env.example .env

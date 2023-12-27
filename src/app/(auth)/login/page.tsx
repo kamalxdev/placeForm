@@ -24,7 +24,8 @@ export default function LoginPage() {
   });
   const [AuthError, setAuthError] = React.useState("");
   const [greenbox, setGreenbox] = React.useState(params.get("msg"));
-
+  const param=useSearchParams();
+  const callback=param.get("callbackUrl");
 
   async function PostLoginData() {
     setLoading(true);
@@ -38,7 +39,7 @@ export default function LoginPage() {
           signIn("credentials", {
             email: Auth.email,
             password: Auth.password,
-            callbackUrl: "/",
+            callbackUrl: callback || "/",
             redirect: true,
           });
         } else {
@@ -156,7 +157,7 @@ export default function LoginPage() {
           <div className="mt-3 space-y-3">
             <button
               type="button"
-              onClick={e=>signIn("google", { callbackUrl: "/", redirect: true })}
+              onClick={e=>signIn("google", { callbackUrl: callback||"/", redirect: true })}
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">
