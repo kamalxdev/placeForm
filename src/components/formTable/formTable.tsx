@@ -1,139 +1,187 @@
-import React from 'react'
-import AddForm from './addForm'
-import Link from 'next/link'
-const forms = [
-  {
-    name: 'John Doe',
-    title: 'Front-end Developer',
-    department: 'Engineering',
-    email: 'john@devui.com',
-    role: 'Developer',
-    image:
-      'https://images.unsplash.com/photo-1628157588553-5eeea00af15c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80',
-  },
-  {
-    name: 'Jane Doe',
-    title: 'Back-end Developer',
-    department: 'Engineering',
-    email: 'jane@devui.com',
-    role: 'CTO',
-    image:
-      'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
-  },
-  {
-    name: 'Kamal Singh',
-    title: 'Full Stack Developer',
-    department: 'Developer',
-    email: 'kamal@devui.com',
-    role: 'CEO',
-    image:
-      'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
-  },
-]
+"use client";
+import { Badge, Button, Popover, Table  } from "keep-react";
+import {
+  CalendarBlank,
+  Crown,
+  Cube,
+  DotsNine,
+  DotsThreeOutline,
+  Flag,
+  Pencil,
+  Spinner,
+  Trash,
+  CalendarX,
+
+} from "phosphor-react";
+import Link from "next/link";
 
 export default function FormTable() {
+  const formData = [
+    {
+      title: "Form Title",
+      date: "2021-09-01",
+      time: "12:00",
+      expiry: "2021-09-01",
+      expiry_time: "12:00",
+      state: "Active",
+      attempt: "1",
+      key: "1",
+    },
+    {
+      title: "User details",
+      date: "2021-09-01",
+      time: "12:00",
+      expiry: "2021-09-01",
+      expiry_time: "12:00",
+      state: "pending",
+      attempt: "10",
+      key: "2",
+    },
+  ];
   return (
-    <>
-      <section className="mx-auto w-full max-w-7xl px-4 py-4">
-        <div className="flex flex-col space-y-4  md:flex-row md:items-center md:justify-between md:space-y-0">
-          <div>
-            <h2 className="text-lg font-semibold">Forms</h2>
-            <p className="mt-1 text-sm text-gray-700">
-              This is a list of all form. You can add new form, edit or delete existing
-              ones.
-            </p>
-          </div>
-          <div>
-            <Link href="/dashboard/form"
-              className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              New Form
-            </Link>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-col">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border border-gray-200 md:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th key="title"
-                        scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
-                      >
-                        <span>Title</span>
-                      </th>
-                      <th key="titles"
-                        scope="col"
-                        className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
-                      >
-                        Title
-                      </th>
-
-                      <th key="Status"
-                        scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
-                      >
-                        Status
-                      </th>
-
-                      <th key="Role"
-                        scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
-                      >
-                        Role
-                      </th>
-                      <th scope="col" className="relative px-4 py-3.5" key="Edit">
-                        <span className="sr-only">Edit</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 bg-white">
-                    {forms.map((form) => (
-                      <AddForm key={`${form.name}`} name={`${form.name}`} image={`${form.image}`} title={`${form.title}`} department={`${form.department}`} role={`${form.role}`} email={`${form.email}`}/>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+    <section className="ml-4 mr-4">
+      <Table>
+        <Table.Caption>
+          <div className="my-5 flex items-center justify-between px-6">
+            <div className="flex items-center gap-5">
+              <p className="text-body-1 font-semibold text-metal-600">Forms</p>
+            </div>
+            <div className="flex items-center gap-5">
+              <Button type="outlineGray" size="sm">
+                <span className="pr-2">
+                  <Cube size={24} />
+                </span>
+                Filter
+              </Button>
+              <Button type="outlineGray" size="sm">
+                <span className="pr-2">
+                  <Cube size={24} />
+                </span>
+                Search
+              </Button>
+              <Link href="/dashboard/form" className="border-8">
+                Add new Form
+              </Link>
             </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center pt-6">
-          <Link href="#" className="mx-1 cursor-not-allowed text-sm font-semibold text-gray-900">
-            <span className="hidden lg:block">&larr; Previous</span>
-            <span className="block lg:hidden">&larr;</span>
-          </Link>
-          <Link
-            href="#"
-            className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
+        </Table.Caption>
+        <Table.Head>
+          <Table.HeadCell className="min-w-[302px]">
+            <p className="text-body-6 font-medium text-metal-400">Title</p>
+          </Table.HeadCell>
+          <Table.HeadCell
+            className="min-w-[165px]"
+            icon={<CalendarBlank size={14} color="#8897AE" />}
+            iconPosition="left"
           >
-            1
-          </Link>
-          <Link
-            href="#"
-            className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
+            Date
+          </Table.HeadCell>
+          <Table.HeadCell
+            className="min-w-[124px]"
+            icon={<CalendarX size={14} color="#8897AE" />}
+            iconPosition="left"
           >
-            2
-          </Link>
-          <Link
-            href="#"
-            className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
+            Expiry
+          </Table.HeadCell>
+          <Table.HeadCell
+            className="min-w-[152px]"
+            icon={<Spinner size={14} color="#8897AE" />}
+            iconPosition="left"
           >
-            3
-          </Link>
-          <Link
-            href="#"
-            className="mx-1 flex items-center rounded-md border border-gray-400 px-3 py-1 text-gray-900 hover:scale-105"
+            State
+          </Table.HeadCell>
+          <Table.HeadCell
+            className="min-w-[114px]"
+            icon={<DotsNine size={14} color="#8897AE" />}
+            iconPosition="left"
           >
-            4
-          </Link>
-          <Link href="#" className="mx-2 text-sm font-semibold text-gray-900">
-            <span className="hidden lg:block">Next &rarr;</span>
-            <span className="block lg:hidden">&rarr;</span>
-          </Link>
-        </div>
-      </section>
-    </>
-  )
+            Attempt
+          </Table.HeadCell>
+          <Table.HeadCell className="min-w-[100px]" />
+        </Table.Head>
+        <Table.Body className="divide-gray-25 divide-y">
+          {formData.map((form) => (
+            <Table.Row className="bg-white" key={form.key}>
+              <Table.Cell>
+                <p className="text-body-4 font-medium text-metal-500">
+                  {form.title}
+                </p>
+              </Table.Cell>
+              <Table.Cell>
+                <p className="text-body-5 font-medium text-metal-500">
+                  {form.date}
+                </p>
+                <p className="text-body-6 font-normal text-metal-500">
+                  {form.time}
+                </p>
+              </Table.Cell>
+              <Table.Cell>
+                <p className="text-body-5 font-medium text-metal-500">
+                  {form.expiry}
+                </p>
+                <p className="text-body-6 font-normal text-metal-500">
+                  {form.expiry_time}
+                </p>
+              </Table.Cell>
+              <Table.Cell>
+                <div className="inline-block">
+                  <Badge
+                    colorType="light"
+                    color="success"
+                    icon={<Crown size={18} weight="light" />}
+                    iconPosition="left"
+                  >
+                    {form.state}
+                  </Badge>
+                </div>
+              </Table.Cell>
+              <Table.Cell>
+                <p className="text-body-5 font-medium text-metal-500">
+                  {form.attempt}
+                </p>
+              </Table.Cell>
+
+              <Table.Cell>
+                <Popover
+                  showDismissIcon={false}
+                  showArrow={false}
+                  className="w-52 border border-metal-100 p-2"
+                >
+                  <Popover.Container className="!mt-0 !block">
+                    <ul>
+                      <li className="rounded px-2 py-1 hover:bg-metal-100">
+                        <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600">
+                          <span>Delete</span>
+                          <span>
+                            <Trash />
+                          </span>
+                        </button>
+                      </li>
+                      <li className="rounded px-2 py-1 hover:bg-metal-100">
+                        <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600">
+                          <span>Edit</span>
+                          <span>
+                            <Pencil />
+                          </span>
+                        </button>
+                      </li>
+                    </ul>
+                  </Popover.Container>
+                  <Popover.Action>
+                    <Button type="outlineGray" size="xs" circle={true}>
+                      <DotsThreeOutline
+                        size={14}
+                        color="#5E718D"
+                        weight="bold"
+                      />
+                    </Button>
+                  </Popover.Action>
+                </Popover>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </section>
+  );
 }

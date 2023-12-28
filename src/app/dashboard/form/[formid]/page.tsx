@@ -18,8 +18,8 @@ export default function NewForm({ params }: { params: { formid: string } }) {
     console.log("Save draft",data);
 
 
-    await axios.post("/api/form",data).then((res)=>{
-      router.push(`/forms?msg=${res.data.msg}`);
+    await axios.post("/api/form/draft",{field:data,form_id:params.formid}).then((res)=>{
+      router.push(`/dashboard?msg=${res.data.msg}`);
     }).catch((err)=>{
       console.log(err);
     })

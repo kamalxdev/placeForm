@@ -5,5 +5,12 @@ const FormSchema = new Schema({
   fields: [],
 });
 
+var Forms: mongoose.Model<any>;
 
-export default mongoose.models?.forms || mongoose.model("Forms", FormSchema);
+try {
+  Forms = mongoose.model('Forms') as mongoose.Model<any>;
+} catch (error) {
+  Forms = mongoose.model('Forms', FormSchema) as mongoose.Model<any>;
+}
+
+export default Forms;

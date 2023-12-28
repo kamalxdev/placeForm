@@ -5,6 +5,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String },
   loginWith: { type: String, default: "credentials" },
+  forms: [{ type: Schema.Types.ObjectId, ref: "Forms" }],
 });
 
 
