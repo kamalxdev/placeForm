@@ -5,12 +5,14 @@ import { TextInput } from "@/components/formsInput/textInput";
 import { updateFieldsData } from "@/controllers/textField/getNewTextField";
 import axios from "axios";
 import {useRouter } from "next/navigation";
+import React from "react";
 
 export default function NewForm({ params }: { params: { formid: string } }) {
   const router = useRouter();
-  const handleSaveButtonClick = () => {
+  const [formTitle, setFormTitle] = React.useState("");
+  const handleSaveButtonClick = async () => {
     const data = updateFieldsData();
-    console.log("Save Form",data);
+    console.log("Save Form",data,formTitle);
   };
   const handleSaveDraftButtonClick = async () => {
     const data = updateFieldsData();
@@ -18,7 +20,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
     console.log("Save draft",data);
 
 
-    await axios.post("/api/form/draft",{field:data,form_id:params.formid}).then((res)=>{
+    await axios.post("/api/form/draft",{field:data,title:formTitle,form_id:params.formid}).then((res)=>{
       router.push(`/dashboard?msg=${res.data.msg}`);
     }).catch((err)=>{
       console.log(err);
@@ -62,6 +64,8 @@ export default function NewForm({ params }: { params: { formid: string } }) {
             placeholder="Form title here"
             id="FormTitle"
             disabled={false}
+            class="form-title"
+            onChange={(e) => {setFormTitle(e.target.value)}}
           />
           <p className="mt-1 text-xs text-gray-300">*This field is required</p>
         </div>
