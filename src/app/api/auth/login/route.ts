@@ -13,13 +13,6 @@ export async function POST(req:NextRequest) {
     try {
         const {email,password} = await req.json();
 
-        if (!email || !password) {
-            return NextResponse.json(
-              { msg: "Please enter all fields", status: 400 },
-              { status: 200 }
-            );
-          } 
-
         // validating data from login schema, vine js
 
         const validator=vine.compile(loginSchema);
@@ -44,7 +37,7 @@ export async function POST(req:NextRequest) {
         }
     } catch (error) {
         if (error instanceof errors.E_VALIDATION_ERROR) {
-            return NextResponse.json({msg:error.messages,status:400},{status:404});
+            return NextResponse.json({msg:error.messages,status:400},{status:200});
         }
         console.log("PostLoginData error -------->", error);
     }

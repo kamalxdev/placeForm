@@ -1,8 +1,9 @@
 'use client';
 import React from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import SignOutBtn from "./signOutBtn";
+import UserSection from "./userSection";
+import AuthSection from "./authSection";
 
 
 
@@ -63,46 +64,14 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                   </nav>
                 </div>
                 {user.name ? (
-                  <div className=" dropdown dropdown-hover lg:block">
-                    <label
-                      tabIndex={0}
-                      className="transition flex items-center border-2 px-3 py-1 hover:border-black rounded-md font-bold"
-                    >
-                      {user?.name}&nbsp; <ChevronDown size={20} />
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className=" dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                    >
-                      {user.userItems.map((item) => (
-                        <li key={item.name}>
-                          <Link
-                            href={item.href}
-                            className="transition hover:bg-gray-300 hover:font-medium rounded-md"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                      <li>
-                <SignOutBtn />
-              </li>
-                    </ul>
+                  <div className="dropdown dropdown-hover mt-4">
+                    <UserSection
+                      userItems={user.userItems}
+                      username={user.name}/>
                   </div>
                 ) : (
                   <div className=" ml-5 mt-2 space-y-5">
-                    <Link
-                      href="/register"
-                      className="w-full rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                    >
-                      Register
-                    </Link>
-                    <Link
-                      href="/login"
-                      className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                    >
-                      Log In
-                    </Link>
+                    <AuthSection />
                   </div>
                 )}
               </div>

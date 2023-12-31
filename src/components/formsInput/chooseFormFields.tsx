@@ -1,10 +1,18 @@
-import { PlusSquare } from "lucide-react";
-import {getNewCheckboxOneField,getNewCheckboxManyField,getNewTextField,updateFieldsData,getNewDropdownField,getNewTextAreaField,getNewTextBoxField} from "@/controllers/textField/getNewTextField";
+import {
+  getNewCheckboxOneField,
+  getNewCheckboxManyField,
+  getNewTextField,
+  getNewDropdownField,
+  getNewTextAreaField,
+  getNewTextBoxField,
+} from "@/controllers/textField/getNewTextField";
+import { Dropdown } from "keep-react";
 
 const formNewFields = [
   {
     name: "Text",
-    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("text"),
+    action: (event: React.MouseEvent<HTMLButtonElement>) =>
+      getNewTextField("text"),
     title: "Add a new text field",
   },
   {
@@ -14,12 +22,14 @@ const formNewFields = [
   },
   {
     name: "Email",
-    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("email"),
+    action: (event: React.MouseEvent<HTMLButtonElement>) =>
+      getNewTextField("email"),
     title: "Add a new email field",
   },
   {
     name: "Number",
-    action: (event: React.MouseEvent<HTMLButtonElement>) => getNewTextField("number"),
+    action: (event: React.MouseEvent<HTMLButtonElement>) =>
+      getNewTextField("number"),
     title: "Add a new number field",
   },
   {
@@ -44,33 +54,26 @@ const formNewFields = [
   },
 ];
 
-
 export default function ChooseFormFields() {
-    return (
-      <div className="dropdown dropdown-right">
-        <label
-          tabIndex={0}
-          className="transition flex items-center border-2 px-3 py-1 hover:bg-slate-300 rounded-md font-bold"
-        >
-          <PlusSquare />
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-        >
-          {formNewFields.map((field) => (
-            <li key={field.name}>
-              <button
-                type="button"
-                onClick={field.action as VoidFunction}
-                className="text-black"
-                title={field.title}
-              >
-                {field.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <Dropdown
+      label="Add Fields"
+      type="outlineGray"
+      size="sm"
+      dismissOnClick={true}
+    >
+      {formNewFields.map((field) => (
+        <Dropdown.Item key={field.name}>
+          <button type="button" onClick={field.action} className="flex flex-col items-start gap-1">
+            <p className="text-body-4 font-semibold text-metal-700">
+              {field.name}
+            </p>
+            <p className="max-w-xs text-body-5 font-normal text-metal-500">
+              {field.title}
+            </p>
+          </button>
+        </Dropdown.Item>
+      ))}
+    </Dropdown>
+  );
+}

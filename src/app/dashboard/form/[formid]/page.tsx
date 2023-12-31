@@ -13,6 +13,9 @@ export default function NewForm({ params }: { params: { formid: string } }) {
   const handleSaveButtonClick = async () => {
     const data = updateFieldsData();
     console.log("Save Form",data,formTitle);
+
+  
+
   };
   const handleSaveDraftButtonClick = async () => {
     const data = updateFieldsData();

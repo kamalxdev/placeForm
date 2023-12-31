@@ -6,7 +6,7 @@ import axios from "axios";
 import ShowAuthError from "@/components/showAuthError";
 import { useRouter} from "next/navigation";
 import { signIn } from "next-auth/react";
-
+import { Spinner } from "keep-react";
 
 export default function RegisterPage() {
   const [Auth, setAuth] = React.useState({
@@ -155,9 +155,9 @@ export default function RegisterPage() {
                     onClick={(e) => PostRegisterData("credentials", Auth)}
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    Create Account{" "}
+                    Create Account &nbsp;
                     {loading ? (
-                      <span className="loading loading-dots loading-sm ml-3"></span>
+                      <Spinner color="info" size="sm" />
                     ) : (
                       <ArrowRight className="ml-2" size={16} />
                     )}

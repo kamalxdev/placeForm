@@ -1,10 +1,11 @@
 import React from "react";
-import { ChevronDown} from "lucide-react";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import SignOutBtn from "./signOutBtn";
 import NavbarResponsiveMenu from "./navbarResponsiveMenu";
+import UserSection from "./userSection";
+import AuthSection from "./authSection";
+
 
 const menuItems = [
   {
@@ -61,46 +62,12 @@ export default async function Navbar() {
           </ul>
         </div>
         {user ? (
-          <div className="hidden dropdown dropdown-hover lg:block">
-            <label
-              tabIndex={0}
-              className="transition flex items-center border-2 px-3 py-1 hover:border-black rounded-md font-bold"
-            >
-              {user?.user?.name}&nbsp; <ChevronDown size={20} />
-            </label>
-            <ul
-              tabIndex={0}
-              className=" dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {userItems.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="transition hover:bg-black hover:text-white hover:font-medium rounded-md"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <SignOutBtn />
-              </li>
-            </ul>
+          <div className="hidden lg:block">
+            <UserSection userItems={userItems} username={user?.user?.name}/>
           </div>
         ) : (
           <div className="hidden space-x-2 lg:block">
-            <Link
-              href="/register"
-              className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Register
-            </Link>
-            <Link
-              href={"/login"}
-              className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Log In
-            </Link>
+            <AuthSection />
           </div>
         )}
         {/* // */}

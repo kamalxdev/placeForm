@@ -7,7 +7,7 @@ import axios from "axios";
 import ShowAuthError from "@/components/showAuthError";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-
+import { Spinner } from "keep-react";
 
 export default function LoginPage() {
   const params = useSearchParams();
@@ -144,9 +144,9 @@ export default function LoginPage() {
                   onClick={PostLoginData}
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
-                  Get started{" "}
+                  Get started&nbsp;
                   {loading ? (
-                    <span className="loading loading-dots loading-sm ml-3"></span>
+                    <Spinner color="info" size="sm" />
                   ) : (
                     <ArrowRight className="ml-2" size={16} />
                   )}
