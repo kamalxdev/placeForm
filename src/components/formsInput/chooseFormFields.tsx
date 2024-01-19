@@ -62,18 +62,24 @@ export default function ChooseFormFields() {
       size="sm"
       dismissOnClick={true}
     >
-      {formNewFields.map((field) => (
-        <Dropdown.Item key={field.name}>
-          <button type="button" onClick={field.action} className="flex flex-col items-start gap-1">
-            <p className="text-body-4 font-semibold text-metal-700">
-              {field.name}
-            </p>
-            <p className="max-w-xs text-body-5 font-normal text-metal-500">
-              {field.title}
-            </p>
-          </button>
-        </Dropdown.Item>
-      ))}
+      <div className="h-48 overflow-y-scroll">
+        {formNewFields.map((field) => (
+          <Dropdown.Item key={field.name}>
+            <button
+              type="button"
+              onClick={field.action}
+              className="flex flex-col items-start gap-1"
+            >
+              <p className="text-body-4 font-semibold text-metal-700">
+                {field.name}
+              </p>
+              <p className="max-w-xs text-body-5 font-normal text-metal-500">
+                {field.title}
+              </p>
+            </button>
+          </Dropdown.Item>
+        ))}
+      </div>
     </Dropdown>
   );
 }

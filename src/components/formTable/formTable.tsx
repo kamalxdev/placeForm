@@ -1,5 +1,5 @@
-"use client";
-import { Badge, Button, Popover, Table  } from "keep-react";
+"use client"
+import { Badge, Button, Popover, Table } from "keep-react";
 import {
   CalendarBlank,
   Crown,
@@ -11,34 +11,59 @@ import {
   Spinner,
   Trash,
   CalendarX,
-
+  Eye,
 } from "phosphor-react";
 import Link from "next/link";
+import { useState } from "react";
+import ErrorAlert from "../alert/errorALert";
+import axios from "axios";
 
-export default function FormTable() {
-  const formData = [
+type iform = {
+  formData: [
     {
-      title: "Form Title",
-      date: "2021-09-01",
-      time: "12:00",
-      expiry: "2021-09-01",
-      expiry_time: "12:00",
-      state: "Active",
-      attempt: "1",
-      key: "1",
-    },
-    {
-      title: "User details",
-      date: "2021-09-01",
-      time: "12:00",
-      expiry: "2021-09-01",
-      expiry_time: "12:00",
-      state: "pending",
-      attempt: "10",
-      key: "2",
-    },
+      _id: string;
+      title?: string;
+      date?: string;
+      time?: string;
+      expiry?: string;
+      expiry_time?: string;
+      state?: string;
+      attempt?: string;
+      key?: string;
+      fields?: any[];
+      __v?: number;
+    }
   ];
-  return (
+};
+export default function FormTable(props: iform) {
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const [formid, setFormid] = useState("0");
+  console.log(props.formData);
+  async function handledeleteform(formid: string) {
+    // setFormid(formid);
+    // setShowDeleteModal(true);
+    const confirmation=confirm(`Are you sure you want to delete this form with #${formid} ?`);
+    console.log(confirmation);
+    if (confirmation){
+      await axios.post('/api/form/delete/',{formid:formid})
+      .then((res) => {
+        const data = res.data;
+        alert(data.message);
+        location.reload();
+      })
+      .catch((err)=>{
+        console.log("Error in PostDeleteForm------->",err);
+      })
+
+    }
+
+  }
+  // async function deleteform() {
+  //   console.log(`deleted ${formid}`);
+  // }
+  const formData = props.formData;
+  return (<>
+    {/* {showDeleteModal?<ErrorAlert header="Are you sure you want to Delete?" body={`This will delete this form with ID # ${formid}`} closeBTNtxt="Cancel" primaryBTNtxt="Delete" primaryBTNfn={deleteform} visibility={true}/>:null} */}
     <section className="ml-4 mr-4">
       <Table>
         <Table.Caption>
@@ -100,27 +125,27 @@ export default function FormTable() {
           <Table.HeadCell className="min-w-[100px]" />
         </Table.Head>
         <Table.Body className="divide-gray-25 divide-y">
-          {formData.map((form) => (
-            <Table.Row className="bg-white" key={form.key}>
+          {formData.map((form,index) => (
+            <Table.Row className="bg-white" key={index}>
               <Table.Cell>
                 <p className="text-body-4 font-medium text-metal-500">
-                  {form.title}
+                  {form.title || "Untitled"}
                 </p>
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.date}
+                  {form.date || "00-00-0000"} 
                 </p>
                 <p className="text-body-6 font-normal text-metal-500">
-                  {form.time}
+                  {form.time || "00:00"}
                 </p>
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.expiry}
+                  {form.expiry || "00-00-0000"}
                 </p>
                 <p className="text-body-6 font-normal text-metal-500">
-                  {form.expiry_time}
+                  {form.expiry_time || "00:00"}
                 </p>
               </Table.Cell>
               <Table.Cell>
@@ -131,13 +156,13 @@ export default function FormTable() {
                     icon={<Crown size={18} weight="light" />}
                     iconPosition="left"
                   >
-                    {form.state}
+                    {form.state || "Draft"}
                   </Badge>
                 </div>
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.attempt}
+                  {form.attempt || "0"}
                 </p>
               </Table.Cell>
 
@@ -149,8 +174,16 @@ export default function FormTable() {
                 >
                   <Popover.Container className="!mt-0 !block">
                     <ul>
-                      <li className="rounded px-2 py-1 hover:bg-metal-100">
+                    <li className="rounded px-2 py-1 hover:bg-metal-100">
                         <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600">
+                          <span>View</span>
+                          <span>
+                          <Eye/>
+                          </span>
+                        </button>
+                      </li>
+                      <li className="rounded px-2 py-1 hover:bg-metal-100">
+                        <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600" onClick={e=>{handledeleteform(form._id)}}>
                           <span>Delete</span>
                           <span>
                             <Trash />
@@ -182,6 +215,6 @@ export default function FormTable() {
           ))}
         </Table.Body>
       </Table>
-    </section>
+    </section></>
   );
 }
