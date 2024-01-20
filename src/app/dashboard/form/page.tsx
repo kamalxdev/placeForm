@@ -3,22 +3,28 @@
 import getUSER from "@/controllers/getUSER";
 import connect from "@/db/mongo.config";
 
-import Forms from "@/models/form";
+import FORM from "@/models/form";
 import { redirect } from "next/navigation";
-import Users from "@/models/user";
+import USER from "@/models/user";
 import { igetUSER } from "@/types/getUSER";
 
 connect();
 
+
+
 export default async function NewFormID() {
-    const USER =await getUSER() as igetUSER;
+    const User =await getUSER() as igetUSER;
     try {
-        var formID = await Forms.create({});
+        if(User){
+            var userID= await USER.findOne({email:User.user?.email});
+            if(userID){
+                var formID = await FORM.create({created_by : userID._id });
+            }
+        }
     } catch (error) {
         console.log("NewFormID error ------>",error);
     }
     if (formID) {
-        await Users.findOneAndUpdate({ email: USER.user?.email }, { $push: { forms: formID } });
         return redirect(`/dashboard/form/${formID._id}`);
     }
 }

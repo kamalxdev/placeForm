@@ -14,36 +14,26 @@ import {
   Eye,
 } from "phosphor-react";
 import Link from "next/link";
-import { useState } from "react";
-import ErrorAlert from "../alert/errorALert";
 import axios from "axios";
 
 type iform = {
-  formData: [
+  formData: 
     {
       _id: string;
       title?: string;
-      date?: string;
-      time?: string;
-      expiry?: string;
-      expiry_time?: string;
-      state?: string;
-      attempt?: string;
-      key?: string;
+      created_at: Date,
+      updated_at: string | Date,
+      state: string,
+      created_by: string,
+      Attempts: number,
+      expiry_date?: string | Date,
       fields?: any[];
       __v?: number;
-    }
-  ];
+    }[]
 };
 export default function FormTable(props: iform) {
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  // const [formid, setFormid] = useState("0");
-  console.log(props.formData);
   async function handledeleteform(formid: string) {
-    // setFormid(formid);
-    // setShowDeleteModal(true);
     const confirmation=confirm(`Are you sure you want to delete this form with #${formid} ?`);
-    console.log(confirmation);
     if (confirmation){
       await axios.post('/api/form/delete/',{formid:formid})
       .then((res) => {
@@ -53,17 +43,13 @@ export default function FormTable(props: iform) {
       })
       .catch((err)=>{
         console.log("Error in PostDeleteForm------->",err);
+        alert("Error in deleting form");
       })
-
     }
-
   }
-  // async function deleteform() {
-  //   console.log(`deleted ${formid}`);
-  // }
   const formData = props.formData;
+  
   return (<>
-    {/* {showDeleteModal?<ErrorAlert header="Are you sure you want to Delete?" body={`This will delete this form with ID # ${formid}`} closeBTNtxt="Cancel" primaryBTNtxt="Delete" primaryBTNfn={deleteform} visibility={true}/>:null} */}
     <section className="ml-4 mr-4">
       <Table>
         <Table.Caption>
@@ -134,18 +120,18 @@ export default function FormTable(props: iform) {
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.date || "00-00-0000"} 
+                  {(form.created_at).getDate()+ "-"+((form.created_at).getMonth()+1)+"-"+ (form.created_at).getFullYear()|| "00-00-0000"} 
                 </p>
                 <p className="text-body-6 font-normal text-metal-500">
-                  {form.time || "00:00"}
+                  {(form.created_at).getHours()+":"+(form.created_at).getMinutes()+":"+(form.created_at).getSeconds() ||"00:00:00"}
                 </p>
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.expiry || "00-00-0000"}
+                  {(form.expiry_date)?.toString() || "00-00-0000"}
                 </p>
                 <p className="text-body-6 font-normal text-metal-500">
-                  {form.expiry_time || "00:00"}
+                  { "00:00"}
                 </p>
               </Table.Cell>
               <Table.Cell>
@@ -156,13 +142,13 @@ export default function FormTable(props: iform) {
                     icon={<Crown size={18} weight="light" />}
                     iconPosition="left"
                   >
-                    {form.state || "Draft"}
+                    {form.state || "Pending"}
                   </Badge>
                 </div>
               </Table.Cell>
               <Table.Cell>
                 <p className="text-body-5 font-medium text-metal-500">
-                  {form.attempt || "0"}
+                  {form.Attempts || "0"}
                 </p>
               </Table.Cell>
 
