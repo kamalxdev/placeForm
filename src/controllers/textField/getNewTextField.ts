@@ -25,7 +25,7 @@ function getNewTextField(type: string) {
   type= 'text'
   id="title-input-field"
   class='relative title-input-field p-2 w-8/12 m-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-transparent'
-  placeholder="Enter your question title" />
+  placeholder="Enter your question title" required/>
   <span class='w-4/12 flex items-center justify-between'> 
   <input type="checkbox" class="check-box"/> &nbsp; Required</span> 
   <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
@@ -69,7 +69,7 @@ function getNewTextAreaField() {
   type= 'text'
   id="title-input-field"
   class='relative title-input-field p-2 w-8/12 m-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-transparent'
-  placeholder="Enter your question title" />
+  placeholder="Enter your question title" required/>
   <span class='w-4/12 flex items-center justify-between'> 
   <input type="checkbox" class="check-box"/> &nbsp; Required</span> 
   <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
@@ -115,15 +115,15 @@ function getNewCheckboxManyField() {
   type= 'text'
   id="title-input-field"
   class='relative title-input-field p-2 w-8/12 m-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-transparent'
-  placeholder="Enter your question title" />
+  placeholder="Enter your question title" required/>
   <span class='w-4/12 flex items-center justify-between'> 
   <input type="checkbox" class="check-box"/> &nbsp; Required</span> 
   <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
   </div>
   <div title="checkbox-many" id="answer-input-field">
   <div class="checkbox-option-field" style="margin-left:1rem">
-  <span class="flex items-center options "><h2 class="mr-2">1</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span>
-  <span class="flex items-center options "><h2 class="mr-2">2</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span>
+  <span class="flex items-center options "><h2 class="mr-2">1</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span>
+  <span class="flex items-center options "><h2 class="mr-2">2</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span>
   </div>
   <button class="add-checkbox-btn button">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
@@ -141,7 +141,7 @@ function getNewCheckboxManyField() {
     option.innerHTML = `
         <h2 class="mr-2">${(field.querySelector(".checkbox-option-field") as HTMLDivElement).childElementCount+1}</h2>
         <input type= "checkbox" checked disabled/>
-       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value"/>
+       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value" required/>
         <button class="option-delete-btn" title="Remove option"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
     `;
     field.querySelector(".checkbox-option-field")?.appendChild(option);
@@ -191,15 +191,15 @@ function getNewCheckboxOneField() {
   type= 'text'
   id="title-input-field"
   class='relative title-input-field p-2 w-8/12 m-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-transparent'
-  placeholder="Enter your question title" />
+  placeholder="Enter your question title" required/>
   <span class='w-4/12 flex items-center justify-between'> 
   <input type="checkbox" class="check-box"/> &nbsp; Required</span> 
   <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
   </div>
   <div title="checkbox-one" id="answer-input-field">
   <div class="checkbox-option-field" style="margin-left:1rem">
-  <span class="flex items-center options"><h2 class="mr-2">1</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span>
-  <span class="flex items-center options"><h2 class="mr-2">2</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span></div>
+  <span class="flex items-center options"><h2 class="mr-2">1</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span>
+  <span class="flex items-center options"><h2 class="mr-2">2</h2><input type= "checkbox" checked disabled/><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span></div>
   <button class="add-checkbox-btn button">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
   </button></div>`;
@@ -215,7 +215,7 @@ function getNewCheckboxOneField() {
     option.innerHTML = `
         <h2 class="mr-2">${(field.querySelector(".checkbox-option-field") as HTMLDivElement).childElementCount+1}</h2>
         <input type= "checkbox" checked disabled/>
-       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value"/>
+       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value" required/>
         <button class="option-delete-btn" title="Remove option"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
     `;
     field.querySelector(".checkbox-option-field")?.appendChild(option);
@@ -266,15 +266,15 @@ function getNewDropdownField() {
   type= 'text'
   id="title-input-field"
   class='relative title-input-field p-2 w-8/12 m-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-transparent'
-  placeholder="Enter your question title" />
+  placeholder="Enter your question title" required/>
   <span class='w-4/12 flex items-center justify-between'> 
   <input type="checkbox" class="check-box"/> &nbsp; Required</span> 
   <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
   </div>
   <div title="dropdown" id="answer-input-field">
   <div class="dropdown-option-field" style="margin-left:1rem">
-  <span class="flex items-center options transition-all"><h2 class="mr-2">1</h2><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span>
-  <span class="flex items-center options transition-all"><h2 class="mr-2">2</h2><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value"/></span></div>
+  <span class="flex items-center options transition-all"><h2 class="mr-2">1</h2><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span>
+  <span class="flex items-center options transition-all"><h2 class="mr-2">2</h2><input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2" placeholder="Option title or value" required/></span></div>
   <button class="add-checkbox-btn button">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
   </button></div>`;
@@ -289,7 +289,7 @@ function getNewDropdownField() {
     option.classList.add("flex", "items-center", "options","transition-all");
     option.innerHTML = `
         <h2 class="mr-2">${(field.querySelector(".dropdown-option-field") as HTMLDivElement).childElementCount+1}</h2>
-       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value"/>
+       <input type="text" class="checkbox-option-input-field p-2 w-4/12 focus:ring-2 focus:ring-black focus:border-transparent bg-transparent ml-2 mr-2" placeholder="Option title or value" required/>
         <button class="option-delete-btn" title="Remove option"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
     `;
     field.querySelector(".dropdown-option-field")?.appendChild(option);
@@ -341,7 +341,7 @@ function getNewTextBoxField() {
     class="mr-2 flex w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
     title="textbox"
     rows="7" cols="50" 
-    placeholder="Enter the content here"></textarea>
+    placeholder="Enter the content here" required></textarea>
     <button class="field-delete-btn" title="Delete Field"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg></button>
   </div>`;
   field.insertAdjacentHTML("beforeend", fieldHTML);
