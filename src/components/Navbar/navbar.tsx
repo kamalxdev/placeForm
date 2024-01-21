@@ -5,7 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import NavbarResponsiveMenu from "./navbarResponsiveMenu";
 import UserSection from "./userSection";
 import AuthSection from "./authSection";
-
+import Image from "next/image";
 
 const menuItems = [
   {
@@ -40,11 +40,18 @@ const userItems = [
 export default async function Navbar() {
   const user = await getServerSession(authOptions)
   return (
-    <div className="relative w-full bg-white">
+    <div className="relative w-full bg-white mt-4">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
       <div className="inline-flex items-center space-x-2">
           <span className="font-bold text-2xl home-logo-style">
-            <Link href="/">placeForm</Link>
+            <Link href="/">
+            <Image
+              src="/images/logo.png"
+              width={40}
+              height={40}
+              alt="placeForm logo"
+            />
+            </Link>
           </span>
         </div>
         <div className="hidden grow items-start lg:flex">

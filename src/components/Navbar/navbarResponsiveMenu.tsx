@@ -64,13 +64,13 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                   </nav>
                 </div>
                 {user.name ? (
-                  <div className="dropdown dropdown-hover mt-4">
+                  <div className="dropdown dropdown-hover ml-4 mt-4">
                     <UserSection
                       userItems={user.userItems}
                       username={user.name}/>
                   </div>
                 ) : (
-                  <div className=" ml-5 mt-2 space-y-5">
+                  <div className="relative inline-block ml-4 mt-4 w-full space-x-5">
                     <AuthSection />
                   </div>
                 )}

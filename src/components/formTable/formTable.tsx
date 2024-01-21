@@ -40,7 +40,6 @@ export default function FormTable(props: iform) {
     }
   }
   const formData = props.formData;
-
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
@@ -63,42 +62,42 @@ export default function FormTable(props: iform) {
             </button>
           </div>
         </div>
-        <div className="mt-6 flex flex-col">
+        {formData[0]?(<div className="mt-6 flex flex-col">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden border border-gray-200 md:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-white">
+                  <thead className="bg-black !text-white">
                     <tr>
                       <th
                         scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                        className="px-4 py-3.5 text-left text-sm font-normal "
                       >
                         <span>Title</span>
                       </th>
                       <th
                         scope="col"
-                        className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
+                        className="px-12 py-3.5 text-left text-sm font-normal "
                       >
                         Date
                       </th>
                       <th
                         scope="col"
-                        className="px-12 py-3.5 text-left text-sm font-normal text-gray-700"
+                        className="px-12 py-3.5 text-left text-sm font-normal "
                       >
                         Expiry
                       </th>
 
                       <th
                         scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                        className="px-4 py-3.5 text-left text-sm font-normal "
                       >
                         Status
                       </th>
 
                       <th
                         scope="col"
-                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+                        className="px-4 py-3.5 text-left text-sm font-normal"
                       >
                         Attempt
                       </th>
@@ -107,7 +106,7 @@ export default function FormTable(props: iform) {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200 bg-white">
+                  <tbody className="divide-y divide-black bg-white">
                     {formData.map((form, index) => (
                       <tr
                         key={index}
@@ -238,7 +237,7 @@ export default function FormTable(props: iform) {
               </div>
             </div>
           </div>
-        </div>
+        </div>):(<div className="flex flex-col items-center justify-center text-2xl mt-10">No forms Found</div>)}
       </section>
     </>
   );
