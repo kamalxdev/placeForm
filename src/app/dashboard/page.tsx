@@ -17,11 +17,11 @@ type iFormData = {
   _id: string;
   title?: string;
   created_at: Date,
-  updated_at: string | Date,
+  updated_at: Date,
   state: string,
   created_by: string,
   Attempts: number,
-  expiry_date?: string | Date,
+  expiry_date: Date,
   fields?: Array<any>;
 }
 

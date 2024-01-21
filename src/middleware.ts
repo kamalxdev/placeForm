@@ -1,13 +1,13 @@
 export { default } from "next-auth/middleware"
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
-import Forms from "./models/form";
+import FORM from "./models/form";
 // export async function middleware(request: NextRequest,event:NextFetchEvent) {
 //     const path= request.nextUrl.pathname;
 //     if(path.startsWith("/dashboard/form/") ){
 //         event.waitUntil(
-//             Forms.findById(path.split("/")[3]).then((form)=>{
-//                 if(form){
+//             FORM.findById(path.split("/")[3]).then((form)=>{
+//                 if(form.state ==="Pending"){
 //                     console.log("form found",form);
                     
 //                     return NextResponse.next()

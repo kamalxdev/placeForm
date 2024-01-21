@@ -4,7 +4,7 @@ import ChooseFormFields from "@/components/formsInput/chooseFormFields";
 import { TextInput } from "@/components/formsInput/textInput";
 import { updateFieldsData } from "@/controllers/textField/getNewTextField";
 import axios from "axios";
-import {useRouter } from "next/navigation";
+import {redirect, useRouter } from "next/navigation";
 import React from "react";
 
 export default function NewForm({ params }: { params: { formid: string } }) {
@@ -13,9 +13,6 @@ export default function NewForm({ params }: { params: { formid: string } }) {
   const handleSaveButtonClick = async () => {
     const data = updateFieldsData();
     console.log("Save Form",data,formTitle);
-
-  
-
   };
   const handleSaveDraftButtonClick = async () => {
     const data = updateFieldsData();
