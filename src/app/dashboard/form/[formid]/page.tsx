@@ -2,6 +2,7 @@
 
 import ChooseFormFields from "@/components/formsInput/chooseFormFields";
 import { TextInput } from "@/components/formsInput/textInput";
+import FormOnSubmit from "@/components/modal/formOnSubmit";
 import { updateFieldsData } from "@/controllers/textField/getNewTextField";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
@@ -34,6 +35,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
   };
   return (
       <form onSubmit={handleSaveButtonClick} className="relative w-screen h-auto flex flex-col items-center">
+        <FormOnSubmit />
         <div className="w-4/5 flex flex-wrap items-center justify-between mb-10 md:flex-nowrap">
           <span className="flex flex-col">
             <h1 className="text-3xl mb-4">New Form</h1>
