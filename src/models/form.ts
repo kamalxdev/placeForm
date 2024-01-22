@@ -10,6 +10,7 @@ const FormSchema = new Schema({
   created_by: { type: Schema.Types.ObjectId, ref: "Users"},
   Attempts:{ type: Number, default: 0},
   expiry_date: { type: Date },
+  description: { type: String },
 });
 
 var Forms: mongoose.Model<any>;

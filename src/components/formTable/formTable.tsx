@@ -127,7 +127,7 @@ export default function FormTable(props: iform) {
                                 {form.title || "(Untitled)"}
                               </div>
                               <div className="text-sm text-gray-700">
-                                {"Last updated at  " +
+                                {"Last updated on  " +
                                   form.updated_at.toString()}
                               </div>
                             </div>
@@ -209,7 +209,7 @@ export default function FormTable(props: iform) {
                                   </button>
                                 </li>
                                 <li className="w-auto transition rounded px-2 py-1 border hover:border-black">
-                                  <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600">
+                                  <button className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600" onClick={() => {location.href = `/v5/form/${form._id}/write`}}>
                                     <span>View</span>
                                     <span><Eye/></span>
                                   </button>

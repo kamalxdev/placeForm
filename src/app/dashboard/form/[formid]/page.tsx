@@ -13,23 +13,20 @@ export default function NewForm({ params }: { params: { formid: string } }) {
 
   // states
   const [formTitle, setFormTitle] = useState("");
+  const [formDescription, setFormDescription] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  
-  
-  
 
   const handleSaveButtonClick = async () => {
     const data = updateFieldsData();
     console.log("Save Form", data, formTitle);
-    if(!data[0]){
+    if (!data[0]) {
       alert("Please add at least one field");
       return;
     }
     setShowModal(true);
   };
-
 
   const handleSaveDraftButtonClick = async () => {
     const data = updateFieldsData();
@@ -38,12 +35,13 @@ export default function NewForm({ params }: { params: { formid: string } }) {
 
     await axios
       .post("/api/form/draft", {
-        data:{
+        data: {
           title: formTitle,
           updated_at: new Date(),
           start_date: startDate,
           expiry_date: endDate,
           state: "Draft",
+          description: formDescription,
         },
         fields: data,
         form_id: params.formid,
@@ -59,12 +57,13 @@ export default function NewForm({ params }: { params: { formid: string } }) {
     console.log("Publish Form");
     console.log(startDate);
     console.log(endDate);
-    
-    
   };
   return (
     <form
-      onSubmit={(e) => { e.preventDefault();handleSaveButtonClick();}}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSaveButtonClick();
+      }}
       className="relative w-screen h-auto flex flex-col items-center"
     >
       <FormOnSubmit
@@ -78,8 +77,12 @@ export default function NewForm({ params }: { params: { formid: string } }) {
         secondaryButtonAction={handleSaveDraftButtonClick}
         startDate={startDate}
         endDate={endDate}
-        setStartDate={(e) => {setStartDate(new Date(Date.parse(e.target.value)))}}
-        setEndDate={(e) => {setEndDate(new Date(Date.parse(e.target.value)))}}
+        setStartDate={(e) => {
+          setStartDate(new Date(Date.parse(e.target.value)));
+        }}
+        setEndDate={(e) => {
+          setEndDate(new Date(Date.parse(e.target.value)));
+        }}
       />
       <div className="w-4/5 flex flex-wrap items-center justify-between mb-10 md:flex-nowrap">
         <span className="flex flex-col">
@@ -93,13 +96,13 @@ export default function NewForm({ params }: { params: { formid: string } }) {
           <button
             className=" transition-all bg-transparent hover:bg-slate-300 text-black px-4 py-2 rounded"
             onClick={handleSaveDraftButtonClick}
+            type="button"
           >
             Save as Draft
           </button>
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-2"
             type="submit"
-            
           >
             Save Form
           </button>
@@ -107,23 +110,48 @@ export default function NewForm({ params }: { params: { formid: string } }) {
       </div>
       <div className="w-9/12 ">
         <div className="px-12 bg-black text-white py-8 rounded">
-          <label
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            htmlFor="FormTitle"
-          >
-            Form Title
-          </label>
-          <TextInput
-            type="text"
-            placeholder="Form title here"
-            id="FormTitle"
-            disabled={false}
-            class="form-title"
-            onChange={(e) => {
-              setFormTitle(e.target.value);
-            }}
-          />
-          <p className="mt-1 text-xs text-gray-300">*This field is required</p>
+          <div>
+            <label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor="FormTitle"
+            >
+              Form Title
+            </label>
+            <TextInput
+              type="text"
+              placeholder="Form title here"
+              id="FormTitle"
+              disabled={false}
+              class="form-title"
+              onChange={(e) => {
+                setFormTitle(e.target.value);
+              }}
+            />
+            <p className="mt-1 text-xs text-gray-300">
+              *This field is required
+            </p>
+          </div>
+          <div className="mt-4">
+            <label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor="FormDescription"
+            >
+              Form Description
+            </label>
+            <TextInput
+              type="text"
+              placeholder="Form Description here"
+              id="FormDescription"
+              disabled={false}
+              class="form-title"
+              onChange={(e) => {
+                setFormDescription(e.target.value);
+              }}
+            />
+            <p className="mt-1 text-xs text-gray-300">
+              *This field is required
+            </p>
+          </div>
         </div>
         <div className="all-fields mt-4 px-4"></div>
         <ChooseFormFields />
