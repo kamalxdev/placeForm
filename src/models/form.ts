@@ -4,6 +4,7 @@ const FormSchema = new Schema({
   title: { type: String,},
   fields: [],
   created_at: { type: Date, default: Date.now },
+  start_date: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
   state: { type: String, default: "Pending"},
   created_by: { type: Schema.Types.ObjectId, ref: "Users"},

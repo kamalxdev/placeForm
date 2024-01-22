@@ -17,6 +17,7 @@ export function TextInput(props: TextInputProps) {
         id={props.id}
         disabled={props.disabled ? true : false}
         onChange={props.onChange}
+        required
       />
     </>
   );

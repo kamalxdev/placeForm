@@ -17,6 +17,7 @@ type iform = {
     expiry_date?: Date;
     fields?: any[];
     __v?: number;
+    start_date: Date,
   }[];
 };
 
@@ -134,18 +135,18 @@ export default function FormTable(props: iform) {
                         </td>
                         <td className="whitespace-nowrap px-12 py-4">
                           <div className="text-sm text-gray-900 ">
-                            {form.created_at.getDate() +
+                            {form.start_date.getDate() +
                               "-" +
-                              (form.created_at.getMonth() + 1) +
+                              (form.start_date.getMonth() + 1) +
                               "-" +
-                              form.created_at.getFullYear() || "00-00-0000"}
+                              form.start_date.getFullYear() || "00-00-0000"}
                           </div>
                           <div className="text-sm text-gray-700">
-                            {form.created_at.getHours() +
+                            {form.start_date.getHours() +
                               ":" +
-                              form.created_at.getMinutes() +
+                              form.start_date.getMinutes() +
                               ":" +
-                              form.created_at.getSeconds() || "00:00:00"}
+                              form.start_date.getSeconds() || "00:00:00"}
                           </div>
                         </td>
                         <td className="whitespace-nowrap px-12 py-4">
