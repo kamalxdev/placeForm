@@ -10,7 +10,7 @@ export default function Dropdownx(props: iprops) {
     <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black">
       <label
         htmlFor={props.id}
-        className="block text-sm font-medium text-gray-900"
+        className="block text-sm font-bold text-gray-900"
       >
         
         {props.title}
@@ -19,10 +19,10 @@ export default function Dropdownx(props: iprops) {
       <select
         name={props.title}
         id={props.id}
-        className="mt-1.5 w-full rounded-lg  text-gray-700 sm:text-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300"
+        className="mt-4 w-full   text-gray-700 sm:text-sm p-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       >
         {(props.option).map((option) => (
-          <option value={option}>{option}</option>
+          <option value={option} className="p-4">{option}</option>
         )
         )}
       </select>

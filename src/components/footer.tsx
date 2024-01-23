@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Footer() {
     const date = new Date();
   return (
-    <div className="mx-auto mt-12 max-w-7xl">
+    <div className="realtive mx-auto mt-12 max-w-7xl">
       <footer className="px-4 py-10">
         <div className="flex flex-col md:flex-row md:items-center">
           <span>
