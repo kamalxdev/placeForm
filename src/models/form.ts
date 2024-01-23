@@ -11,6 +11,7 @@ const FormSchema = new Schema({
   Attempts:{ type: Number, default: 0},
   expiry_date: { type: Date },
   description: { type: String },
+  responses:[]
 });
 
 var Forms: mongoose.Model<any>;

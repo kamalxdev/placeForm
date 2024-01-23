@@ -5,6 +5,7 @@ type iprops = {
     option: Array<string>;
     required?: boolean;
     unique:string;
+    checkValue?:string;
   };
   
   export default function Radiox(props: iprops) {
@@ -19,8 +20,8 @@ type iprops = {
         </label>
           <div className="flex flex-col mt-4">
           {(props.option).map((option,index) => (
-            <span className="text-black" key={props.id+index}>
-                <input type="radio" id={props.id+index} name={props.unique} value={option} className="p-4" required={props.required}/>
+            <span className="text-black" key={props.id+index+option}>
+                <input type="radio" id={props.id+index} name={props.unique} value={option} className="p-4" required={props.required} onChange={props.onChange} checked={props.checkValue===option}/>
                 <label htmlFor={props.id+index} className="ml-4">{option}</label>
             </span>
             
