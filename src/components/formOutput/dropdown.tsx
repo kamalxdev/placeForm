@@ -21,8 +21,8 @@ export default function Dropdownx(props: iprops) {
         id={props.id}
         className="mt-4 w-full   text-gray-700 sm:text-sm p-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       >
-        {(props.option).map((option) => (
-          <option value={option} className="p-4">{option}</option>
+        {(props.option).map((option,index) => (
+          <option value={option} className="p-4" key={props.id+index}>{option}</option>
         )
         )}
       </select>

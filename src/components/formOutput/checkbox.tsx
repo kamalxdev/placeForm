@@ -19,7 +19,7 @@ type iprops = {
         </label>
           <div className="flex flex-col mt-4">
           {(props.option).map((option,index) => (
-            <span className="text-black">
+            <span className="text-black" key={props.id+index}>
                 <input type="checkbox" id={props.id+index} name={props.unique} value={option} className="p-4" required={props.required}/>
                 <label htmlFor={props.id+index} className="ml-4">{option}</label>
             </span>
