@@ -1,3 +1,5 @@
+'use client';
+
 type iprops = {
     id: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -10,7 +12,7 @@ type iprops = {
   
   export default function Radiox(props: iprops) {
     return (
-      <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black">
+      <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={props.id +props.title}>
         <label
           htmlFor={props.id}
           className="block text-sm font-bold text-gray-900"

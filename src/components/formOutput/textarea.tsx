@@ -1,3 +1,6 @@
+'use client';
+
+
 type iprops = {
     id: string;
     placeholder: string;
@@ -8,7 +11,7 @@ type iprops = {
   
   export default function TextAreax(props: iprops) {
     return (
-      <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black">
+      <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={props.id +props.title}>
         <label htmlFor={props.id} className="block text-sm text-gray-700 font-bold"> {props.title} </label>
   
                 <textarea
