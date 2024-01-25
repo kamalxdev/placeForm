@@ -35,6 +35,7 @@ export default function FieldGenerator(props: iprops) {
                 onChange={(e) =>
                   setResponses({ ...responses, [field.title]: e.target.value })
                 }
+                key={field.title}
               />
             );
           if (field.type === "number")
@@ -48,6 +49,7 @@ export default function FieldGenerator(props: iprops) {
                 onChange={(e) =>
                   setResponses({ ...responses, [field.title]: e.target.value })
                 }
+                key={field.title}
               />
             );
           if (field.type === "email")
@@ -61,18 +63,19 @@ export default function FieldGenerator(props: iprops) {
                 onChange={(e) =>
                   setResponses({ ...responses, [field.title]: e.target.value })
                 }
+                key={field.title}
               />
             );
           if (field.type === "dropdown")
             return (
               <Dropdownx
-                key={field._id}
                 id={field._id}
                 title={field.title}
                 option={field.options}
                 onChange={(e) =>
                   setResponses({ ...responses, [field.title]: e.target.value })
                 }
+                key={field.title}
               />
             );
           if (field.type === "checkbox-one")
@@ -87,6 +90,7 @@ export default function FieldGenerator(props: iprops) {
                   setResponses({ ...responses, [field.title]: e.target.value })
                 }
                 checkValue={responses[field.title]}
+                key={field.title}
               />
             );
           if (field.type === "checkbox-many")
@@ -109,6 +113,7 @@ export default function FieldGenerator(props: iprops) {
                   })
                 }
                 checkValue={responses[field.title]}
+                key={field.title}
               />
             );
           if (field.type === "textarea")
@@ -118,12 +123,13 @@ export default function FieldGenerator(props: iprops) {
                 title={field.title}
                 placeholder="Enter here...."
                 required={field.required}
+                key={field.title}
               />
             );
-          if (field.type === "textbox") return <TextBoxx title={field.title} />;
+          if (field.type === "textbox") return <TextBoxx title={field.title} key={field.title} />;
         })}
       </div>
-      <FormSubmitBTN formid={props.formid} responses={responses} />
+      <FormSubmitBTN formid={props.formid}  responses={responses}/>
     </>
   );
 }

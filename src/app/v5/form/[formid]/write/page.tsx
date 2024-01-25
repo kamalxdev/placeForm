@@ -3,9 +3,11 @@ import connect from "@/db/mongo.config";
 import FORM from "@/models/form";
 import USER from "@/models/user";
 import Footer from "@/components/footer";
-import FormSubmitBTN from "@/components/formOutput/formSubmitBTN";
 import FieldGenerator from "@/components/formOutput/fieldGenerator";
 import type { Metadata } from "next";
+import Error404 from "@/components/errors/404";
+import { log } from "console";
+
 
 connect();
 
@@ -18,11 +20,20 @@ export async function generateMetadata(
   { params, searchParams}: Props,
 ): Promise<Metadata> {
   const id = params.formid
-  const form = await FORM.findById(id);
-  return {
-    title: form.title,
-    description: form.description,
+  try {
+    const form = await FORM.findById(id);
+    return {
+      title: form?form.title:"404- Form not found",
+      description: form?form.description:"No form found with this id",
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      title: "404- Incorrect link",
+      description: "Please make sure you have the correct link",
+    }
   }
+  
 }
 
 
@@ -31,18 +42,25 @@ export default async function ViewForm({
 }: {
   params: { formid: string };
 }) {
-  const form = await FORM.findById(params.formid);
-  if (!form)
-    return (
-      <div className="w-screen h-screen flex justify-center items-center">
-        <h1>Form not found</h1>
-      </div>
-    );
+  try {
+    var form = await FORM.findById(params.formid);
+    if (!form) {
+      return(<Error404 title="We cannot find this form" description="The page you are looking for might have been removed had its name changed or is temporarily unavailable."/>)
+    }
+    if(form.state=="Draft"||form.state=="Pending"){
+      return(<Error404 title="This form is not active yet" description="Please wait for the form to be published"/>)
+    }
+  } catch (error) {
+    console.log(error);
+    return(<Error404 title="Incorrect Link" description="Please make sure you have the correct link"/>)
+    
+  }
+  
   const user = await USER.findById(form.created_by);
   // console.log(form);
   const allFields = form.fields[0];
-  console.log(allFields);
-  console.log("length", allFields.length);
+  // console.log(allFields);
+  // console.log("length", allFields.length);
 
   async function handleSubmit() {
     console.log("submitted");

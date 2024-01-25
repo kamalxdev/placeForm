@@ -4,7 +4,7 @@ import axios from "axios";
 
 type iprops = {
   formid: string;
-  responses: Array<any>;
+  responses?: Array<any>;
 };
 
 export default function FormSubmitBTN(props: iprops) {

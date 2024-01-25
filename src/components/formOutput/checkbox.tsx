@@ -7,7 +7,7 @@ type iprops = {
     option: Array<string>;
     required?: boolean;
     unique:string;
-    checkValue:Array<string>;
+    checkValue?:Array<string>;
   };
   
   export default function Checkboxx(props: iprops) {

@@ -9,7 +9,7 @@ type iprops = {
 
 export default function Dropdownx(props: iprops) {
   return (
-    <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={props.id +props.title}>
+    <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black">
       <label
         htmlFor={props.id}
         className="block text-sm font-bold text-gray-900"
