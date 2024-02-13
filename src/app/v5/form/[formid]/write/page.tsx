@@ -47,7 +47,7 @@ export default async function ViewForm({
     if (!form) {
       return(<Error404 title="We cannot find this form" description="The page you are looking for might have been removed had its name changed or is temporarily unavailable."/>)
     }
-    if(form.state=="Draft"||form.state=="Pending"){
+    if(form.state!="Active"){
       return(<Error404 title="This form is not active yet" description="Please wait for the form to be published"/>)
     }
   } catch (error) {
