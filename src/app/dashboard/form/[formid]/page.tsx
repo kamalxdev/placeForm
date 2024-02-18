@@ -1,5 +1,8 @@
 "use client";
 
+import OptionField from "@/components/formsInput/area/optionField";
+import Inputz from "@/components/formsInput/area/input";
+import TextBoxz from "@/components/formsInput/area/textbox";
 import ChooseFormFields from "@/components/formsInput/chooseFormFields";
 import { TextInput } from "@/components/formsInput/textInput";
 import FormOnSubmit from "@/components/modal/formOnSubmit";
@@ -84,7 +87,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
           setEndDate(new Date(Date.parse(e.target.value)));
         }}
       />
-      <div className="w-4/5 flex flex-wrap items-center justify-between mb-10 md:flex-nowrap">
+      <div className="w-4/5 flex flex-wrap items-center justify-between md:flex-nowrap">
         <span className="flex flex-col">
           <h1 className="text-3xl mb-4">New Form</h1>
           <p className="text-gray-500 mb-4">
@@ -108,7 +111,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
           </button>
         </span>
       </div>
-      <div className="w-9/12 ">
+      <div className="w-9/12 my-6">
         <div className="px-12 bg-black text-white py-8 rounded">
           <div>
             <label
@@ -153,7 +156,15 @@ export default function NewForm({ params }: { params: { formid: string } }) {
             </p>
           </div>
         </div>
-        <div className="all-fields mt-4 px-4"></div>
+        <div className="all-fields my-4">
+        <Inputz type="text"/>
+        <Inputz type="email"/>
+        <Inputz type="number"/>
+        <Inputz type="textarea"/>
+        <OptionField type="dropdown"/>
+        <OptionField type="checkbox"/>
+        <TextBoxz/>
+        </div>
         <ChooseFormFields />
       </div>
     </form>

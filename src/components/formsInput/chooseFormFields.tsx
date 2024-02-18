@@ -1,61 +1,66 @@
-import {
-  getNewCheckboxOneField,
-  getNewCheckboxManyField,
-  getNewTextField,
-  getNewDropdownField,
-  getNewTextAreaField,
-  getNewTextBoxField,
-} from "@/controllers/textField/getNewTextField";
-import { Dropdown } from "keep-react";
+"use client";
 
-const formNewFields = [
-  {
-    name: "Text",
-    action: (event: React.MouseEvent<HTMLButtonElement>) =>
-      getNewTextField("text"),
-    title: "Add a new text field",
-  },
-  {
-    name: "Text Box",
-    action: getNewTextBoxField,
-    title: "Add a new text box",
-  },
-  {
-    name: "Email",
-    action: (event: React.MouseEvent<HTMLButtonElement>) =>
-      getNewTextField("email"),
-    title: "Add a new email field",
-  },
-  {
-    name: "Number",
-    action: (event: React.MouseEvent<HTMLButtonElement>) =>
-      getNewTextField("number"),
-    title: "Add a new number field",
-  },
-  {
-    name: "Checkbox(many)",
-    action: getNewCheckboxManyField,
-    title: "Add a new checkbox field with multiple selection",
-  },
-  {
-    name: "Checkbox(one)",
-    action: getNewCheckboxOneField,
-    title: "Add a new checkbox field with single selection",
-  },
-  {
-    name: "Dropdown",
-    action: getNewDropdownField,
-    title: "Add a new dropdown field",
-  },
-  {
-    name: "TextArea",
-    action: getNewTextAreaField,
-    title: "Add a new text area field",
-  },
-];
+import { Dropdown } from "keep-react";
+import { useState } from "react";
+
+
 
 export default function ChooseFormFields() {
+
+
+  const [field, setField] = useState([{}])
+
+
+  const formNewFields = [
+    {
+      name: "Text",
+      action: ()=>{setField([...field, {type: "text",title:"",required:false}])},
+      title: "Add a new text field",
+    },
+    {
+      name: "Text Box",
+      action: ()=>{setField([...field, {type: "textbox",title:"",required:false}])},
+      title: "Add a new text box",
+    },
+    {
+      name: "Email",
+      action: ()=>{setField([...field, {type: "email",title:"",required:false}])},
+      title: "Add a new email field",
+    },
+    {
+      name: "Number",
+      action: ()=>{setField([...field, {type: "number",title:"",required:false}])},
+      title: "Add a new number field",
+    },
+    {
+      name: "Checkbox(many)",
+      action: ()=>{setField([...field, {type: "checkboxMany",title:"",required:false,options:[""]}])},
+      title: "Add a new checkbox field with multiple selection",
+    },
+    {
+      name: "Checkbox(one)",
+      action: ()=>{setField([...field, {type: "checkboxOne",title:"",required:false,options:[""]}])},
+      title: "Add a new checkbox field with single selection",
+    },
+    {
+      name: "Dropdown",
+      action: ()=>{setField([...field, {type: "dropdown",title:"",required:false,options:[""]}])},
+      title: "Add a new dropdown field",
+    },
+    {
+      name: "TextArea",
+      action: ()=>{setField([...field, {type: "textarea",title:"",required:false}])},
+      title: "Add a new text area field",
+    },
+  ];
+
+
+
+
+
   return (
+    <>
+    <p>{JSON.stringify(field)}</p>
     <Dropdown
       label="Add Fields"
       type="outlineGray"
@@ -81,5 +86,6 @@ export default function ChooseFormFields() {
         ))}
       </div>
     </Dropdown>
+    </>
   );
 }
