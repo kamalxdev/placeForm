@@ -4,8 +4,7 @@ import "./globals.css";
 
 import NextAuthProvider from "@/provider/nextAuthProvider";
 import Navbar from "@/components/Navbar/navbar";
-import { useSession } from "next-auth/react";
-// import LoadingForUser from "@/components/loadingforUser";
+import { RecoilRoot } from "recoil";
 
 const inter = Inter({ subsets: ["latin"] });
 

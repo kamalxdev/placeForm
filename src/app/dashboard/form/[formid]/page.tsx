@@ -10,10 +10,13 @@ import { updateFieldsData } from "@/controllers/textField/getNewTextField";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
+import {  useRecoilValue } from "recoil";
+import { FormField } from "@/store/atom/makeFormField";
+import { iFormField } from "@/types/makeFormField";
 
 export default function NewForm({ params }: { params: { formid: string } }) {
   const router = useRouter();
-
+  const fields = useRecoilValue(FormField) as iFormField
   // states
   const [formTitle, setFormTitle] = useState("");
   const [formDescription, setFormDescription] = useState("");
@@ -157,13 +160,24 @@ export default function NewForm({ params }: { params: { formid: string } }) {
           </div>
         </div>
         <div className="all-fields my-4">
-        <Inputz type="text"/>
+        {/* <Inputz type="text"/>
         <Inputz type="email"/>
         <Inputz type="number"/>
         <Inputz type="textarea"/>
         <OptionField type="dropdown"/>
-        <OptionField type="checkbox"/>
-        <TextBoxz/>
+        <OptionField type="checkbox"/> */}
+        {/* <TextBoxz/> */}
+        {fields.map((field, index) => {
+          if (field?.type === "text" || field?.type === "email"||field?.type === "number"||field?.type === "textarea") {
+            return <Inputz key={index} type={field?.type} />;
+          }
+          if (field?.type === "textbox") {
+            return <TextBoxz key={index} />;
+          }
+          if (field?.type === "dropdown" || field?.type === "checkbox") {
+            return <OptionField key={index} type={field?.type} />;
+          }
+        })}
         </div>
         <ChooseFormFields />
       </div>
