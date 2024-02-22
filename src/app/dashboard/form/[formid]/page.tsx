@@ -1,26 +1,44 @@
 "use client";
 
+// all input fields   
+import OptionField from "@/components/formsInput/area/optionField";
+import Inputz from "@/components/formsInput/area/input";
+import TextBoxz from "@/components/formsInput/area/textbox";
 import ChooseFormFields from "@/components/formsInput/chooseFormFields";
-import { TextInput } from "@/components/formsInput/textInput";
+import TextInput from "@/components/formsInput/textInput";
+
+
+
 import FormOnSubmit from "@/components/modal/formOnSubmit";
-import { updateFieldsData } from "@/controllers/textField/getNewTextField";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+
+
+
+import {  useRecoilValue } from "recoil";
+import { FormField } from "@/store/atom/makeFormField";
+import { iFormField } from "@/types/makeFormField";
+
+
+
+
 
 export default function NewForm({ params }: { params: { formid: string } }) {
   const router = useRouter();
+  const fields = useRecoilValue(FormField) as iFormField
+
 
   // states
-  const [formTitle, setFormTitle] = useState("");
-  const [formDescription, setFormDescription] = useState("");
+  const [form,setForm]=useState({title:"",description:"",start:new Date(),end:new Date()})
   const [showModal, setShowModal] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+
+
+
 
   const handleSaveButtonClick = async () => {
-    const data = updateFieldsData();
-    console.log("Save Form", data, formTitle);
+    const data = fields;
+    console.log("Save Form", data, form);
     if (!data[0]) {
       alert("Please add at least one field");
       return;
@@ -29,21 +47,17 @@ export default function NewForm({ params }: { params: { formid: string } }) {
   };
 
   const handleSaveDraftButtonClick = async () => {
-    const data = updateFieldsData();
-
-    console.log("Save draft", data);
-
     await axios
       .post("/api/form/draft", {
         data: {
-          title: formTitle,
+          title: form.title,
           updated_at: new Date(),
-          start_date: startDate,
-          expiry_date: endDate,
+          start_date: form.start,
+          expiry_date: form.end,
           state: "Draft",
-          description: formDescription,
+          description: form.description,
         },
-        fields: data,
+        fields,
         form_id: params.formid,
       })
       .then((res) => {
@@ -54,9 +68,6 @@ export default function NewForm({ params }: { params: { formid: string } }) {
       });
   };
   const handlePublishButtonClick = async () => {
-    console.log("Publish Form");
-    console.log(startDate);
-    console.log(endDate);
   };
   return (
     <form
@@ -75,16 +86,16 @@ export default function NewForm({ params }: { params: { formid: string } }) {
         secondaryButton="Save as Draft"
         primaryButtonAction={handlePublishButtonClick}
         secondaryButtonAction={handleSaveDraftButtonClick}
-        startDate={startDate}
-        endDate={endDate}
+        startDate={form.start}
+        endDate={form.end}
         setStartDate={(e) => {
-          setStartDate(new Date(Date.parse(e.target.value)));
+          setForm({...form,start:new Date(Date.parse(e.target.value))});
         }}
         setEndDate={(e) => {
-          setEndDate(new Date(Date.parse(e.target.value)));
+          setForm({...form,end:new Date(Date.parse(e.target.value))});
         }}
       />
-      <div className="w-4/5 flex flex-wrap items-center justify-between mb-10 md:flex-nowrap">
+      <div className="w-4/5 flex flex-wrap items-center justify-between md:flex-nowrap">
         <span className="flex flex-col">
           <h1 className="text-3xl mb-4">New Form</h1>
           <p className="text-gray-500 mb-4">
@@ -108,7 +119,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
           </button>
         </span>
       </div>
-      <div className="w-9/12 ">
+      <div className="w-9/12 my-6">
         <div className="px-12 bg-black text-white py-8 rounded">
           <div>
             <label
@@ -124,7 +135,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
               disabled={false}
               class="form-title"
               onChange={(e) => {
-                setFormTitle(e.target.value);
+                setForm({...form,title:e.target.value});
               }}
             />
             <p className="mt-1 text-xs text-gray-300">
@@ -145,7 +156,7 @@ export default function NewForm({ params }: { params: { formid: string } }) {
               disabled={false}
               class="form-title"
               onChange={(e) => {
-                setFormDescription(e.target.value);
+                setForm({...form,description:e.target.value});
               }}
             />
             <p className="mt-1 text-xs text-gray-300">
@@ -153,7 +164,19 @@ export default function NewForm({ params }: { params: { formid: string } }) {
             </p>
           </div>
         </div>
-        <div className="all-fields mt-4 px-4"></div>
+        <div className="all-fields my-4">
+        {fields.map((field, index) => {
+          if (field?.type === "text" || field?.type === "email"||field?.type === "number"||field?.type === "textarea") {
+            return <Inputz key={index} type={field?.type} index={index} />;
+          }
+          if (field?.type === "textbox") {
+            return <TextBoxz key={index} index={index} />;
+          }
+          if (field?.type === "dropdown" || field?.type === "checkbox") {
+            return <OptionField key={index} type={field?.type} index={index}/>;
+          }
+        })}
+        </div>
         <ChooseFormFields />
       </div>
     </form>
