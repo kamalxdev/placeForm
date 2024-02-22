@@ -4,6 +4,6 @@
 export type iFormField = {
     type: string,
     title: string,
-    required: boolean,
+    required?: boolean,
     options?: string[],
 }[]

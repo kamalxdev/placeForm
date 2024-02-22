@@ -2,16 +2,13 @@
 
 import { FormField } from "@/store/atom/makeFormField";
 import { Dropdown } from "keep-react";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { useRecoilState } from "recoil";
 
 
 
 export default memo(
   function ChooseFormFields() {
-
-
-    // const [field, setField] = useState([{}])
     const [field, setField] = useRecoilState(FormField)
   
     const formNewFields = [
@@ -22,7 +19,7 @@ export default memo(
       },
       {
         name: "Text Box",
-        action: ()=>{setField([...field, {type: "textbox",title:"",required:false}])},
+        action: ()=>{setField([...field, {type: "textbox",title:""}])},
         title: "Add a new text box",
       },
       {
@@ -37,12 +34,12 @@ export default memo(
       },
       {
         name: "Checkbox",
-        action: ()=>{setField([...field, {type: "checkbox",title:"",required:false,options:[""]}])},
+        action: ()=>{setField([...field, {type: "checkbox",title:"",required:false,options:["",""]}])},
         title: "Add a new checkbox field with multiple selection",
       },
       {
         name: "Dropdown",
-        action: ()=>{setField([...field, {type: "dropdown",title:"",required:false,options:[""]}])},
+        action: ()=>{setField([...field, {type: "dropdown",title:"",required:false,options:["",""]}])},
         title: "Add a new dropdown field",
       },
       {

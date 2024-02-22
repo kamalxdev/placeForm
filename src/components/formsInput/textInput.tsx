@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 type TextInputProps = {
   placeholder: string;
   type: string;
@@ -7,7 +7,7 @@ type TextInputProps = {
   class?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-export function TextInput(props: TextInputProps) {
+ function TextInput(props: TextInputProps) {
   return (
     <>
       <input
@@ -22,3 +22,4 @@ export function TextInput(props: TextInputProps) {
     </>
   );
 }
+export default memo(TextInput);
