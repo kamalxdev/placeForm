@@ -7,6 +7,7 @@ import FORM from "@/models/form";
 import { redirect } from "next/navigation";
 import USER from "@/models/user";
 import { igetUSER } from "@/types/getUSER";
+import Loader from "@/components/loader/loader";
 
 connect();
 
@@ -25,6 +26,7 @@ export default async function NewFormID() {
         console.log("NewFormID error ------>",error);
     }
     if (formID) {
-        return redirect(`/dashboard/form/${formID._id}`);
+        return redirect(`/form/v/${formID._id}/edit`);
     }
+    return <Loader />;
 }

@@ -55,7 +55,6 @@ export default memo(
   
     return (
       <>
-      <p>{JSON.stringify(field)}</p>
       <Dropdown
         label="Add Fields"
         type="outlineGray"

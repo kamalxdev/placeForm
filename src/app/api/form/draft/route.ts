@@ -7,7 +7,7 @@ connect();
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const form = await Forms.findByIdAndUpdate(body.form_id,{$push:{fields:body.fields},$set:body.data});
+        const form = await Forms.findByIdAndUpdate(body.form_id,{fields:body.fields,$set:body.data});
         if(!form) {
             return NextResponse.json({ msg: "Form not found", status: 400 }, { status: 200});
         }

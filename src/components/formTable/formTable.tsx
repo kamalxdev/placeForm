@@ -138,7 +138,7 @@ export default function FormTable(props: iform) {
           </div>
           <div>
             <Link
-              href={"/dashboard/form"}
+              href={"/form/new"}
               className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Add new Form
@@ -356,7 +356,7 @@ export default function FormTable(props: iform) {
                                   </li>
                                   <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                     <Link
-                                      href={`/v5/form/${form._id}/write`}
+                                      href={`/form/m/${form._id}/write`}
                                       className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
                                     >
                                       <span>View</span>
