@@ -271,7 +271,7 @@ function FormTable({formData}: { formData: iFormData[] }) {
                                   </li>
                                   <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                     <Link
-                                      href="/"
+                                      href={`/form/v/${form._id}/edit`}
                                       className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
                                     >
                                       <span>Edit</span>

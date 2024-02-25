@@ -35,6 +35,7 @@ function Title(props: TitleProps) {
               })
             )
           }}
+          value={fields[props.index].title}
           required
         />
         <span className="flex mt-4 md:mt-0 justify-start">

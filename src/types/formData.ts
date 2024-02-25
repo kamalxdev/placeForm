@@ -13,4 +13,5 @@ export type iFormData = {
     fields?: any[];
     __v?: number;
     start_date: Date;
+    description?: string;
 }

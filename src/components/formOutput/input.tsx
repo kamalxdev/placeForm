@@ -1,4 +1,7 @@
-// "use client"
+"use client"
+
+import { UserResponses } from "@/store/atom/formResponses";
+import { useRecoilState } from "recoil";
 
 
 type iprops = {
@@ -11,7 +14,9 @@ type iprops = {
 };
 
 export default function Inputx(props: iprops) {
+  const [UserResponse, setUserResponse] = useRecoilState(UserResponses)
   const id=props.id;
+  console.log("UserResponse: ",UserResponse);
   
   return (
     <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={id +props.title}>
@@ -22,7 +27,7 @@ export default function Inputx(props: iprops) {
                 id={id}
                 placeholder={props.placeholder}
                 className="mt-4 w-full text-black shadow-sm sm:text-sm p-2 border-gray-700 focus:ring-blue-500 focus:border-blue-500"
-                onChange={props.onChange}
+                onChange={(e) => {setUserResponse({...UserResponse,[props.title]:e.target.value})}}
                 required={props.required}
                 key={id +props.title+props.type}
             />

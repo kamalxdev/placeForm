@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, use, useEffect } from "react";
 import OptionField from "@/components/newForm/area/optionField";
 import Inputz from "@/components/newForm/area/input";
 import TextBoxz from "@/components/newForm/area/textbox";
@@ -11,21 +11,28 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { FormField } from "@/store/atom/makeFormField";
 import { iFormField } from "@/types/makeFormField";
 import { Tabs } from "keep-react";
 import Area from "@/components/newForm/area/util/area";
 import Loader from "@/components/loader/loader";
+import { iFormData } from "@/types/formData";
 
-function NewFormCreater({formid}: { formid: string}) {
+function NewFormCreater({formid,updateform}: { formid: string, updateform: iFormData}) {
+  
     const router = useRouter();
-  const fields = useRecoilValue(FormField) as iFormField;
-
+  // const fields = useRecoilValue(FormField) as iFormField;
+  const [fields, setFields] = useRecoilState(FormField);
+  useEffect(() => {
+    if(updateform.fields){
+      setFields(updateform?.fields);
+    }
+  },[])
   // states
   const [form, setForm] = useState({
-    title: "",
-    description: "",
+    title: updateform.title?updateform.title:"",
+    description: updateform.description?updateform.description:"",
     start: new Date(),
     end: new Date(),
   });
@@ -129,6 +136,7 @@ function NewFormCreater({formid}: { formid: string}) {
                   onChange={(e) => {
                     setForm({ ...form, title: e.target.value });
                   }}
+                  value={form.title}
                 />
               </div>
               <div className="mt-5">
@@ -138,6 +146,7 @@ function NewFormCreater({formid}: { formid: string}) {
                   onChange={(e) => {
                     setForm({ ...form, description: e.target.value });
                   }}
+                  value={form.description}
                 />
               </div>
             </div>
@@ -165,7 +174,7 @@ function NewFormCreater({formid}: { formid: string}) {
                     field?.type === "textarea"
                   ) {
                     return (
-                      <Inputz key={index} type={field?.type} index={index} />
+                      <Inputz key={index} type={field?.type} index={index}  />
                     );
                   }
                   if (field?.type === "textbox") {

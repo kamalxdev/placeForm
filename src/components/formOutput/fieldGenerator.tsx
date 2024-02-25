@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import randomGenerator from "@/controllers/randomGenerator";
 import Inputx from "./input";
@@ -9,6 +9,8 @@ import TextAreax from "./textarea";
 import TextBoxx from "./textBox";
 import { useState } from "react";
 import FormSubmitBTN from "./formSubmitBTN";
+import { useRecoilValue } from "recoil";
+import { UserResponses } from "@/store/atom/formResponses";
 
 type iprops = {
   fields: Array<any>;
@@ -16,9 +18,10 @@ type iprops = {
 };
 
 export default function FieldGenerator(props: iprops) {
+  // const UserResponse = useRecoilValue(UserResponses)
   const allFields = props.fields;
-  const [responses, setResponses] = useState<Array<any>>([]);
-  console.log("Responses: ", responses);
+  // const [responses, setResponses] = useState({});
+  // console.log("Responses: ", UserResponse);
 
   return (
     <>
@@ -32,9 +35,9 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter text here"
                 required={field.required}
-                onChange={(e) =>
-                  setResponses({ ...responses, [field.title]: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setResponses({ ...responses, [field.title]: e.target.value })
+                // }
                 key={field.title}
               />
             );
@@ -46,9 +49,6 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter number here"
                 required={field.required}
-                // onChange={(e) =>
-                //   setResponses({ ...responses, [field.title]: e.target.value })
-                // }
                 key={field.title}
               />
             );
@@ -60,9 +60,6 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter email here"
                 required={field.required}
-                // onChange={(e) =>
-                //   setResponses({ ...responses, [field.title]: e.target.value })
-                // }
                 key={field.title}
               />
             );
@@ -72,50 +69,47 @@ export default function FieldGenerator(props: iprops) {
                 id={field._id}
                 title={field.title}
                 option={field.options}
-                // onChange={(e) =>
-                //   setResponses({ ...responses, [field.title]: e.target.value })
-                // }
                 key={field.title}
               />
             );
-          if (field.type === "checkbox")
-            return (
-              <Radiox
-                id={randomGenerator()}
-                title={field.title}
-                option={field.options}
-                required={field.required}
-                unique={randomGenerator()}
-                onChange={(e) =>
-                  setResponses({ ...responses, [field.title]: e.target.value })
-                }
-                checkValue={responses[field.title]}
-                key={field.title}
-              />
-            );
-          // if (field.type === "checkbox-many")
+          // if (field.type === "checkbox")
           //   return (
-          //     <Checkboxx
+          //     <Radiox
           //       id={randomGenerator()}
           //       title={field.title}
           //       option={field.options}
+          //       required={field.required}
           //       unique={randomGenerator()}
-          //       onChange={(e) =>
-          //         setResponses({
-          //           ...responses,
-          //           [field.title]: responses[field.title]
-          //             ? responses[field.title].includes(e.target.value)
-          //               ? responses[field.title].filter(
-          //                   (x: string) => x !== e.target.value
-          //                 )
-          //               : [...responses[field.title], e.target.value]
-          //             : [e.target.value],
-          //         })
-          //       }
-          //       checkValue={responses[field.title]}
+          //       // onChange={(e) =>
+          //       //   setResponses({ ...responses, [field.title]: e.target.value })
+          //       // }
+          //       // checkValue={responses[field.title]}
           //       key={field.title}
           //     />
           //   );
+          if (field.type === "checkbox")
+            return (
+              <Checkboxx
+                id={randomGenerator()}
+                title={field.title}
+                option={field.options}
+                unique={randomGenerator()}
+                // onChange={(e) =>
+                //   setResponses({
+                //     ...responses,
+                //     [field.title]: responses[field.title]
+                //       ? responses[field.title].includes(e.target.value)
+                //         ? responses[field.title].filter(
+                //             (x: string) => x !== e.target.value
+                //           )
+                //         : [...responses[field.title], e.target.value]
+                //       : [e.target.value],
+                //   })
+                // }
+                // checkValue={responses[field.title]}
+                key={field.title}
+              />
+            );
           if (field.type === "textarea")
             return (
               <TextAreax
@@ -129,7 +123,7 @@ export default function FieldGenerator(props: iprops) {
           if (field.type === "textbox") return <TextBoxx title={field.title} key={index} />;
         })}
       </div>
-      <FormSubmitBTN formid={props.formid}  responses={responses}/>
+      {/* <FormSubmitBTN formid={props.formid}  responses={responses}/> */}
     </>
   );
 }

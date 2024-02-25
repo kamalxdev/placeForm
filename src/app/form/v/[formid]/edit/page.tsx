@@ -8,7 +8,6 @@ import FORM from "@/models/form"
 connect();
 export default async function NewForm({ params }: { params: { formid: string } }) {
   try {
-    console.log("RootLayout",params.formid);
     
     var form = await FORM.findById(params.formid);
     if (!form) {
@@ -17,11 +16,11 @@ export default async function NewForm({ params }: { params: { formid: string } }
   } catch (error) {
     console.log(error);
     return(<Error404 title="Incorrect Link" description="Please make sure you have the correct link"/>)
-    
   }
+  ;
   return (
     <>
-      <NewFormCreater formid={params.formid}/>
+      <NewFormCreater formid={params.formid} updateform={form} />
     </>
   );
 }
