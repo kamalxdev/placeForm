@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { memo, use, useEffect, useState } from "react";
 import axios from "axios";
 import {
   DotsThreeOutline,
@@ -11,32 +11,12 @@ import {
   FileArrowDown,
 } from "phosphor-react";
 import { Button, Popover } from "keep-react";
-import FormOnSubmit from "../modal/formOnSubmit";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { set } from "mongoose";
+import { iFormData } from "@/types/formData";
 
-type iform = {
-  formData: {
-    _id: string;
-    title?: string;
-    created_at: Date;
-    updated_at: Date;
-    state: string;
-    created_by: string;
-    Attempts: number;
-    expiry_date?: Date;
-    fields?: any[];
-    __v?: number;
-    start_date: Date;
-  }[];
-};
 
-export default function FormTable(props: iform) {
-  const { formData } = props;
-
-  const [showModal, setShowModal] = useState(false);
-  const [formDate, setFormDate] = useState({start:new Date(),end:new Date(),id:"",status:""});
+function FormTable({formData}: { formData: iFormData[] }) {
+  const [forms, setForms] = useState<iFormData[]>(formData);
   
   // Delete form
   
@@ -64,12 +44,14 @@ export default function FormTable(props: iform) {
 
   // publish status change
   async function publishStatusChange(formid: string, changeToThisStatus: string) {
-    setShowModal(false);
-    console.log(formDate);
+    let confirmation = confirm(
+      `Are you sure you want to ${changeToThisStatus} this form?`
+    );
+    if(confirmation){
       await axios
       .post("/api/form/save/", {
         id: formid,
-        data:(changeToThisStatus==="Published" || changeToThisStatus==="Active")?{ start_date: formDate.start, expiry_date: formDate.end, state: changeToThisStatus }: { state: changeToThisStatus },
+        data: {state:changeToThisStatus},
       })
       .then((res) => {
         const data = res.data;
@@ -80,55 +62,15 @@ export default function FormTable(props: iform) {
         console.log("Error in PostStatusChange------->", err);
         alert("Error in changing status");
       });
-  }
-
-  // handle status change
-
-
-  async function handleStatusChange(formid: string, changeToThisStatus: string) {
-    {
-      // console.log("Publish Form", startDate, endDate,id);
-      let confirmation = confirm(
-        `Are you sure you want to make this form ${changeToThisStatus}?`
-      );
-
-      if(confirmation){
-        
-        if(changeToThisStatus==="Published" || changeToThisStatus==="Active" ){
-          setFormDate({...formDate,start:new Date(),end:new Date(),id:formid,status:changeToThisStatus});
-          setShowModal(true);
-        }
-        else{
-          publishStatusChange(formid,changeToThisStatus);
-        }
-      }
     }
   }
+
 
 
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
-        <FormOnSubmit
-          show={showModal}
-          onClose={() => {
-            setShowModal(false);
-          }}
-          primaryButton="Next"
-          secondaryButton="Cancel"
-          primaryButtonAction={() =>{publishStatusChange(formDate.id,formDate.status)} }
-          secondaryButtonAction={() => {
-            setShowModal(false);
-          }}
-          startDate={formDate.start}
-          endDate={formDate.end}
-          setStartDate={(e) => {
-            setFormDate({...formDate,start: new Date(Date.parse(e.target.value))});
-          }}
-          setEndDate={(e) => {
-            setFormDate({...formDate,end: new Date(Date.parse(e.target.value))});
-          }}
-        />
+        
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
             <h2 className="text-lg font-semibold">Forms</h2>
@@ -145,7 +87,7 @@ export default function FormTable(props: iform) {
             </Link>
           </div>
         </div>
-        {formData[0] ? (
+        {forms[0] ? (
           <div className="mt-6 flex flex-col">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -191,20 +133,14 @@ export default function FormTable(props: iform) {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-black bg-white">
-                      {formData.map((form, index) => (
+                      {forms.map((form, index) => (
                         <tr
                           key={index}
                           className="border-gray-500 rounded-2xl transition hover:bg-gray-300"
                         >
                           <td className="whitespace-nowrap px-4 py-4">
                             <div className="flex items-center">
-                              {/*<div className="h-10 w-10 flex-shrink-0">
-                               <img
-                                className="h-10 w-10 rounded-full object-cover"
-                                src={person.image}
-                                alt=""
-                              />
-                            </div> */}
+                              
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
                                   {form.title || "(Untitled)"}
@@ -262,9 +198,7 @@ export default function FormTable(props: iform) {
                             {form.Attempts}
                           </td>
                           <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
-                            {/* <a href="#" className="text-gray-700">
-                          <DotsThreeOutline />
-                          </a> */}
+                            
                             <Popover
                               showDismissIcon={false}
                               showArrow={false}
@@ -272,57 +206,49 @@ export default function FormTable(props: iform) {
                             >
                               <Popover.Container className="!mt-0 !block">
                                 <ul>
-                                  {(form.state == "Draft" ||
-                                    form.state == "Unpublished") && (
+                                  
+                                  {form.state == "Live"  && (<>
                                     <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                       <button
                                         onClick={() =>
-                                          handleStatusChange(
+                                          publishStatusChange(
                                             form._id,
-                                            "Published"
-                                          )
-                                        }
-                                        className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
-                                      >
-                                        <span>Publish</span>
-                                        <span>
-                                          <FileArrowUp />
-                                        </span>
-                                      </button>
-                                    </li>
-                                  )}
-                                  {(form.state == "Active" ||
-                                    form.state == "Published") && (
-                                    <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
-                                      <button
-                                        onClick={() =>
-                                          handleStatusChange(
-                                            form._id,
-                                            "Unpublished"
+                                            "Draft"
                                           )
                                         }
                                         className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
                                       >
                                         <span className="text-red-600">
-                                          Unpublish
+                                          Draft
                                         </span>
                                         <span>
                                           <FileArrowDown color="red" />
                                         </span>
                                       </button>
                                     </li>
+                                    <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
+                                    <Link
+                                      href={`/form/m/${form._id}/write`}
+                                      className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
+                                    >
+                                      <span>View</span>
+                                      <span>
+                                        <Eye />
+                                      </span>
+                                    </Link>
+                                  </li>
+                                  </>
                                   )}
-                                  {(form.state == "Published" ||
-                                    form.state == "Unpublished") && (
+                                  {form.state == "Published" && (
                                     <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                       <button
                                         onClick={() =>
-                                          handleStatusChange(form._id, "Active")
+                                          publishStatusChange(form._id, "Live")
                                         }
                                         className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
                                       >
                                         <span className="text-green-600">
-                                          Active now
+                                          Live now
                                         </span>
                                         <span>
                                           <FileArrowUp color="green" />
@@ -354,17 +280,7 @@ export default function FormTable(props: iform) {
                                       </span>
                                     </Link>
                                   </li>
-                                  <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
-                                    <Link
-                                      href={`/form/m/${form._id}/write`}
-                                      className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
-                                    >
-                                      <span>View</span>
-                                      <span>
-                                        <Eye />
-                                      </span>
-                                    </Link>
-                                  </li>
+                                  
                                 </ul>
                               </Popover.Container>
                               <Popover.Action>
@@ -399,3 +315,7 @@ export default function FormTable(props: iform) {
     </>
   );
 }
+
+
+
+export default memo(FormTable);

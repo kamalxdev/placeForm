@@ -21,7 +21,6 @@ export default async function NewForm({ params }: { params: { formid: string } }
   }
   return (
     <>
-    
       <NewFormCreater formid={params.formid}/>
     </>
   );

@@ -57,7 +57,7 @@ function NewFormCreater({formid}: { formid: string}) {
   const handleSaveDraftButtonClick = async () => {
     setLoading(true);
     await axios
-      .post("/api/form/draft", {
+      .post("/api/form/publish", {
         data: {
           title: form.title,
           updated_at: new Date(),
@@ -78,7 +78,26 @@ function NewFormCreater({formid}: { formid: string}) {
       });
   };
   const handlePublishButtonClick = async () => {
-    console.log("Publish Form", fields, form);
+    setLoading(true);
+    axios.post("/api/form/publish", {
+      data: {
+        title: form.title,
+        updated_at: new Date(),
+        start_date: form.start,
+        expiry_date: form.end,
+        state: "Published",
+        description: form.description,
+      },
+      fields,
+      form_id: formid,
+    })
+    .then((res) => {
+      router.push(`/dashboard?msg=${res.data.msg}`);
+    })
+    .catch((err) => {
+      setLoading(false);
+      console.log(err);
+    });
     
   };
   if (loading) {

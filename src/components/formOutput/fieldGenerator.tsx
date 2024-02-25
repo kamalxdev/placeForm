@@ -23,7 +23,7 @@ export default function FieldGenerator(props: iprops) {
   return (
     <>
       <div className="relative w-10/12 lg:w-5/12 xl:w-6/12 2xl:w-6/12 h-auto py-5 flex-col  text-white flex items-center ">
-        {allFields.map((field: any) => {
+        {allFields.map((field: any,index) => {
           if (field.type === "text")
             return (
               <Inputx
@@ -46,9 +46,9 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter number here"
                 required={field.required}
-                onChange={(e) =>
-                  setResponses({ ...responses, [field.title]: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setResponses({ ...responses, [field.title]: e.target.value })
+                // }
                 key={field.title}
               />
             );
@@ -60,9 +60,9 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter email here"
                 required={field.required}
-                onChange={(e) =>
-                  setResponses({ ...responses, [field.title]: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setResponses({ ...responses, [field.title]: e.target.value })
+                // }
                 key={field.title}
               />
             );
@@ -72,13 +72,13 @@ export default function FieldGenerator(props: iprops) {
                 id={field._id}
                 title={field.title}
                 option={field.options}
-                onChange={(e) =>
-                  setResponses({ ...responses, [field.title]: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setResponses({ ...responses, [field.title]: e.target.value })
+                // }
                 key={field.title}
               />
             );
-          if (field.type === "checkbox-one")
+          if (field.type === "checkbox")
             return (
               <Radiox
                 id={randomGenerator()}
@@ -93,29 +93,29 @@ export default function FieldGenerator(props: iprops) {
                 key={field.title}
               />
             );
-          if (field.type === "checkbox-many")
-            return (
-              <Checkboxx
-                id={randomGenerator()}
-                title={field.title}
-                option={field.options}
-                unique={randomGenerator()}
-                onChange={(e) =>
-                  setResponses({
-                    ...responses,
-                    [field.title]: responses[field.title]
-                      ? responses[field.title].includes(e.target.value)
-                        ? responses[field.title].filter(
-                            (x: string) => x !== e.target.value
-                          )
-                        : [...responses[field.title], e.target.value]
-                      : [e.target.value],
-                  })
-                }
-                checkValue={responses[field.title]}
-                key={field.title}
-              />
-            );
+          // if (field.type === "checkbox-many")
+          //   return (
+          //     <Checkboxx
+          //       id={randomGenerator()}
+          //       title={field.title}
+          //       option={field.options}
+          //       unique={randomGenerator()}
+          //       onChange={(e) =>
+          //         setResponses({
+          //           ...responses,
+          //           [field.title]: responses[field.title]
+          //             ? responses[field.title].includes(e.target.value)
+          //               ? responses[field.title].filter(
+          //                   (x: string) => x !== e.target.value
+          //                 )
+          //               : [...responses[field.title], e.target.value]
+          //             : [e.target.value],
+          //         })
+          //       }
+          //       checkValue={responses[field.title]}
+          //       key={field.title}
+          //     />
+          //   );
           if (field.type === "textarea")
             return (
               <TextAreax
@@ -126,7 +126,7 @@ export default function FieldGenerator(props: iprops) {
                 key={field.title}
               />
             );
-          if (field.type === "textbox") return <TextBoxx title={field.title} key={field.title} />;
+          if (field.type === "textbox") return <TextBoxx title={field.title} key={index} />;
         })}
       </div>
       <FormSubmitBTN formid={props.formid}  responses={responses}/>

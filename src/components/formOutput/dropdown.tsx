@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 type iprops = {
   id: string;
@@ -24,7 +24,7 @@ export default function Dropdownx(props: iprops) {
         onChange={props.onChange}
         className="mt-4 w-full   text-gray-700 sm:text-sm p-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       >
-        <option value="null" className="p-4" key={props.id+"select"}>Please Select</option>
+        <option value="null" className="p-4" key={props.id+"select"} disabled selected>Select any one option</option>
         {(props.option).map((option,index) => (
           <option value={option} className="p-4" key={props.id+index+option}>{option}</option>
         )

@@ -1,7 +1,4 @@
-"use client"
-
-
-import randomGenerator from "@/controllers/randomGenerator";
+// "use client"
 
 
 type iprops = {
@@ -15,7 +12,6 @@ type iprops = {
 
 export default function Inputx(props: iprops) {
   const id=props.id;
-  console.log("id: ", id,props.type);
   
   return (
     <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={id +props.title}>
