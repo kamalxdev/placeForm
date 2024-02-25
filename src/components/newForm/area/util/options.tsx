@@ -40,7 +40,7 @@ function Options(props: {index:any,fieldIndex:number}) {
               return field
             }))
           }}
-          value={fields[props.fieldIndex]?.options[props.index] }
+          value={fields[props.fieldIndex]?.options?.[props.index] }
         />
         {props.index>1 ?(
           <button type="button" className="" title="Delete Option" onClick={handleDeleteOption}>

@@ -25,7 +25,7 @@ function TextBoxz(props: { index: number }) {
             })
           )
         }}
-        ></textarea>
+        >{fields[props.index].title}</textarea>
         <span className="flex mt-4 md:mt-0 justify-start">
           <button
             type="button"

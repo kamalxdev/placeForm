@@ -47,7 +47,9 @@ function Title(props: TitleProps) {
                 }
                 return field
               })
-            )}}/>
+            )}}
+            checked={fields[props.index].required}
+            />
             {" "}
             <label htmlFor={`check${props.index}`}>Required</label>
           </span>
