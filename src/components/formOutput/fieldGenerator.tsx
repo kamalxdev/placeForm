@@ -18,10 +18,7 @@ type iprops = {
 };
 
 export default function FieldGenerator(props: iprops) {
-  // const UserResponse = useRecoilValue(UserResponses)
   const allFields = props.fields;
-  // const [responses, setResponses] = useState({});
-  // console.log("Responses: ", UserResponse);
 
   return (
     <>
@@ -35,10 +32,8 @@ export default function FieldGenerator(props: iprops) {
                 id={randomGenerator()}
                 placeholder="Enter text here"
                 required={field.required}
-                // onChange={(e) =>
-                //   setResponses({ ...responses, [field.title]: e.target.value })
-                // }
                 key={field.title}
+                uniqueID={field.uniqueID}
               />
             );
           if (field.type === "number")
@@ -50,6 +45,7 @@ export default function FieldGenerator(props: iprops) {
                 placeholder="Enter number here"
                 required={field.required}
                 key={field.title}
+                uniqueID={field.uniqueID}
               />
             );
           if (field.type === "email")
@@ -61,6 +57,7 @@ export default function FieldGenerator(props: iprops) {
                 placeholder="Enter email here"
                 required={field.required}
                 key={field.title}
+                uniqueID={field.uniqueID}
               />
             );
           if (field.type === "dropdown")
@@ -70,6 +67,8 @@ export default function FieldGenerator(props: iprops) {
                 title={field.title}
                 option={field.options}
                 key={field.title}
+                uniqueID={field.uniqueID}
+                type="dropdown"
               />
             );
           // if (field.type === "checkbox")
@@ -94,20 +93,8 @@ export default function FieldGenerator(props: iprops) {
                 title={field.title}
                 option={field.options}
                 unique={randomGenerator()}
-                // onChange={(e) =>
-                //   setResponses({
-                //     ...responses,
-                //     [field.title]: responses[field.title]
-                //       ? responses[field.title].includes(e.target.value)
-                //         ? responses[field.title].filter(
-                //             (x: string) => x !== e.target.value
-                //           )
-                //         : [...responses[field.title], e.target.value]
-                //       : [e.target.value],
-                //   })
-                // }
-                // checkValue={responses[field.title]}
                 key={field.title}
+                uniqueID={field.uniqueID}
               />
             );
           if (field.type === "textarea")
@@ -118,12 +105,14 @@ export default function FieldGenerator(props: iprops) {
                 placeholder="Enter here...."
                 required={field.required}
                 key={field.title}
+                type="textarea"
+                uniqueID={field.uniqueID}
               />
             );
           if (field.type === "textbox") return <TextBoxx title={field.title} key={index} />;
         })}
       </div>
-      {/* <FormSubmitBTN formid={props.formid}  responses={responses}/> */}
+      <FormSubmitBTN formid={props.formid} />
     </>
   );
 }

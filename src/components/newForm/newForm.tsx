@@ -28,7 +28,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
     if(updateform.fields){
       setFields(updateform?.fields);
     }
-  })
+  },[])
   // states
   const [form, setForm] = useState({
     title: updateform.title?updateform.title:"",

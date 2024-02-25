@@ -8,6 +8,8 @@ type iprops = {
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   title: string;
   option: Array<string>;
+  uniqueID: string;
+  type: string;
 };
 
 export default function Dropdownx(props: iprops) {
@@ -25,15 +27,16 @@ export default function Dropdownx(props: iprops) {
       <select
         name={props.title}
         id={props.id}
+        defaultValue={"null"}
         onChange={(e) => {
           setUserResponse(prev => ({
             ...prev,
-            [props.title]: e.target.value
+            [props.uniqueID]: {question:props.title,answer:e.target.value,type:props.type||"dropdown"}
           }));
         }}
         className="mt-4 w-full   text-gray-700 sm:text-sm p-2 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       >
-        <option value="null" className="p-4" key={props.id + "select"} disabled selected>Select any one option</option>
+        <option value="null" className="p-4" key={props.id + "select"} disabled>Select any one option</option>
         {(props.option).map((option, index) => (
           <option value={option} className="p-4" key={props.id + index + option}>{option}</option>
         ))}

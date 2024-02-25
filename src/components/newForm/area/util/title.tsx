@@ -11,9 +11,9 @@ type TitleProps = {
 };
 
 function Title(props: TitleProps) {
-  const [fields, setFields] = useRecoilState(FormField)
+  const [fields, setFields] = useRecoilState(FormField);
   function handleDeleteField() {
-    const newFields=fields.filter((field, index) => index !== props.index);
+    const newFields = fields.filter((field, index) => index !== props.index);
     setFields(newFields);
   }
   return (
@@ -25,32 +25,39 @@ function Title(props: TitleProps) {
           id="title-input-field"
           className=" md:mr-6 h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Title here"
-          onChange={(e)=>{
-            setFields((oldFields)=>
-              oldFields.map((field,index)=>{
-                if(index===props.index){
-                  return {...field,title:e.target.value}
+          onChange={(e) => {
+            setFields((oldFields) =>
+              oldFields.map((field, index) => {
+                if (index === props.index) {
+                  return { ...field, title: e.target.value };
                 }
-                return field
+                return field;
               })
-            )
+            );
           }}
           value={fields[props.index].title}
           required
         />
         <span className="flex mt-4 md:mt-0 justify-start">
           <span className=" flex items-center justify-between mr-6">
-            <input type="checkbox" id={`check${props.index}`} className="check-box mr-2" onInput={(e:any)=>{setFields((oldFields)=>
-              oldFields.map((field,index)=>{
-                if(index===props.index){
-                  return {...field,required:e.target.checked}
-                }
-                return field
-              })
-            )}}
-            checked={fields[props.index].required}
-            />
-            {" "}
+            <input
+              type="checkbox"
+              id={`check${props.index}`}
+              className="check-box mr-2"
+              
+              onClick={(e: any) => {
+                setFields((oldFields) =>
+                  oldFields.map((field, index) => {
+                    if (index === props.index) {
+                      return { ...field, required: e.target.checked };
+                    }
+                    return field;
+                  })
+                );
+              }}
+              checked={fields[props.index].required}
+              
+            />{" "}
             <label htmlFor={`check${props.index}`}>Required</label>
           </span>
           <button

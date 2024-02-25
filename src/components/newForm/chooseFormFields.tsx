@@ -1,5 +1,6 @@
 "use client";
 
+import randomGenerator from "@/controllers/randomGenerator";
 import { FormField } from "@/store/atom/makeFormField";
 import { Dropdown } from "keep-react";
 import { memo } from "react";
@@ -14,37 +15,37 @@ export default memo(
     const formNewFields = [
       {
         name: "Text",
-        action: ()=>{setField([...field, {type: "text",title:"",required:false}])},
+        action: ()=>{setField([...field, {type: "text",title:"",required:false,uniqueID:randomGenerator()}])},
         title: "Add a new text field",
       },
       {
         name: "Text Box",
-        action: ()=>{setField([...field, {type: "textbox",title:""}])},
+        action: ()=>{setField([...field, {type: "textbox",title:"",uniqueID:randomGenerator()}])},
         title: "Add a new text box",
       },
       {
         name: "Email",
-        action: ()=>{setField([...field, {type: "email",title:"",required:false}])},
+        action: ()=>{setField([...field, {type: "email",title:"",required:false,uniqueID:randomGenerator()}])},
         title: "Add a new email field",
       },
       {
         name: "Number",
-        action: ()=>{setField([...field, {type: "number",title:"",required:false}])},
+        action: ()=>{setField([...field, {type: "number",title:"",required:false,uniqueID:randomGenerator()}])},
         title: "Add a new number field",
       },
       {
         name: "Checkbox",
-        action: ()=>{setField([...field, {type: "checkbox",title:"",required:false,options:["",""]}])},
+        action: ()=>{setField([...field, {type: "checkbox",title:"",required:false,uniqueID:randomGenerator(),options:["",""]}])},
         title: "Add a new checkbox field with multiple selection",
       },
       {
         name: "Dropdown",
-        action: ()=>{setField([...field, {type: "dropdown",title:"",required:false,options:["",""]}])},
+        action: ()=>{setField([...field, {type: "dropdown",title:"",required:false,uniqueID:randomGenerator(),options:["",""]}])},
         title: "Add a new dropdown field",
       },
       {
         name: "TextArea",
-        action: ()=>{setField([...field, {type: "textarea",title:"",required:false}])},
+        action: ()=>{setField([...field, {type: "textarea",title:"",required:false,uniqueID:randomGenerator()}])},
         title: "Add a new text area field",
       },
     ];

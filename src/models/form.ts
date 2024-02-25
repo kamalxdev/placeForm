@@ -8,10 +8,8 @@ const FormSchema = new Schema({
   updated_at: { type: Date, default: Date.now },
   state: { type: String, default: "Pending"},
   created_by: { type: Schema.Types.ObjectId, ref: "Users"},
-  Attempts:{ type: Number, default: 0},
   expiry_date: { type: Date },
   description: { type: String },
-  responses:[]
 });
 
 var Forms: mongoose.Model<any>;

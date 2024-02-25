@@ -60,12 +60,7 @@ export default async function ViewForm({
   const user = await USER.findById(form.created_by);
   // console.log(form);
   const allFields = form.fields;
-  // console.log(allFields);
-  // console.log("length", allFields.length);
 
-  async function handleSubmit() {
-    console.log("submitted");
-  }
   return (
     <>
       <form className="relative w-screen h-full flex  items-center flex-col mt-4">
