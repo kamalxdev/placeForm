@@ -8,7 +8,6 @@ export type iFormData = {
     state: string;
     created_by: string;
     Attempts: number;
-    responses:any[]
     expiry_date?: Date;
     fields?: any[];
     __v?: number;

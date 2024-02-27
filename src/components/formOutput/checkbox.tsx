@@ -1,6 +1,8 @@
 "use client";
 
 import { UserResponses } from "@/store/atom/formResponses";
+import { iResponses } from "@/types/responses";
+import { Key } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 
 type iprops = {
@@ -44,7 +46,7 @@ export default function Checkboxx(props: iprops) {
                     [props.uniqueID]: {
                       question: props.title,
                       answer: {
-                        ...prev[props.uniqueID]?.answer,
+                        ...prev[props.uniqueID]?.answer as { [key: string]: boolean },
                         [e.target.value]: e.target.checked,
                       },
                       type: "checkbox",

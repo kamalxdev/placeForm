@@ -1,3 +1,4 @@
+import { iResponses } from "@/types/responses";
 import { atom } from "recoil";
 
 
@@ -5,5 +6,5 @@ import { atom } from "recoil";
 
 export const UserResponses=atom({
     key:'UserResponses',
-    default:{}
+    default:{} as iResponses
 })
