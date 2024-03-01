@@ -84,7 +84,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         console.log(err);
       });
   };
-  const handlePublishButtonClick = async () => {
+  const handleButtonClick = async (state:string) => {
     setLoading(true);
     axios.post("/api/form/publish", {
       data: {
@@ -92,7 +92,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         updated_at: new Date(),
         start_date: form.start,
         expiry_date: form.end,
-        state: "Published",
+        state,
         description: form.description,
       },
       fields,
@@ -107,6 +107,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
     });
     
   };
+
   if (loading) {
     return <Loader />;
   }
@@ -194,7 +195,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
                   }
                 })}
               </div>
-              <p>{JSON.stringify(fields)}</p>
               <ChooseFormFields />
             </div>
           </form>
@@ -268,13 +268,14 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-2"
                 type="button"
-                onClick={handlePublishButtonClick}
+                onClick={()=>handleButtonClick("Published")}
               >
                 Publish Form
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded ml-2"
                 type="button"
+                onClick={()=>handleButtonClick("Live")}
                 title="No need to set start and expiry time for live form. It will be live as soon as you click it."
               >
                 Live now

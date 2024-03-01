@@ -3,7 +3,7 @@
 import { UserResponses } from "@/store/atom/formResponses";
 import axios from "axios";
 import { Spinner } from "keep-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 type iprops = {
@@ -13,6 +13,8 @@ type iprops = {
 
 export default function FormSubmitBTN(props: iprops) {
   const UserResponse = useRecoilValue(UserResponses);
+  console.log("USER RESPONSE: ", UserResponse);
+  
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {

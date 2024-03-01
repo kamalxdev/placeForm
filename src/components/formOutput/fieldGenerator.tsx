@@ -3,14 +3,10 @@
 import randomGenerator from "@/controllers/randomGenerator";
 import Inputx from "./input";
 import Dropdownx from "./dropdown";
-import Radiox from "./radio";
 import Checkboxx from "./checkbox";
 import TextAreax from "./textarea";
 import TextBoxx from "./textBox";
-import { useState } from "react";
 import FormSubmitBTN from "./formSubmitBTN";
-import { useRecoilValue } from "recoil";
-import { UserResponses } from "@/store/atom/formResponses";
 
 type iprops = {
   fields: Array<any>;

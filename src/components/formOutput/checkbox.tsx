@@ -1,8 +1,6 @@
 "use client";
 
 import { UserResponses } from "@/store/atom/formResponses";
-import { iResponses } from "@/types/responses";
-import { Key } from "lucide-react";
 import { useSetRecoilState } from "recoil";
 
 type iprops = {

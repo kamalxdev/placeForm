@@ -9,6 +9,7 @@ import {
   Eye,
   FileArrowUp,
   FileArrowDown,
+  HardDrives,
 } from "phosphor-react";
 import { Button, Popover } from "keep-react";
 import Link from "next/link";
@@ -256,6 +257,17 @@ function FormTable({formData}: { formData: iFormData[] }) {
                                       </button>
                                     </li>
                                   )}
+                                  <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
+                                    <Link
+                                      href={`/account/form/${form._id}/responses`}
+                                      className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
+                                    >
+                                      <span>Responses</span>
+                                      <span>
+                                      <HardDrives />
+                                      </span>
+                                    </Link>
+                                  </li>
                                   <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                     <button
                                       className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
