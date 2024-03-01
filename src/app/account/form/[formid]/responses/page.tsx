@@ -70,6 +70,7 @@ export default async function FormResponses({
                         return (
                           <th
                             scope="col"
+                            key={field.uniqueID}
                             className="px-4 py-3.5 text-left text-sm font-normal text-gray-500"
                           >
                             <span>{field.title}</span>
@@ -88,9 +89,9 @@ export default async function FormResponses({
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {responses.map((response, index) => (
                       <tr key={index} className="divide-x divide-gray-200">
-                        {form.fields.map((field: any) => {
+                        {form.fields.map((field: any,indexx:number) => {
                           return (
-                            <td className="px-4 py-4 text-sm font-normal text-gray-900">
+                            <td className="px-4 py-4 text-sm font-normal text-gray-900" key={indexx}>
                               <span>
                                 {response.response[0][field.uniqueID].type ===
                                 "checkbox"
