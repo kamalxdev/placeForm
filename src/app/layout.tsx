@@ -5,6 +5,7 @@ import "./globals.css";
 import NextAuthProvider from "@/provider/nextAuthProvider";
 import Navbar from "@/components/Navbar/navbar";
 import { RecoilRoot } from "recoil";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider> <Navbar/> {children}</NextAuthProvider>
+        <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
       </body>
     </html>
   );

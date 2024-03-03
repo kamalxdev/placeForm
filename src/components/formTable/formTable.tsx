@@ -15,10 +15,15 @@ import { Button, Popover } from "keep-react";
 import Link from "next/link";
 import { iFormData } from "@/types/formData";
 import Loader from "../loader/loader";
+import Error404 from "../errors/404";
+import { useRouter } from "next/navigation";
 
 function FormTable() {
+  const router = useRouter()
+
   const [forms, setForms] = useState<iFormData[]>();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>({});
   useEffect(() => {
     axios
       .get("/api/form/")
@@ -28,12 +33,31 @@ function FormTable() {
         if (data.status === 200) {
           setForms((data.form).map((form:any)=>{return {...form, start_date:new Date(form.start_date), expiry_date:form.expiry_date && new Date(form.expiry_date), updated_at:new Date(form.updated_at)}}));
         }
+        if (data.status === 500) {
+          setError(data.message);
+        }
       })
       .catch((err) => {
         console.log("Error in PostGetForm------->", err);
         
       });
   }, []);
+
+  // new form
+
+  async function handleNewForm(){
+    await axios
+      .get("/api/form/new")
+      .then((res) => {
+        if (res.data.formID) {
+          router.push(`/form/v/${res.data.formID}/edit`)
+        }
+      })
+      .catch((err) => {
+        console.log("NewFormID error ------>", err);
+      });
+  }
+
   // Delete form
 
   async function handledeleteform(
@@ -49,7 +73,7 @@ function FormTable() {
         .then((res) => {
           const data = res.data;
           alert(data.message);
-          location.reload();
+          router.push('/dashboard')
         })
         .catch((err) => {
           console.log("Error in PostDeleteForm------->", err);
@@ -75,7 +99,7 @@ function FormTable() {
         .then((res) => {
           const data = res.data;
           alert(data.msg);
-          location.reload();
+          router.push('/dashboard')
         })
         .catch((err) => {
           console.log("Error in PostStatusChange------->", err);
@@ -84,8 +108,10 @@ function FormTable() {
     }
   }
   if(loading) return <Loader/>
+  
+  if(error?.title) return <Error404 title={error?.title} description={error?.description}/>
   return (
-    <>
+    <div className="w-screen h-screen overflow-hidden">
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
@@ -95,15 +121,16 @@ function FormTable() {
             </p>
           </div>
           <div>
-            <Link
-              href={"/form/new"}
+            <button
+              type="button"
+              onClick={handleNewForm}
               className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Add new Form
-            </Link>
+            </button>
           </div>
         </div>
-        {forms ? (
+        {forms?forms[0] ? (
           <div className="mt-6 flex flex-col">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -334,9 +361,9 @@ function FormTable() {
           <div className="flex flex-col items-center justify-center text-2xl mt-10">
             No forms Found
           </div>
-        )}
+        ):null}
       </section>
-    </>
+    </div>
   );
 }
 

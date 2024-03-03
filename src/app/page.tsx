@@ -1,8 +1,6 @@
-"use client"
 
 import React from 'react'
 import Link from 'next/link'
-import Footer from '@/components/footer'
 import Image from 'next/image'
 
 
@@ -46,13 +44,11 @@ export default function Home() {
             </p>
             
             <div className='mt-8 flex items-start space-x-2'>
-                <button
-                  type="button"
-                  onClick={() => {location.href = '/dashboard'}}
+                <Link href="/dashboard" title=""
                   className="rounded-md bg-black px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Go to Dashboard
-                </button>
+                </Link>
               </div>
           </div>
           <div className="relative lg:col-span-5 lg:-mr-8 xl:col-span-6">
@@ -190,8 +186,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* footer */}
-      <Footer />
     </div>
   )
 }

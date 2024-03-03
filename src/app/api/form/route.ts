@@ -3,10 +3,14 @@ import { authOptions } from "../auth/[...nextauth]/options";
 import { igetUSER } from "@/types/getUSER";
 import FORM from "@/models/form";
 import USER from "@/models/user";
+import RESPONSES from "@/models/responses";
+import connect from "@/db/mongo.config";
 
 
 export async function GET(request: Request) {
-    const session= await getServerSession(authOptions) as igetUSER;
+    connect();
+    try {
+        const session= await getServerSession(authOptions) as igetUSER;
     const user = session?.user;
     if (!user){
         return Response.json({message:"Please Login",status:401})
@@ -23,5 +27,18 @@ export async function GET(request: Request) {
         return Response.json({message:"No forms found",status:404})
     }
 
-    return Response.json({user,form,status:200})
+    const formWithAttempts = form.map(async (formx)=>{
+        const responseofcurrentform = await RESPONSES.find({form:formx._id})
+        
+        return {...formx._doc,Attempts:responseofcurrentform.length}
+    })
+    return Response.json({user,form:await Promise.all(formWithAttempts),status:200})
+
+    } catch (error) {
+        console.log(error);
+        return Response.json({message:{
+            title:"Internal Server Error",
+            description:"There is an error with the Server. Please try again later"
+        },status:500})
+    }
 }

@@ -1,9 +1,7 @@
 // "use client";
 
 import React from "react";
-import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import Footer from "../footer";
 
 
 type iprops = {
@@ -45,9 +43,6 @@ export default function Error404(props: iprops) {
           </div>
         </div>
       </div>
-      <hr />
-      {/* footer */}
-      <Footer />
     </div>
   );
 }

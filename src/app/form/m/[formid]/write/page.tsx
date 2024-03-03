@@ -2,12 +2,9 @@
 import connect from "@/db/mongo.config";
 import FORM from "@/models/form";
 import USER from "@/models/user";
-import Footer from "@/components/footer";
 import FieldGenerator from "@/components/formOutput/fieldGenerator";
 import type { Metadata } from "next";
 import Error404 from "@/components/errors/404";
-import { log } from "console";
-import { RecoilRoot } from "recoil";
 
 
 connect();
@@ -77,7 +74,6 @@ export default async function ViewForm({
         </div>
         <FieldGenerator fields={allFields} formid={form._id}/>
       </form>
-      <Footer />
       </>
   );
 }
