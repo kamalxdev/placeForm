@@ -1,45 +1,43 @@
+"use client";
+
 import Error404 from "@/components/errors/404";
-import React from "react";
-import FORM from "@/models/form";
-import connect from "@/db/mongo.config";
-import Responses from "@/models/responses";
+import Loader from "@/components/loader/loader";
+import axios from "axios";
+import { set } from "mongoose";
+import React, { useEffect, useState } from "react";
 
-connect();
-
-export default async function FormResponses({
+export default function FormResponses({
   params,
 }: {
   params: { formid: string };
 }) {
+  const [form, setForm] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<any>({});
+  const [responses, setResponses] = useState<any>([]);
   const formid = params.formid;
-
-  try {
-    var form = await FORM.findById(formid);
-    if (!form) {
-      return (
-        <Error404
-          title="We cannot find this form"
-          description="The page you are looking for might have been removed had its name changed or is temporarily unavailable."
-        />
-      );
-    }
-    var responses = await Responses.find({ form: formid });
-    if (!responses) {
-      return (
-        <Error404
-          title="We cannot fetch the responses for this form"
-          description="The page you are looking for might have been removed had its name changed or is temporarily unavailable."
-        />
-      );
-    }
-  } catch (error) {
-    return (
-      <Error404
-        title="Incorrect Link"
-        description="Please make sure you have the correct link"
-      />
-    );
+  useEffect(() => {
+    axios
+      .post(`/api/form/responses/get`, { id: formid })
+      .then((response) => {
+        const data = response.data;
+        setLoading(false);
+        if(data.status === 200){
+          return setForm(data.form), setResponses(data.responses);
+        }
+        return setError(data.message);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        return setError({title: "Incorrect Link", description: "Please make sure you have the correct link"})
+      });
+  }, [formid]);
+  if(loading) return <Loader/>
+  if(error.title ){
+    return <Error404 title={error.title} description={error.description}/>
   }
+  
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
@@ -66,7 +64,7 @@ export default async function FormResponses({
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr className="divide-x divide-gray-200">
-                      {form.fields.map((field: any) => {
+                      {form?.fields?.map((field: any) => {
                         return (
                           <th
                             scope="col"
@@ -78,24 +76,33 @@ export default async function FormResponses({
                         );
                       })}
 
-                      <th
+<th
                         scope="col"
                         className="px-4 py-3.5 text-left text-sm font-normal text-gray-500"
                       >
-                        <span>Delete Responses</span>
+                        
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {responses.map((response, index) => (
+                    {responses.map((response :any, index:number) => (
                       <tr key={index} className="divide-x divide-gray-200">
-                        {form.fields.map((field: any,indexx:number) => {
+                        {form.fields.map((field: any, indexx: number) => {
                           return (
-                            <td className="px-4 py-4 text-sm font-normal text-gray-900" key={indexx}>
+                            <td
+                              className="px-4 py-4 text-sm font-normal text-gray-900"
+                              key={indexx}
+                            >
                               <span>
                                 {response.response[0][field.uniqueID].type ===
                                 "checkbox"
-                                  ? field.options.filter((option: any) =>response.response[0][field.uniqueID].answer[option]===true).join(", ")
+                                  ? field.options
+                                      .filter(
+                                        (option: any) =>
+                                          response.response[0][field.uniqueID]
+                                            .answer[option] === true
+                                      )
+                                      .join(", ")
                                   : response.response[0][field.uniqueID].answer}
                               </span>
                             </td>
