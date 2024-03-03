@@ -6,16 +6,16 @@ import USER from "@/models/user";
 import RESPONSES from "@/models/responses";
 import connect from "@/db/mongo.config";
 
+connect();
 
 export async function GET(request: Request) {
-    connect();
+    const session= await getServerSession(authOptions) as igetUSER;
     try {
-        const session= await getServerSession(authOptions) as igetUSER;
-    const user = session?.user;
-    if (!user){
-        return Response.json({message:"Please Login",status:401})
-    }
-    const UserDataOnDB= await USER.findOne({email:user.email})
+        const user = session?.user;
+        if (!user){
+            return Response.json({message:"Please Login",status:401})
+        }
+        const UserDataOnDB= await USER.findOne({email:user.email})
     if (!user || !UserDataOnDB){
         return Response.json({message:"User not found in Database",status:401})
     }

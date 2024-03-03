@@ -1,13 +1,16 @@
-import getUSER from "@/controllers/getUSER";
+
 import { NextRequest, NextResponse } from "next/server";
 import USER from "@/models/user";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../[...nextauth]/options";
+import { igetUSER } from "@/types/getUSER";
 
 
 
 
 export async function GET(req: NextRequest) {
+  const user = await getServerSession(authOptions) as igetUSER;
   try {
-    const user = await getUSER();
     if (!user) {
       return NextResponse.json({ msg: "Please Login", status: 400 }, { status: 200})
     }

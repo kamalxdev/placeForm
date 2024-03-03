@@ -6,9 +6,9 @@ import FORM from "@/models/form";
 import connect from "@/db/mongo.config";
 
 export async function GET(request: Request) {
+  connect();
+  const session = await getServerSession(authOptions) as igetUSER;
   try {
-    connect();
-    const session = (await getServerSession(authOptions)) as igetUSER;
     const user = session?.user;
     if (!user) {
       return Response.json({ message: "Please Login", status: 401 });
