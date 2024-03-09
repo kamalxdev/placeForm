@@ -18,7 +18,7 @@ type iprops = {
     const setUserResponse=useSetRecoilState(UserResponses);
     return (
       <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={props.id +props.title}>
-        <label htmlFor={props.id} className="block text-sm text-gray-700 font-bold"> {props.title} </label>
+        <label htmlFor={props.id} className="flex text-sm text-gray-700 font-bold"> {props.title}&nbsp; {props.required && (<p className="text-red-500">*</p>)} </label>
   
                 <textarea
                     id={props.id}

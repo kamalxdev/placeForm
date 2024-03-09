@@ -20,7 +20,7 @@ export default function Inputx(props: iprops) {
   
   return (
     <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black" key={id +props.title}>
-      <label htmlFor={id} className="block text-sm text-gray-700 font-bold" key={props.title}> {props.title} </label>
+      <label htmlFor={id} className=" text-sm text-gray-700 font-bold flex" key={props.title}> {props.title}&nbsp; {props.required && (<p className="text-red-500">*</p>)} </label>
 
             <input
                 type={props.type}
@@ -36,6 +36,7 @@ export default function Inputx(props: iprops) {
                 required={props.required}
                 key={id +props.title+props.type}
             />
+
       
     </div>
   );

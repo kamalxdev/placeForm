@@ -23,9 +23,9 @@ export default function Checkboxx(props: iprops) {
     >
       <label
         htmlFor={props.id}
-        className="block text-sm font-bold text-gray-900"
+        className="flex text-sm font-bold text-gray-900"
       >
-        {props.title}
+        {props.title} &nbsp; {props.required && (<p className="text-red-500">*</p>)}
       </label>
       <div className="flex flex-col mt-4">
         {props.option.map((option, index) => (

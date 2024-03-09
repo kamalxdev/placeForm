@@ -19,8 +19,6 @@ export default function FormSubmitBTN(props: iprops) {
 
   async function handleSubmit() {
     setLoading(true);
-    console.log("USER RESPONSE: ", UserResponse);
-
     await axios
       .get(`/api/auth/user`)
       .then(async (res) => {
@@ -36,9 +34,9 @@ export default function FormSubmitBTN(props: iprops) {
             setLoading(false);
             const { data } = res;
             if (data.status == 200) {
-              alert(data.msg);
-              window.location.href = "/";
+              return alert(data.msg);
             }
+            alert(data.msg);
           })
           .catch((err) => {
             console.log(err);
@@ -48,7 +46,7 @@ export default function FormSubmitBTN(props: iprops) {
         console.log("Error getting user details", error);
       });
   }
-
+  
   return (
     <div className="flex relative w-10/12 lg:w-5/12 xl:w-6/12 2xl:w-6/12 items-center justify-center py-8 ">
       {loading ? (
@@ -57,7 +55,7 @@ export default function FormSubmitBTN(props: iprops) {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+          className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 "
         >
           {" "}
           Submit Form

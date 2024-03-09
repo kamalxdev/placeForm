@@ -63,25 +63,11 @@ export default function FieldGenerator(props: iprops) {
                 title={field.title}
                 option={field.options}
                 key={field.title}
+                required={field.required}
                 uniqueID={field.uniqueID}
                 type="dropdown"
               />
             );
-          // if (field.type === "checkbox")
-          //   return (
-          //     <Radiox
-          //       id={randomGenerator()}
-          //       title={field.title}
-          //       option={field.options}
-          //       required={field.required}
-          //       unique={randomGenerator()}
-          //       // onChange={(e) =>
-          //       //   setResponses({ ...responses, [field.title]: e.target.value })
-          //       // }
-          //       // checkValue={responses[field.title]}
-          //       key={field.title}
-          //     />
-          //   );
           if (field.type === "checkbox")
             return (
               <Checkboxx
@@ -89,6 +75,7 @@ export default function FieldGenerator(props: iprops) {
                 title={field.title}
                 option={field.options}
                 unique={randomGenerator()}
+                required={field.required}
                 key={field.title}
                 uniqueID={field.uniqueID}
               />

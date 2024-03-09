@@ -22,25 +22,27 @@ export default function FormResponses({
       .then((response) => {
         const data = response.data;
         setLoading(false);
-        if(data.status === 200){
+        if (data.status === 200) {
           return setForm(data.form), setResponses(data.responses);
         }
         return setError(data.message);
-        
       })
       .catch((error) => {
         console.log(error);
-        return setError({title: "Incorrect Link", description: "Please make sure you have the correct link"})
+        return setError({
+          title: "Incorrect Link",
+          description: "Please make sure you have the correct link",
+        });
       });
   }, [formid]);
-  if(loading) return <Loader/>
-  if(error.title ){
-    return <Error404 title={error.title} description={error.description}/>
+  if (loading) return <Loader />;
+  if (error.title) {
+    return <Error404 title={error.title} description={error.description} />;
   }
-  
+
   return (
     <>
-      <section className="mx-auto w-full max-w-7xl px-4 py-4">
+      <section className="mx-auto w-screen h-screen max-w-7xl px-4 py-4">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
             <h2 className="text-lg font-semibold">Responses - {form.title}</h2>
@@ -76,16 +78,14 @@ export default function FormResponses({
                         );
                       })}
 
-<th
+                      <th
                         scope="col"
                         className="px-4 py-3.5 text-left text-sm font-normal text-gray-500"
-                      >
-                        
-                      </th>
+                      ></th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {responses.map((response :any, index:number) => (
+                    {responses.map((response: any, index: number) => (
                       <tr key={index} className="divide-x divide-gray-200">
                         {form.fields.map((field: any, indexx: number) => {
                           return (
@@ -94,16 +94,7 @@ export default function FormResponses({
                               key={indexx}
                             >
                               <span>
-                                {response.response[0][field.uniqueID].type ===
-                                "checkbox"
-                                  ? field.options
-                                      .filter(
-                                        (option: any) =>
-                                          response.response[0][field.uniqueID]
-                                            .answer[option] === true
-                                      )
-                                      .join(", ")
-                                  : response.response[0][field.uniqueID].answer}
+                                {response.response[0][field.uniqueID]?.answer || "-"}
                               </span>
                             </td>
                           );

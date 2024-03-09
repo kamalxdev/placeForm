@@ -73,7 +73,7 @@ function FormTable() {
         .then((res) => {
           const data = res.data;
           alert(data.message);
-          router.push('/dashboard')
+          router.refresh()
         })
         .catch((err) => {
           console.log("Error in PostDeleteForm------->", err);
@@ -99,7 +99,7 @@ function FormTable() {
         .then((res) => {
           const data = res.data;
           alert(data.msg);
-          router.push('/dashboard')
+          router.refresh()
         })
         .catch((err) => {
           console.log("Error in PostStatusChange------->", err);

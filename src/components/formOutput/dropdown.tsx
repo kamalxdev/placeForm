@@ -10,6 +10,7 @@ type iprops = {
   option: Array<string>;
   uniqueID: string;
   type: string;
+  required: boolean;
 };
 
 export default function Dropdownx(props: iprops) {
@@ -18,10 +19,10 @@ export default function Dropdownx(props: iprops) {
     <div className="mt-4 relative w-full h-auto flex justify-center p-5 rounded-sm border flex-col border-black">
       <label
         htmlFor={props.id}
-        className="block text-sm font-bold text-gray-900"
+        className="flex text-sm font-bold text-gray-900"
       >
         
-        {props.title}
+        {props.title} &nbsp; {props.required && (<p className="text-red-500">*</p>)}
       </label>
 
       <select
