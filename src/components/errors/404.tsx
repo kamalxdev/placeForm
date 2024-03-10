@@ -7,6 +7,7 @@ import Image from "next/image";
 type iprops = {
   title: string;
   description: string;
+  status?:number;
 };
 
 export default function Error404(props: iprops) {
@@ -23,7 +24,7 @@ export default function Error404(props: iprops) {
             height={300}
           />
           <div>
-            <p className="mt-6 text-sm font-semibold text-black">404 error</p>
+            <p className="mt-6 text-sm font-semibold text-black">{props.status || 404} error</p>
             <h1 className="mt-3 text-2xl font-semibold text-gray-800 md:text-3xl">
               {props.title}
             </h1>

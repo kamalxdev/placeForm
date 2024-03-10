@@ -13,7 +13,6 @@ type iprops = {
 
 export default function FormSubmitBTN(props: iprops) {
   const UserResponse = useRecoilValue(UserResponses);
-  console.log("USER RESPONSE: ", UserResponse);
   
   const [loading, setLoading] = useState(false);
 

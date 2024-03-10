@@ -14,12 +14,12 @@ type iprops = {
 };
 
 export default function FieldGenerator(props: iprops) {
-  const allFields = props.fields;
+  const allFields = props?.fields;
 
   return (
     <>
       <div className="relative w-10/12 lg:w-5/12 xl:w-6/12 2xl:w-6/12 h-auto py-5 flex-col  text-white flex items-center ">
-        {allFields.map((field: any,index) => {
+        {allFields?.map((field: any,index) => {
           if (field.type === "text")
             return (
               <Inputx

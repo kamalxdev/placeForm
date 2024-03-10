@@ -1,7 +1,9 @@
 import RESPONSES from "@/models/responses";
 import FORM from "@/models/form";
+import connect from "@/db/mongo.config";
 
 export async function POST(request: Request) {
+  connect()
   const {id} = await request.json()
   if (id) {
     try {
