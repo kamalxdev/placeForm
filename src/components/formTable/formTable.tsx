@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 
 function FormTable() {
   const router = useRouter()
-
+  const currentDate = new Date();
   const [forms, setForms] = useState<iFormData[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>({});
@@ -232,9 +232,12 @@ function FormTable() {
                             </div>
                           </td>
                           <td className="whitespace-nowrap px-4 py-4">
-                            <span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                              {form.state || "Pending"}
-                            </span>
+
+                              {form.state=="Published"?
+                              (form?.expiry_date as Date>currentDate?
+                                (<span className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">{form?.start_date as Date>currentDate?"Published":"Live"}</span>)
+                              :<span className="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">Expired</span>)
+                              :<span className={`inline-flex rounded-full  px-2 text-xs font-semibold leading-5  ${form.state=="Live"?"text-green-800 bg-green-100":"text-red-800 bg-red-100"}`}>{form.state}</span>}
                           </td>
                           <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-700">
                             {form.Attempts || 0}
@@ -267,7 +270,10 @@ function FormTable() {
                                           </span>
                                         </button>
                                       </li>
-                                      <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
+                                      
+                                    </>
+                                  )}
+                                  {form.state == "Live"||form.state == "Published" && <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                         <Link
                                           href={`/form/m/${form._id}/write`}
                                           className="flex w-full items-center justify-between text-body-4 font-normal text-metal-600"
@@ -277,9 +283,7 @@ function FormTable() {
                                             <Eye />
                                           </span>
                                         </Link>
-                                      </li>
-                                    </>
-                                  )}
+                                      </li>}
                                   {form.state == "Published" && (
                                     <li className="w-auto transition rounded px-2 py-1 hover:border hover:border-black">
                                       <button

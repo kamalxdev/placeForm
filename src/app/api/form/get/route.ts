@@ -13,13 +13,13 @@ export async function GET(request:Request){
         }
         const current=new Date();
         const start=form?.start_date;
-        const IsStarted=current<start?true:false
-        if(form.state!="Live" && IsStarted){
+        // const IsStarted=current<start?true:false
+        if(form.state!="Live" && current<start){
             return Response.json({error:{title:"This form is not Live yet",description:"Please wait for the form to be published."},status:400})
         }
         const expiry=form?.expiry_date
-        const IsExpired=current>expiry?true:false
-        if(form.state!="Live" && IsExpired){
+        // const IsExpired=current>expiry?true:false
+        if(form.state!="Live" && current>expiry){
             return Response.json({error:{title:"This form is expired",description:"You are not allowed to access this form"},status:400})
         }
         const user = await USER.findById(form.created_by)

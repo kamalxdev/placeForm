@@ -3,17 +3,17 @@
 import { UserResponses } from "@/store/atom/formResponses";
 import axios from "axios";
 import { Spinner } from "keep-react";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { memo, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 type iprops = {
   formid: string;
   responses?: any;
 };
-
-export default function FormSubmitBTN(props: iprops) {
+function FormSubmitBTN(props: iprops) {
   const UserResponse = useRecoilValue(UserResponses);
-  
+  const router = useRouter()
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
@@ -33,9 +33,11 @@ export default function FormSubmitBTN(props: iprops) {
             setLoading(false);
             const { data } = res;
             if (data.status == 200) {
-              return alert(data.msg);
+              alert(data.msg);
+              return router.push("/");
             }
             alert(data.msg);
+            return router.push("/");
           })
           .catch((err) => {
             console.log(err);
@@ -63,3 +65,7 @@ export default function FormSubmitBTN(props: iprops) {
     </div>
   );
 }
+
+
+
+export default memo(FormSubmitBTN);

@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     // const form = await Forms.findByIdAndUpdate(body.formid,{$push:{responses:body.response}});
     const form = await FORM.findById(body.formid);
 
-    const UserResponse:iResponses = {};
+    const UserResponse: iResponses = {};
     form.fields.map((field: any) => {
       if (body.response[field.uniqueID]) {
         if (body.response[field.uniqueID]?.type === "checkbox") {
@@ -28,7 +28,13 @@ export async function POST(req: NextRequest) {
         return (UserResponse[field.uniqueID] = body.response[field.uniqueID]);
       }
     });
-
+    const curerntdate = new Date();
+    if (curerntdate > form?.expiry_date) {
+      return NextResponse.json(
+        { msg: "The form is expired", status: 400 },
+        { status: 200 }
+      );
+    }
     const IsRequiredData: Array<any> = [];
 
     form.fields.map((field: any) => {
@@ -45,7 +51,6 @@ export async function POST(req: NextRequest) {
     }
 
     if (body.user) {
-      
       var response = await RESPONSES.create({
         responded_user: body.user,
         response: UserResponse,
