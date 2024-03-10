@@ -4,12 +4,11 @@ import FORM from "@/models/form"
 
 type Props = {
   params: { formid: string }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 
 export async function generateMetadata(
-  { params, searchParams}: Props,
+  { params}: Props,
 ): Promise<Metadata> {
   try {
     const form = await FORM.findById(params.formid)
