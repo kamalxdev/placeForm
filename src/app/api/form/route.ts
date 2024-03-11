@@ -32,7 +32,7 @@ export async function GET(request: Request) {
         
         return {...formx._doc,Attempts:responseofcurrentform.length}
     })
-    return Response.json({user,form:await Promise.all(formWithAttempts),status:200})
+    return Response.json({data:{user,form:await Promise.all(formWithAttempts)},status:200})
 
     } catch (error) {
         console.log(error);

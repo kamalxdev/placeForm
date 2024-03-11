@@ -1,4 +1,4 @@
-import { iFormField } from "@/types/makeFormField";
+import { iFormField,iQuizField } from "@/types/generateField";
 import { atom } from "recoil";
 
 
@@ -6,5 +6,5 @@ import { atom } from "recoil";
 
 export const FormField=atom({
     key:'FormField',
-    default:[] as iFormField
+    default:[] as iFormField | iQuizField
 })

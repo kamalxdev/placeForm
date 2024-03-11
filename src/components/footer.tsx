@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <>
      <hr className="mt-5" />
-    <div className="realtive mx-auto max-w-7xl">
+    <div className="relative mx-auto max-w-7xl">
       <footer className="px-4 py-10">
         <div className="flex flex-col md:flex-row md:items-center">
           <span>

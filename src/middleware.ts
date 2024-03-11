@@ -20,5 +20,5 @@ import FORM from "./models/form";
 //         )
 //     }
 // }
-export const config = { matcher: ["/dashboard/:path*","/account/:path*"] }
+export const config = { matcher: ["/dashboard/:path*","/account/:path*","/form/:path*","/quiz/:path*"] }
 
