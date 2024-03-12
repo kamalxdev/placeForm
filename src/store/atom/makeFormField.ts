@@ -1,7 +1,5 @@
-import { iFormField,iQuizField } from "@/types/generateField";
+import { iFormField, iQuizField } from "@/types/generateField";
 import { atom } from "recoil";
-
-
 
 
 export const FormField=atom({

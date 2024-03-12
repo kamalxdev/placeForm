@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     if (quiz) {
       return Response.json({ ID: quiz._id, status: 200 });
     }
-    return Response.json({ message: "Error in making a new Quiz", status: 500 });
+    return Response.json({ message: "Error in making a new quiz", status: 500 });
 
   } catch (error) {
     console.log("NewFormID error ------>", error);

@@ -4,8 +4,6 @@ import { memo } from "react";
 import { useRecoilState } from "recoil";
 
 
-
-
 function Options(props: {index:any,fieldIndex:number}) {
   const [fields, setFields] = useRecoilState(FormField)
   function handleDeleteOption() {

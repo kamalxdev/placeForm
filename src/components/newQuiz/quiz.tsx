@@ -32,4 +32,6 @@ function Quiz(props: { index: number }) {
   );
 }
 
+
+
 export default memo(Quiz);
