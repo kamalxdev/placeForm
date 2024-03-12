@@ -11,12 +11,12 @@ function ViewForm({
 }: {
   params: { id: string; TypeOfRequest: string };
 }) {
+  const { data, error, loading } = useFetchData(
+    `/api/
+    ${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
+  );
   if (params?.TypeOfRequest == "form") {
-    const { data, error, loading } = useFetchData(
-      `/api/form/get?id=${params?.id}&mode=write`
-    );
     if (loading) return <Loader />;
-
     if (error)
       return <Error404 title={error?.title} description={error?.description} />;
 
