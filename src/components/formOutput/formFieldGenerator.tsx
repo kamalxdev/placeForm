@@ -7,13 +7,14 @@ import Checkboxx from "./checkbox";
 import TextAreax from "./textarea";
 import TextBoxx from "./textBox";
 import FormSubmitBTN from "./formSubmitBTN";
+import { memo } from "react";
 
 type iprops = {
   fields: Array<any>;
   formid: string;
 };
 
-export default function FieldGenerator(props: iprops) {
+function FormFieldGenerator(props: iprops) {
   const allFields = props?.fields;
 
   return (
@@ -99,3 +100,7 @@ export default function FieldGenerator(props: iprops) {
     </>
   );
 }
+
+
+
+export default memo(FormFieldGenerator);

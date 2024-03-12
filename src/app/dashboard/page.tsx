@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import FormTable from "@/components/formTable/formTable";
+import FormTable from "@/components/Table/formTable";
 
 export const metadata: Metadata = {
   title: "Dashboard",
