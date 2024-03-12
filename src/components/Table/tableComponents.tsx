@@ -66,7 +66,7 @@ const EditIcons = memo(function EditIcons({
   );
 });
 
-const TableRow =memo(function ({ form, index,mode }: { form: iFormData; index: number;mode:string }) {
+const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; index: number;mode:string }) {
   const router = useRouter();
   const currentDate = new Date();
   // Delete form
