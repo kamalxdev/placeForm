@@ -18,8 +18,10 @@ import { Tabs } from "keep-react";
 import Area from "@/components/newForm/area/util/area";
 import Loader from "@/components/loader/loader";
 import { iFormData } from "@/types/formData";
+import Quiz from "./quiz";
+import randomGenerator from "@/controllers/randomGenerator";
 
-function NewFormCreater({formid,updateform}: { formid: string, updateform: iFormData}) {
+function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
   
     const router = useRouter();
   // const fields = useRecoilValue(FormField) as iFormField;
@@ -29,13 +31,15 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
       setFields(updateform?.fields);
     }
   },[])
+  
   // states
-  const [form, setForm] = useState({
+  const [quiz, setQuiz] = useState({
     title: updateform.title?updateform.title:"",
     description: updateform.description?updateform.description:"",
     start: new Date(),
     end: new Date(),
   });
+  
   const [loading, setLoading] = useState(false);
   const date = new Date();
   const [currentDate, setcurrentDate] = useState(
@@ -54,7 +58,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
 
   const handleSaveButtonClick = async () => {
     const data = fields;
-    console.log("Save Form", data, form);
+    console.log("Save Form", data, quiz);
     if (!data[0]) {
       alert("Please add at least one field");
       return;
@@ -64,17 +68,17 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   const handleSaveDraftButtonClick = async () => {
     setLoading(true);
     await axios
-      .post("/api/form/publish", {
+      .post("/api/quiz/publish", {
         data: {
-          title: form.title,
+          title: quiz.title,
           updated_at: new Date(),
-          start_date: form.start,
-          expiry_date: form.end,
+          start_date: quiz.start,
+          expiry_date: quiz.end,
           state: "Draft",
-          description: form.description,
+          description: quiz.description,
         },
         fields,
-        form_id: formid,
+        form_id: id,
       })
       .then((res) => {
         router.push(`/dashboard?msg=${res.data.msg}`);
@@ -86,17 +90,17 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   };
   const handleButtonClick = async (state:string) => {
     setLoading(true);
-    axios.post("/api/form/publish", {
+    axios.post("/api/quiz/publish", {
       data: {
-        title: form.title,
+        title: quiz.title,
         updated_at: new Date(),
-        start_date: form.start,
-        expiry_date: form.end,
+        start_date: quiz.start,
+        expiry_date: quiz.end,
         state,
-        description: form.description,
+        description: quiz.description,
       },
       fields,
-      form_id: formid,
+      form_id: id,
     })
     .then((res) => {
       router.push(`/dashboard?msg=${res.data.msg}`);
@@ -114,10 +118,10 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   return (<>
     <div className="mx-10 my-5">
         <span className="flex flex-col">
-          <h1 className="text-3xl mb-4">New Form</h1>
+          <h1 className="text-3xl mb-4">New Quiz</h1>
           <p className="text-gray-500 mb-4">
-            Create a new form by adding fields below. You can add as many fields
-            as you want.
+            Create a new quiz by adding title, description and fields. You can
+            also set start and expiry time for the quiz.
           </p>
         </span>
       </div>
@@ -131,23 +135,23 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
           <Area>
             <div className="relative flex flex-col">
               <div>
-                <h1>Enter Form title: </h1>
+                <h1>Enter Quiz title: </h1>
                 <TextInput
                   placeholder="Title here"
                   onChange={(e) => {
-                    setForm({ ...form, title: e.target.value });
+                    setQuiz({ ...quiz, title: e.target.value });
                   }}
-                  value={form.title}
+                  value={quiz.title}
                 />
               </div>
               <div className="mt-5">
-                <h1>Enter Form Description: </h1>
+                <h1>Enter Quiz Description: </h1>
                 <TextInput
                   placeholder="Description here"
                   onChange={(e) => {
-                    setForm({ ...form, description: e.target.value });
+                    setQuiz({ ...quiz, description: e.target.value });
                   }}
-                  value={form.description}
+                  value={quiz.description}
                 />
               </div>
             </div>
@@ -155,8 +159,8 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         </Tabs.Item>
 
         <Tabs.Item
-          title="Fields- add fields to your form"
-          disabled={form.title && form.description ? false : true}
+          title="Fields- add fields to your quiz"
+          disabled={quiz.title && quiz.description ? false : true}
         >
           <form
             onSubmit={(e) => {
@@ -167,54 +171,37 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
           >
             <div className="relative w-11/12">
               <div className="">
-                {(fields as iFormField).map((field, index) => {
-                  if (
-                    field?.type === "text" ||
-                    field?.type === "email" ||
-                    field?.type === "number" ||
-                    field?.type === "textarea"
-                  ) {
-                    return (
-                      <Inputz key={index} type={field?.type} index={index}  />
-                    );
-                  }
-                  if (field?.type === "textbox") {
-                    return <TextBoxz key={index} index={index} />;
-                  }
-                  if (
-                    field?.type === "dropdown" ||
-                    field?.type === "checkbox"
-                  ) {
-                    return (
-                      <OptionField
-                        key={index}
-                        type={field?.type}
-                        index={index}
-                      />
-                    );
-                  }
+                {fields.map((field, index) => {
+                  return <Quiz key={index} index={index} />
                 })}
               </div>
-              <ChooseFormFields />
+              <button
+                className="bg-black hover:bg-black/80 text-white px-4 py-2 rounded ml-2"
+                type="button"
+                onClick={()=>setFields([...fields, {title:"",required:false,uniqueID:randomGenerator(),options:['','']}])}
+                title="Add new quiz"
+              >
+                Add Quiz
+              </button>
             </div>
           </form>
         </Tabs.Item>
         <Tabs.Item
           title="Submit- set start and expiry time"
           disabled={
-            fields.length >= 1 && form.title && form.description ? false : true
+            fields.length >= 1 && quiz.title && quiz.description ? false : true
           }
         >
           <div className="mx-5">
             <div className="w-fit ">
               <Area>
-                The form starts on{" "}
+                The quiz starts on{" "}
                 <span className="transition ">
                   <input
                     type="datetime-local"
                     onChange={(e) => {
-                      setForm({
-                        ...form,
+                      setQuiz({
+                        ...quiz,
                         start: new Date(Date.parse(e.target.value)),
                       });
                     }}
@@ -227,29 +214,29 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
                   <input
                     type="datetime-local"
                     onChange={(e) => {
-                      setForm({
-                        ...form,
+                      setQuiz({
+                        ...quiz,
                         end: new Date(Date.parse(e.target.value)),
                       });
                     }}
                     min={
-                      form.start
-                        ? form.start?.getFullYear() +
+                      quiz.start
+                        ? quiz.start?.getFullYear() +
                           "-" +
-                          (form.start?.getMonth() + 1 == 11 ||
-                          form.start?.getMonth() + 1 == 12
-                            ? form.start?.getMonth() + 1
-                            : "0" + (form.start?.getMonth() + 1)) +
+                          (quiz.start?.getMonth() + 1 == 11 ||
+                          quiz.start?.getMonth() + 1 == 12
+                            ? quiz.start?.getMonth() + 1
+                            : "0" + (quiz.start?.getMonth() + 1)) +
                           "-" +
-                          form.start?.getDate() +
+                          quiz.start?.getDate() +
                           "T" +
-                          (form.start?.getHours() <= 9
-                            ? "0" + form.start?.getHours()
-                            : form.start?.getHours()) +
+                          (quiz.start?.getHours() <= 9
+                            ? "0" + quiz.start?.getHours()
+                            : quiz.start?.getHours()) +
                           ":" +
-                          (form.start?.getMinutes() <= 9
-                            ? "0" + form.start?.getMinutes()
-                            : form.start?.getMinutes())
+                          (quiz.start?.getMinutes() <= 9
+                            ? "0" + quiz.start?.getMinutes()
+                            : quiz.start?.getMinutes())
                         : currentDate
                     }
                     title="Ending time"
@@ -276,7 +263,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded ml-2"
                 type="button"
                 onClick={()=>handleButtonClick("Live")}
-                title="No need to set start and expiry time for live form. It will be live as soon as you click it."
+                title="No need to set start and expiry time for live quiz. It will be live as soon as you click it."
               >
                 Live now
               </button>
@@ -289,4 +276,4 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
 
 
 
-export default memo(NewFormCreater);
+export default memo(NewQuizCreater);

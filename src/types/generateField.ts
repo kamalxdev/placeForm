@@ -8,3 +8,10 @@ export type iFormField = {
     options?: string[],
     uniqueID: string
 }[]
+
+export type iQuizField = {
+    title: string,
+    options?: string[],
+    required?: boolean,
+    uniqueID: string
+}[]
