@@ -12,8 +12,7 @@ function ViewForm({
   params: { id: string; TypeOfRequest: string };
 }) {
   const { data, error, loading } = useFetchData(
-    `/api/
-    ${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
+    `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
   );
   if (params?.TypeOfRequest == "form") {
     if (loading) return <Loader />;

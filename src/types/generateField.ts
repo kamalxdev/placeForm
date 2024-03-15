@@ -13,5 +13,6 @@ export type iQuizField = {
     title: string,
     options?: string[],
     required?: boolean,
-    uniqueID: string
+    uniqueID: string,
+    correctOption?: number
 }[]

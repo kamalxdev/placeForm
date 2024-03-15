@@ -9,6 +9,7 @@ import { FormField } from "@/store/atom/makeFormField";
 
 function Quiz(props: { index: number }) {
   const [fields, setFields] = useRecoilState(FormField);
+  const radioName = "radio" + props.index;
   return (
     <div className="border p-4 my-4 md:mx-4">
       <Title index={props.index} />
@@ -16,7 +17,7 @@ function Quiz(props: { index: number }) {
         <h5>Add Options: </h5>
         <div className="m-2 transition relative flex items-center md:items-start flex-col">
           {fields[props.index].options?.map((option, index) => (
-            <Options key={index} index={index}  fieldIndex={props.index}/>
+            <Options key={index} index={index}  fieldIndex={props.index} radioName={radioName}/>
           ))}
         </div>
         <button className="mt-4" type="button" onClick={()=>setFields((oldFields)=>oldFields.map((field,index)=>{

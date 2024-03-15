@@ -219,15 +219,14 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
                   </span>
                 </EditIcons>
               )}
-              {form.state == "Live" ||
-                (form.state == "Published" && (
+              {form.state == "Live" || form.state == "Published" ? (
                   <EditIcons href={`/${mode}/m/${form._id}/write`}>
                     <span>View</span>
                     <span>
                       <Eye />
                     </span>
-                  </EditIcons>
-                ))}
+                  </EditIcons>)
+                :null}
               {form.state == "Published" && (
                 <EditIcons
                   button
