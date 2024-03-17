@@ -76,7 +76,7 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
     formtitle: string | undefined
   ) {
     let confirmation = confirm(
-      `Are you sure you want to delete this form with title "${formtitle}" ?`
+      `Are you sure you want to delete this ${mode} with title "${formtitle}" ?`
     );
     if (confirmation) {
       await axios
@@ -99,7 +99,7 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
     changeToThisStatus: string
   ) {
     let confirmation = confirm(
-      `Are you sure you want to ${changeToThisStatus} this form?`
+      `Are you sure you want to ${changeToThisStatus} this ${mode}?`
     );
     if (confirmation) {
       await axios

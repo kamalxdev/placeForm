@@ -6,6 +6,8 @@ const ResponseSchema = new Schema({
   responded_at: { type: Date, default: Date.now },
   form: { type: Schema.Types.ObjectId, ref: "Forms" },
   quiz: { type: Schema.Types.ObjectId, ref: "Quiz" },
+  for:{type:String,required:true},
+  name:{type:String}
 });
 
 var Responses: mongoose.Model<any>;

@@ -14,8 +14,8 @@ export default function NewForm({ params }: { params: { id: string,TypeOfRequest
     `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=edit`
   );
   if(loading) return <Loader />
+  if(error) return <Error404 title={error.title} description={error.description} />
   if(params?.TypeOfRequest === "form"){
-    if(error) return <Error404 title={error.title} description={error.description} />
     
     
       
@@ -26,7 +26,6 @@ export default function NewForm({ params }: { params: { id: string,TypeOfRequest
     );
   }
   else if(params?.TypeOfRequest === "quiz"){
-    if(error) return <Error404 title={error.title} description={error.description} />
 
     return (
       <>

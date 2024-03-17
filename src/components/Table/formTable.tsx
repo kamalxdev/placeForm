@@ -1,6 +1,6 @@
 'use client'
 
-import React, { memo,} from "react";
+import React, { memo, useState,} from "react";
 import axios from "axios";
 
 import { iFormData } from "@/types/formData";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 function FormTable() {
   const router = useRouter();
-
+  const [loading, setLoading] = useState(false);
   const formAPI = useFetchData("/api/form/");
   const QuizAPI = useFetchData("/api/quiz/");
 
@@ -43,35 +43,41 @@ function FormTable() {
   
 
   async function handleNewForm() {
+    setLoading(true);
     await axios
       .get("/api/form/new")
       .then((res) => {
+        setLoading(false);
         if (res.data.formID) {
           router.push(`/form/v/${res.data.formID}/edit`);
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.log("NewFormID error ------>", err);
       });
   }
 
 
   async function handleNewQuiz() {
+    setLoading(true);
     await axios
       .get("/api/quiz/new")
       .then((res) => {
+        setLoading(false);
         if (res.data.ID) {
           router.push(`/quiz/v/${res.data.ID}/edit`);
         }
       })
       .catch((err) => {
+        setLoading(false);
         alert("Error in creating new Quiz");
         console.log("NewFormID error ------>", err);
       });
   }
 
   
-  if (formAPI?.loading || QuizAPI?.loading) return <Loader />;
+  if (formAPI?.loading || QuizAPI?.loading || loading) return <Loader />;
 
   if (formAPI?.error?.title) return <Error404 title={formAPI?.error?.title} description={formAPI?.error?.description} />;
   if (QuizAPI?.error?.title) return <Error404 title={QuizAPI?.error?.title} description={QuizAPI?.error?.description} />;
@@ -121,18 +127,18 @@ function FormTable() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-black bg-white">
-                      <tr className="border-t border-gray-800">
+                      {forms[0] && <tr className="border-t border-gray-800">
                           <th
                             scope="col"
                             className="py-2 pl-4 pr-3 text-left text-md font-medium text-gray-800"
                           >
                             Forms &rarr;
                           </th>
-                        </tr>
+                        </tr>}
                         {forms?.map((form, index) => (
                             <TableRow form={form} index={index} key={"row"+index} mode="form" />
                         ))}
-                        <tr className="border-t border-gray-800">
+                        {quiz[0] && <tr className="border-t border-gray-800">
                           <th
                             colSpan={5}
                             scope="col"
@@ -140,7 +146,7 @@ function FormTable() {
                           >
                             Quiz &rarr;
                           </th>
-                        </tr>
+                        </tr>}
                         {quiz?.map((quiz, index) => (
                             <TableRow form={quiz} index={index} key={"row"+index} mode="quiz"/>
                         ))}

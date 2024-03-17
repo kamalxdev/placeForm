@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       }
     });
     const curerntdate = new Date();
-    if (curerntdate > form?.expiry_date) {
+    if (curerntdate > form?.expiry_date && form?.state!="Live") {
       return NextResponse.json(
         { msg: "The form is expired", status: 400 },
         { status: 200 }
