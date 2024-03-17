@@ -8,12 +8,10 @@ import randomGenerator from "@/controllers/randomGenerator";
 import useFetchData from "@/hooks/fetchData";
 import { UserResponses } from "@/store/atom/formResponses";
 import axios from "axios";
-import { log } from "console";
 import { useRouter } from "next/navigation";
-import { memo, use, useEffect, useState } from "react";
-import { RecoilRoot, useRecoilValue } from "recoil";
-import { io } from "socket.io-client";
-// import {Server} from "socket.io"
+import { memo, useState } from "react";
+import { useRecoilValue } from "recoil";
+
 
 type idetails = {
   name: string;
@@ -26,18 +24,24 @@ function ViewForm({
   params: { id: string; TypeOfRequest: string };
 }) {
   const userResponse = useRecoilValue(UserResponses);
-  const { data, error, loading } = useFetchData(
+  const write = useFetchData(
     `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
   );
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [details, setDetails] = useState<idetails>({ name: "" });
   const [time, setTime] = useState(0);
+  const [intervalId, setIntervalId] = useState<any >(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  const fields = data?.fields;
-  if (loading) return <Loader />;
-  if (error)
-    return <Error404 title={error?.title} description={error?.description} />;
+  const fields = write?.data?.fields;
+ 
+ 
+ 
+ 
+ 
+ 
+  if (write?.loading || loading) return <Loader />;
+  if (write?.error)return <Error404 title={write?.error?.title} description={write?.error?.description} />;
 
 
 
@@ -48,69 +52,83 @@ function ViewForm({
       <form className="relative w-screen h-full flex  items-center flex-col mt-4">
         <div className="relative w-10/12 lg:w-5/12 xl:w-6/12 2xl:w-6/12 h-auto py-5 rounded-sm bg-black text-white flex items-center flex-wrap">
           <div className="mx-4">
-            <h1 className="text-lg font-extrabold">{data?.title}</h1>
-            <h6 className="text-sm">{data?.description}</h6>
+            <h1 className="text-lg font-extrabold">{write?.data?.title}</h1>
+            <h6 className="text-sm">{write?.data?.description}</h6>
           </div>
           <div className="relative w-full h-6 mt-3 bg-white text-black flex justify-center items-center text-lg">
             <h6 className="text-sm font-extrabold   ">
-              Created by {data?.user}
+              Created by {write?.data?.user}
             </h6>
           </div>
         </div>
-        <FormFieldGenerator fields={data?.fields} formid={data?.id} />
+        <FormFieldGenerator fields={write?.data?.fields} formid={write?.data?.id} />
       </form>
     );
-  } else if (params?.TypeOfRequest == "quiz") {
+  } 
+  
+  
+  
+  
+  
+  
+  
+  else if (params?.TypeOfRequest == "quiz") {
     const expirytime = 10;
     
+    if (!intervalId && currentQuestion >= 1 ) {
+      const id = setInterval(() => {
+        setTime(prevCount => prevCount + 1);
+      }, 1000);
+      setIntervalId(id);
+    }
     const handleNextButton = () => {
       if (!details?.name) {
         return alert("Please enter your name");
       }
-      if (fields?.length > currentQuestion) {
-            return setCurrentQuestion(currentQuestion + 1);
-      }
-      setCurrentQuestion(0);
-
-      // axios
-      //   .post("/api/quiz/responses", {name:details?.name, response: userResponse, formid: data?.id})
-      //   .then((res) => {
-      //     alert(res?.data?.msg)
-          
-      //     router.push("/");
-      //   })
-      //   .catch((err) => {
-      //     alert("Error submitting quiz");
-      //     console.log(err);
-      //   });
-    };
-    setTimeout(() => {
-      if (currentQuestion >= 1) {
       
-        setTime(time + 1);
+      if (fields?.length > currentQuestion ) {
+        if(currentQuestion > 0){
+          clearInterval(intervalId);
+          setIntervalId(null);
+          setTime(0);
+        }
+        return setCurrentQuestion(currentQuestion + 1)
       }
-    }, 1000);
+      setLoading(true);
+      setCurrentQuestion(0);
+      setDetails({ name: "" });
+      axios
+        .post("/api/quiz/responses", {name:details?.name, response: userResponse, formid: write?.data?.id})
+        .then((res) => {
+          setLoading(false);
+          alert(res?.data?.msg)
+          router.push("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          alert("Error submitting quiz");
+          console.log(err);
+        });
+    };
+    
+if(userResponse[fields[currentQuestion-1]?.uniqueID]?.answer){
+  clearInterval(intervalId);
+}
 
     if(time == expirytime && currentQuestion >= 1){
       handleNextButton();
     }
-    //   const interval = setTimeout(() => {
-    //     setTime(time + 1);
-        
-    //   }, 1000);
-      
-      
-    // }
+    
     return (
       <form className="relative w-screen h-full flex  items-center flex-col mt-4">
         <div className="relative w-10/12 lg:w-5/12 xl:w-6/12 2xl:w-6/12 h-auto py-5 rounded-sm bg-black text-white flex items-center flex-wrap">
           <div className="mx-4">
-            <h1 className="text-lg font-extrabold">{data?.title}</h1>
-            <h6 className="text-sm">{data?.description}</h6>
+            <h1 className="text-lg font-extrabold">{write?.data?.title}</h1>
+            <h6 className="text-sm">{write?.data?.description}</h6>
           </div>
           <div className="relative w-full h-6 mt-3 bg-white text-black flex justify-center items-center text-lg">
             <h6 className="text-sm font-extrabold   ">
-              Created by {data?.user}
+              Created by {write?.data?.user}
             </h6>
           </div>
         </div>
@@ -148,7 +166,6 @@ function ViewForm({
             />
           </div>
         )}
-        {currentQuestion == 0 && (
           <button
             type="button"
             onClick={() => {
@@ -156,9 +173,8 @@ function ViewForm({
             }}
             className="rounded-md mt-10 bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 disabled:bg-black/70"
           >
-            Start
+            Next 
           </button>
-        )}
       </form>
     );
   } else {

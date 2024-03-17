@@ -10,9 +10,9 @@ export default function FormResponses({
 }: {
   params: { formid: string, TypeOfRequest: string};
 }) {
-  if(params.TypeOfRequest!="quiz" && params.TypeOfRequest!="form") return <Error404 title="Invalid URL" description="The URL is invalid. Please check the URL and try again." />;
   const formid = params.formid;
   const {data, error, loading}=usePushData(`/api/${params.TypeOfRequest}/responses/get`, { id: formid });
+  if(params.TypeOfRequest!="quiz" && params.TypeOfRequest!="form") return <Error404 title="Invalid URL" description="The URL is invalid. Please check the URL and try again." />;
   const form=data?.form;
   const responses=data?.responses;
 
@@ -30,7 +30,7 @@ export default function FormResponses({
       <section className="mx-auto w-screen h-screen max-w-7xl px-4 py-4">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
-            <h2 className="text-lg font-semibold">Responses - {form.title}</h2>
+            <h2 className="text-lg font-semibold">Responses - {form?.title}</h2>
             <p className="mt-1 text-sm text-gray-700">
               View and manage all your responses to the form.
             </p>
@@ -79,7 +79,7 @@ export default function FormResponses({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {responses.map((response: any, index: number) => (
+                    {responses?.map((response: any, index: number) => (
                       <tr key={index} className="divide-x divide-gray-200">
                         {params.TypeOfRequest==="quiz" &&  <td
                               className="px-4 py-4 text-sm font-normal text-gray-900"
@@ -89,10 +89,10 @@ export default function FormResponses({
                                 {response?.name || "-"}
                               </span>
                             </td>}
-                        {form.fields.map((field: any, indexx: number) => {
+                        {form?.fields?.map((field: any, indexx: number) => {
                           return (
                             <td
-                              className="px-4 py-4 text-sm font-normal text-gray-900"
+                              className={`px-4 py-4 text-sm font-normal text-gray-900  ${field?.options[field.correctOption]==response.response[0][field.uniqueID]?.answer ? "text-green-600" : "text-red-600"}`}
                               key={indexx}
                             >
                               <span>

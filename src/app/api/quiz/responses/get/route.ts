@@ -19,7 +19,6 @@ export async function POST(request: Request) {
         });
       }
       var responses = await RESPONSES.find({ quiz: id });
-      console.log("Responses: ",responses);
       
       if (!responses) {
         return Response.json({
