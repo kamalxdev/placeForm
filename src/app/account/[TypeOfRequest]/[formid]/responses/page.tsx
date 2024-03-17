@@ -2,43 +2,28 @@
 
 import Error404 from "@/components/errors/404";
 import Loader from "@/components/loader/loader";
-import axios from "axios";
-import { set } from "mongoose";
-import React, { useEffect, useState } from "react";
+import usePushData from "@/hooks/pushData";
+import React from "react";
 
 export default function FormResponses({
   params,
 }: {
-  params: { formid: string };
+  params: { formid: string, TypeOfRequest: string};
 }) {
-  const [form, setForm] = useState<any>({});
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>({});
-  const [responses, setResponses] = useState<any>([]);
+  if(params.TypeOfRequest!="quiz" && params.TypeOfRequest!="form") return <Error404 title="Invalid URL" description="The URL is invalid. Please check the URL and try again." />;
   const formid = params.formid;
-  useEffect(() => {
-    axios
-      .post(`/api/form/responses/get`, { id: formid })
-      .then((response) => {
-        const data = response.data;
-        setLoading(false);
-        if (data.status === 200) {
-          return setForm(data.form), setResponses(data.responses);
-        }
-        return setError(data.message);
-      })
-      .catch((error) => {
-        console.log(error);
-        return setError({
-          title: "Incorrect Link",
-          description: "Please make sure you have the correct link",
-        });
-      });
-  }, [formid]);
+  const {data, error, loading}=usePushData(`/api/${params.TypeOfRequest}/responses/get`, { id: formid });
+  const form=data?.form;
+  const responses=data?.responses;
+
+  
   if (loading) return <Loader />;
-  if (error.title) {
-    return <Error404 title={error.title} description={error.description} />;
-  }
+  if (error?.title) return <Error404 title={error.title} description={error.description} />;
+
+
+
+
+
 
   return (
     <>
@@ -66,6 +51,15 @@ export default function FormResponses({
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr className="divide-x divide-gray-200">
+                      {params.TypeOfRequest==="quiz" && 
+                        <th
+                        scope="col"
+                        key="name"
+                        className="px-4 py-3.5 text-left text-sm font-normal text-gray-500"
+                      >
+                        <span>Name</span>
+                      </th>
+                      }
                       {form?.fields?.map((field: any) => {
                         return (
                           <th
@@ -87,6 +81,14 @@ export default function FormResponses({
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {responses.map((response: any, index: number) => (
                       <tr key={index} className="divide-x divide-gray-200">
+                        {params.TypeOfRequest==="quiz" &&  <td
+                              className="px-4 py-4 text-sm font-normal text-gray-900"
+                              key={"name+index"}
+                            >
+                              <span>
+                                {response?.name || "-"}
+                              </span>
+                            </td>}
                         {form.fields.map((field: any, indexx: number) => {
                           return (
                             <td

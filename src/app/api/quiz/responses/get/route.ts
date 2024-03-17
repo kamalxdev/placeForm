@@ -1,5 +1,5 @@
 import RESPONSES from "@/models/responses";
-import FORM from "@/models/form";
+import QUIZ from "@/models/quiz";
 import connect from "@/db/mongo.config";
 
 export async function POST(request: Request) {
@@ -7,23 +7,24 @@ export async function POST(request: Request) {
   const {id} = await request.json()
   if (id) {
     try {
-      var form = await FORM.findById(id);
-      if (!form) {
+      var quiz = await QUIZ.findById(id);
+      if (!quiz) {
         return Response.json({
           message: {
-            title: "We cannot find this form",
+            title: "We cannot find this quiz",
             description:
               "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
           },
           status: 404,
         });
       }
-
-      var responses = await RESPONSES.find({ form: id });
+      var responses = await RESPONSES.find({ quiz: id });
+      console.log("Responses: ",responses);
+      
       if (!responses) {
         return Response.json({
           message: {
-            title: "We cannot fetch the responses for this form",
+            title: "We cannot fetch the responses for this quiz",
             description:
               "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
           },
@@ -32,12 +33,14 @@ export async function POST(request: Request) {
       }
       const filteredResponses = responses.map((response) => {
         return {
+          name: response.name,
           response: response.response,
         };
       });
+
       const filteredForm = {
-        title: form.title,
-        fields: form.fields,
+        title: quiz.title,
+        fields: quiz.fields,
       }
       return Response.json({ form:filteredForm, responses:filteredResponses,status: 200 });
 

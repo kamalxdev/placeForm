@@ -55,11 +55,13 @@ export async function POST(req: NextRequest) {
         responded_user: body.user,
         response: UserResponse,
         form: body.formid,
+        for:"form"
       });
     } else {
       var response = await RESPONSES.create({
         response: UserResponse,
         form: body.formid,
+        for:"form"
       });
     }
 
