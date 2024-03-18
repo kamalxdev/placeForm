@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Footer() {
     const date = new Date();
   return (
-    <>
-     <hr className="mt-5" />
+    <div className="realtive mt-5 bottom-0">
+     <hr />
     <div className="relative mx-auto max-w-7xl">
       <footer className="px-4 py-10">
         <div className="flex flex-col md:flex-row md:items-center">
@@ -31,6 +31,6 @@ export default function Footer() {
         </div>
       </footer>
     </div>
-    </>
+    </div>
   );
 }

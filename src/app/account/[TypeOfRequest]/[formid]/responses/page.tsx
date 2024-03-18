@@ -27,7 +27,7 @@ export default function FormResponses({
 
   return (
     <>
-      <section className="mx-auto w-screen h-screen max-w-7xl px-4 py-4">
+      <section className="relative mx-auto w-screen h-full max-w-7xl px-4 py-4">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
             <h2 className="text-lg font-semibold">Responses - {form?.title}</h2>
@@ -92,7 +92,7 @@ export default function FormResponses({
                         {form?.fields?.map((field: any, indexx: number) => {
                           return (
                             <td
-                              className={`px-4 py-4 text-sm font-normal text-gray-900  ${field?.options[field.correctOption]==response.response[0][field.uniqueID]?.answer ? "text-green-600" : "text-red-600"}`}
+                              className={`px-4 py-4 text-sm font-normal text-gray-900  ${params?.TypeOfRequest=="quiz" && (field?.options[field?.correctOption]==response?.response[0][field?.uniqueID]?.answer ? "text-green-600" : "text-red-600")}`}
                               key={indexx}
                             >
                               <span>

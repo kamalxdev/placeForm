@@ -35,8 +35,7 @@ function Quiz(props: iprops) {
         {props?.option?.map((option, index) => (
           <button
             onClick={(e) => {
-              setClicked(true);
-              setUserResponse((prev) => {
+              !clicked && setUserResponse((prev) => {
                 return {
                   ...prev,
                   [props.uniqueID]: {
@@ -45,7 +44,10 @@ function Quiz(props: iprops) {
                   },
                 };
               });
+              
+              setClicked(true);
             }}
+            type="button"
             className={`flex ml-4 text-black p-2  rounded-lg transition-all ${
               clicked
                 ? userResponse[props.uniqueID].answer == props.correctAnswer &&
