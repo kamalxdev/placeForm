@@ -2,7 +2,6 @@
 import React, { use } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-const { Server } = require("socket.io");
 
 
 const whyChooseUs = [
@@ -24,14 +23,6 @@ const whyChooseUs = [
   },
 ]
 export default function Home() {
-  const io = new Server({
-    serveClient: false
-  });
-
-
-  io.on("connection", (socket:any) => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-  });
   return (
     <div className="w-full lg:mt-8">
       {/* Hero Section */}
