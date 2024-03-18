@@ -26,10 +26,11 @@ function ViewForm({
 
 
   // hooks
+  const userResponse = useRecoilValue(UserResponses);
   const write = useFetchData(
     `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
-  );
-  const userResponse = useRecoilValue(UserResponses);
+    );
+  const router = useRouter();
 
   
   // states   
@@ -38,7 +39,6 @@ function ViewForm({
   const [time, setTime] = useState(0);
   const [intervalId, setIntervalId] = useState<any >(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   
   if(params.TypeOfRequest !== "form" && params.TypeOfRequest !== "quiz") return (
     <Error404

@@ -118,7 +118,7 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
   return (<>
     <div className="mx-10 my-5">
         <span className="flex flex-col">
-          <h1 className="text-3xl mb-4">New Quiz</h1>
+          <h1 className="text-3xl mb-4">Edit Quiz</h1>
           <p className="text-gray-500 mb-4">
             Create a new quiz by adding title, description and fields. You can
             also set start and expiry time for the quiz.
