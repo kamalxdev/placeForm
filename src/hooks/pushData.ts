@@ -16,7 +16,8 @@ function usePushData( url: string, push: any ) {
       })
       .catch((err) => {
         setLoading(false);
-        setError(err);
+        console.log(err);
+        setError({title:"Internal Server error",description:"Failed to get this page"});
       });
   }, [url]);
   return { data, loading, error };

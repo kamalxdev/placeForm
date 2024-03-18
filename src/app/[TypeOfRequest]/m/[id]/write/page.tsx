@@ -23,15 +23,24 @@ function ViewForm({
 }: {
   params: { id: string; TypeOfRequest: string };
 }) {
-  const userResponse = useRecoilValue(UserResponses);
+
+
+  // hooks
   const write = useFetchData(
     `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=write`
   );
+  const userResponse = useRecoilValue(UserResponses);
+
+  // states   
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [details, setDetails] = useState<idetails>({ name: "" });
   const [time, setTime] = useState(0);
   const [intervalId, setIntervalId] = useState<any >(null);
   const [loading, setLoading] = useState(false);
+
+
+
+
   const router = useRouter();
   const fields = write?.data?.fields;
  

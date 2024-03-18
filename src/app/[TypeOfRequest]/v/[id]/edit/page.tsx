@@ -10,9 +10,15 @@ import NewQuizCreater from "@/components/newQuiz/newQuiz"
 
 
 export default function NewForm({ params }: { params: { id: string,TypeOfRequest:string } }) {
+  
+  
+  // hooks   
   const { data, error, loading } = useFetchData(
     `/api/${params?.TypeOfRequest}/get?id=${params?.id}&mode=edit`
   );
+
+
+  // states   
   if(loading) return <Loader />
   if(error) return <Error404 title={error.title} description={error.description} />
   if(params?.TypeOfRequest === "form"){
