@@ -12,7 +12,6 @@ interface iNavbarResponsiveMenu{
     name?:string | null,
     email?:string | null,
     menuItems:Array<any>,
-    userItems:Array<any>
     key?:number
 }
 
@@ -66,7 +65,6 @@ export default function NavbarResponsiveMenu(user:iNavbarResponsiveMenu) {
                 {user.name ? (
                   <div className="dropdown dropdown-hover ml-4 mt-4">
                     <UserSection
-                      userItems={user.userItems}
                       username={user.name}/>
                   </div>
                 ) : (

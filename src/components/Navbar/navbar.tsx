@@ -11,31 +11,10 @@ const menuItems = [
   {
     name: "Dashboard",
     href: "/dashboard",
-  },
-  {
-    name: "About",
-    href: "/about",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
-  },
-  {
-    name: "Blog",
-    href: "/blog",
-  },
+  }
   
 ];
-const userItems = [
-  {
-    name: "Account",
-    href: "/account",
-  },
-  {
-    name: "Settings",
-    href: "/settings",
-  },
-];
+
 
 export default async function Navbar() {
   const user = await getServerSession(authOptions)
@@ -70,15 +49,15 @@ export default async function Navbar() {
         </div>
         {user ? (
           <div className="hidden lg:block">
-            <UserSection userItems={userItems} username={user?.user?.name}/>
+            <UserSection username={user?.user?.name}/>
           </div>
         ) : (
           <div className="hidden space-x-2 lg:block">
             <AuthSection />
-          </div>
-        )}
+          </div>)
+        }
         {/* // */}
-      <NavbarResponsiveMenu name={user?user.user?.name:null} email={user?user.user?.email:null} menuItems={menuItems} userItems={userItems}/>
+      <NavbarResponsiveMenu name={user?user.user?.name:null} email={user?user.user?.email:null} menuItems={menuItems}/>
       </div>
     </div>
   );

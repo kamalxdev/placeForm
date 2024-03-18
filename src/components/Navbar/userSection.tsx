@@ -4,7 +4,6 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 
 type iUserSection = {
-  userItems: { name: string; href: string }[];
   username: string | undefined | null;
 };
 
@@ -16,11 +15,6 @@ export default function UserSection(props: iUserSection) {
       type="outlineGray"
       dismissOnClick={true}
     >
-      {props.userItems.map((item) => (
-        <Dropdown.Item key={item.name}>
-          <Link href={item.href}>{item.name}</Link>
-        </Dropdown.Item>
-      ))}
       <Dropdown.Item key="signOUT">
         <button
           onClick={() => signOut({ callbackUrl: "/login", redirect: true })}
