@@ -4,7 +4,7 @@ import {
   DotsThreeOutline,
   Pencil,
   Trash,
-  Eye,
+  Copy ,
   FileArrowUp,
   FileArrowDown,
   HardDrives,
@@ -66,7 +66,15 @@ const EditIcons = memo(function EditIcons({
   );
 });
 
-const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; index: number;mode:string }) {
+const TableRow = memo(function TableRow({
+  form,
+  index,
+  mode,
+}: {
+  form: iFormData;
+  index: number;
+  mode: string;
+}) {
   const router = useRouter();
   const currentDate = new Date();
   // Delete form
@@ -118,7 +126,6 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
         });
     }
   }
-
   return (
     <tr
       key={index}
@@ -126,9 +133,16 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
     >
       <TableData>
         <div className="ml-4">
-          <div className="text-sm font-medium text-gray-900">
+          <Link
+            href={
+              form.state == "Live" || form.state == "Published"
+                ? `/${mode}/m/${form._id}/write`
+                : ""
+            }
+            className="text-sm font-medium text-gray-900"
+          >
             {form.title || "(Untitled)"}
-          </div>
+          </Link>
           <div className="text-sm text-gray-700">
             {"Last updated on  " + form.updated_at.toString()}
           </div>
@@ -220,13 +234,14 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
                 </EditIcons>
               )}
               {form.state == "Live" || form.state == "Published" ? (
-                  <EditIcons href={`/${mode}/m/${form._id}/write`}>
-                    <span>View</span>
-                    <span>
-                      <Eye />
-                    </span>
-                  </EditIcons>)
-                :null}
+                <EditIcons button onClick={()=>{navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/${mode}/m/${form._id}/write`);alert("Link Copied");}
+                }>
+                  <span>Copy link</span>
+                  <span>
+                    <Copy  />
+                  </span>
+                </EditIcons>
+              ) : null}
               {form.state == "Published" && (
                 <EditIcons
                   button
@@ -270,7 +285,7 @@ const TableRow =memo(function TableRow({ form, index,mode }: { form: iFormData; 
       </td>
     </tr>
   );
-})
+});
 
 export { TableRow };
 
