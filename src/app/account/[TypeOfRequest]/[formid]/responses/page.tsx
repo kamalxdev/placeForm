@@ -3,7 +3,8 @@
 import Error404 from "@/components/errors/404";
 import Loader from "@/components/loader/loader";
 import usePushData from "@/hooks/pushData";
-import { Divide } from "lucide-react";
+import axios from "axios";
+import { set } from "mongoose";
 import React from "react";
 
 export default function FormResponses({
@@ -16,6 +17,7 @@ export default function FormResponses({
     `/api/${params.TypeOfRequest}/responses/get`,
     { id: formid }
   );
+  const [loader, setLoader] = React.useState(false);
   if (params.TypeOfRequest != "quiz" && params.TypeOfRequest != "form")
     return (
       <Error404
@@ -26,9 +28,65 @@ export default function FormResponses({
   const form = data?.form;
   const responses = data?.responses;
 
-  if (loading) return <Loader />;
+  if (loading || loader) return <Loader />;
   if (error?.title)
     return <Error404 title={error.title} description={error.description} />;
+
+
+
+
+
+
+    // to export  responses in an excel file    
+  async function handleExportExcel() {
+    setLoader(true);
+
+
+
+    let headers = params.TypeOfRequest === "quiz" ? [{title:"Name"},...form?.fields?.map((field: any) => {
+      return { title: field.title };
+    })] : form?.fields?.map((field: any) => {
+      return { title: field.title };
+    });
+
+
+    let response = responses?.map((response: any) => {
+      let res: any = params.TypeOfRequest === "quiz" ? {Name: response?.name || "-"} : {};
+      form?.fields?.map((field: any) => {
+        res[field.title] = response.response[0][field.uniqueID]?.answer || "-";
+      });
+      return res;
+    });
+
+
+
+    const res = await axios.post(
+      `/api/download`,
+      {
+        headers,
+        response,
+      },
+      {
+        responseType: "blob",
+      }
+    );
+    
+
+    const url = window.URL.createObjectURL(new Blob([res.data]));
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `${form?.title}.xlsx`);
+    document.body.appendChild(link);
+    link.click();
+      setLoader(false);
+
+  }
+
+
+
+
+
 
   return (
     <>
@@ -43,7 +101,7 @@ export default function FormResponses({
           <div>
             <button
               type="button"
-              disabled={true}
+              onClick={handleExportExcel}
               className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Export to Excel
@@ -135,7 +193,9 @@ export default function FormResponses({
             </div>
           </div>
         ) : (
-          <div className="flex w-screen h-screen pt-8 justify-center items-start "><h1 className="text-xl font-semibold">No responses found</h1></div>
+          <div className="flex w-screen h-screen pt-8 justify-center items-start ">
+            <h1 className="text-xl font-semibold">No responses found</h1>
+          </div>
         )}
       </section>
     </>

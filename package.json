@@ -13,6 +13,7 @@
     "@vinejs/vine": "^1.6.0",
     "axios": "^1.6.1",
     "bcryptjs": "^2.4.3",
+    "exceljs": "^4.4.0",
     "jsonwebtoken": "^9.0.2",
     "keep-react": "^1.1.0",
     "lucide-react": "^0.292.0",
