@@ -6,6 +6,7 @@ import NextAuthProvider from "@/provider/nextAuthProvider";
 import Navbar from "@/components/Navbar/navbar";
 import Footer from "@/components/footer";
 import Script from "next/script";
+import Head from "next/head";
 
 
 
@@ -25,6 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <meta name="google-site-verification" content="1z_0Kzwtz-_yVauIBmnCbNouK8QUZvm_A14JDoyGWoI" />
+      </Head>
       <body className={inter.className}>
       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285538400653886"/>
         <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
