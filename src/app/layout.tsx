@@ -13,7 +13,6 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  robots: { index: false, follow: false },
   title: "PlaceForm- Your Ultimate Form and Quiz Creator!",
   description: "Elevate your form creation game with placeForm – the platform that goes beyond expectations. ",
   other: {
