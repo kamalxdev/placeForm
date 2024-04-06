@@ -26,8 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285538400653886"/>
+        <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
       </body>
     </html>
   );
