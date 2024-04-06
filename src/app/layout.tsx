@@ -4,8 +4,12 @@ import "./globals.css";
 
 import NextAuthProvider from "@/provider/nextAuthProvider";
 import Navbar from "@/components/Navbar/navbar";
-import { RecoilRoot } from "recoil";
 import Footer from "@/components/footer";
+import Script from "next/script";
+
+
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
+      <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285538400653886"/>
       </body>
     </html>
   );
