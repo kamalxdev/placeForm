@@ -19,14 +19,19 @@ export const metadata: Metadata = {
   other: {
     "google-site-verification": "1z_0Kzwtz-_yVauIBmnCbNouK8QUZvm_A14JDoyGWoI",
   },
-  verification: {
-    google: "kamal",
-  },
   openGraph: {
     title: "PlaceForm- Your Ultimate Form and Quiz Creator!",
     description: "Elevate your form creation game with placeForm – the platform that goes beyond expectations. ",
     type: "website",
     url: "https://placeform.vercel.app",
+    images: [
+      {
+        url: "https://placeform.vercel.app/images/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "PlaceForm",
+      },
+    ],
   },
 };
 
