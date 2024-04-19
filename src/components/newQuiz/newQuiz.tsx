@@ -1,10 +1,6 @@
 "use client";
 
 import { memo, use, useEffect } from "react";
-import OptionField from "@/components/newForm/area/optionField";
-import Inputz from "@/components/newForm/area/input";
-import TextBoxz from "@/components/newForm/area/textbox";
-import ChooseFormFields from "@/components/newForm/chooseFormFields";
 import TextInput from "@/components/newForm/textInput";
 
 import axios from "axios";
@@ -13,7 +9,6 @@ import React, { useState } from "react";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { FormField } from "@/store/atom/makeFormField";
-import { iFormField } from "@/types/generateField";
 import { Tabs } from "keep-react";
 import Area from "@/components/newForm/area/util/area";
 import Loader from "@/components/loader/loader";

@@ -1,17 +1,16 @@
-'use client'
+"use client";
 
-import React, { memo, useState,} from "react";
+import React, { memo, useState } from "react";
 import axios from "axios";
 
 import { iFormData } from "@/types/formData";
 import Loader from "../loader/loader";
 import Error404 from "../errors/404";
 import { useRouter } from "next/navigation";
-import TableHeading, {TableRow } from "./tableComponents";
+import TableHeading, { TableRow } from "./tableComponents";
 import useFetchData from "@/hooks/fetchData";
 import type { Metadata } from "next";
-
-
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -40,7 +39,6 @@ function FormTable() {
       updated_at: new Date(quiz.updated_at),
     };
   });
-  
 
   async function handleNewForm() {
     setLoading(true);
@@ -57,7 +55,6 @@ function FormTable() {
         console.log("NewFormID error ------>", err);
       });
   }
-
 
   async function handleNewQuiz() {
     setLoading(true);
@@ -76,19 +73,33 @@ function FormTable() {
       });
   }
 
-  
   if (formAPI?.loading || QuizAPI?.loading || loading) return <Loader />;
 
-  if (formAPI?.error?.title) return <Error404 title={formAPI?.error?.title} description={formAPI?.error?.description} />;
-  if (QuizAPI?.error?.title) return <Error404 title={QuizAPI?.error?.title} description={QuizAPI?.error?.description} />;
+  if (formAPI?.error?.title)
+    return (
+      <Error404
+        title={formAPI?.error?.title}
+        description={formAPI?.error?.description}
+      />
+    );
+  if (QuizAPI?.error?.title)
+    return (
+      <Error404
+        title={QuizAPI?.error?.title}
+        description={QuizAPI?.error?.description}
+      />
+    );
   return (
     <div className="w-screen h-screen overflow-hidden">
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
         <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
-            <h2 className="text-lg font-semibold">Manage your forms and quizzes</h2>
+            <h2 className="text-lg font-semibold">
+              Manage your forms and quizzes
+            </h2>
             <p className="mt-1 text-sm text-gray-700">
-              This is where you can create, edit, and manage all your forms and quizzes
+              This is where you can create, edit, and manage all your forms and
+              quizzes
             </p>
           </div>
           <div className="flex  gap-5">
@@ -106,8 +117,14 @@ function FormTable() {
             >
               Add new Quiz
             </button>
+            <Link
+              href="/generate-with-AI"
+              className="rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              {" "}
+              Generate Quiz With AI
+            </Link>
           </div>
-          
         </div>
         {forms || quiz ? (
           forms[0] || quiz[0] ? (
@@ -127,28 +144,42 @@ function FormTable() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-black bg-white">
-                      {forms[0] && <tr className="border-t border-gray-800">
-                          <th
-                            scope="col"
-                            className="py-2 pl-4 pr-3 text-left text-md font-medium text-gray-800"
-                          >
-                            Forms &rarr;
-                          </th>
-                        </tr>}
+                        {forms[0] && (
+                          <tr className="border-t border-gray-800">
+                            <th
+                              scope="col"
+                              className="py-2 pl-4 pr-3 text-left text-md font-medium text-gray-800"
+                            >
+                              Forms &rarr;
+                            </th>
+                          </tr>
+                        )}
                         {forms?.map((form, index) => (
-                            <TableRow form={form} index={index} key={"row"+index} mode="form" />
+                          <TableRow
+                            form={form}
+                            index={index}
+                            key={"row" + index}
+                            mode="form"
+                          />
                         ))}
-                        {quiz[0] && <tr className="border-t border-gray-800">
-                          <th
-                            colSpan={5}
-                            scope="col"
-                            className="py-2 pl-4 pr-3 text-left text-md font-medium text-gray-800"
-                          >
-                            Quiz &rarr;
-                          </th>
-                        </tr>}
+                        {quiz[0] && (
+                          <tr className="border-t border-gray-800">
+                            <th
+                              colSpan={5}
+                              scope="col"
+                              className="py-2 pl-4 pr-3 text-left text-md font-medium text-gray-800"
+                            >
+                              Quiz &rarr;
+                            </th>
+                          </tr>
+                        )}
                         {quiz?.map((quiz, index) => (
-                            <TableRow form={quiz} index={index} key={"row"+index} mode="quiz"/>
+                          <TableRow
+                            form={quiz}
+                            index={index}
+                            key={"row" + index}
+                            mode="quiz"
+                          />
                         ))}
                       </tbody>
                     </table>

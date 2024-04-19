@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     title: "PlaceForm- Your Ultimate Form and Quiz Creator!",
     description: "Elevate your form creation game with placeForm – the platform that goes beyond expectations. ",
     type: "website",
-    url: "https://placeform.vercel.app",
+    url: process.env.NEXT_PUBLIC_WEBSITE_URL,
     images: [
       {
-        url: "https://placeform.vercel.app/images/logo.png",
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/images/logo.png`,
         width: 1200,
         height: 630,
         alt: "PlaceForm",

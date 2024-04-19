@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.7.1",
     "@headlessui/react": "^1.7.17",
     "@vinejs/vine": "^1.6.0",
     "axios": "^1.6.1",
