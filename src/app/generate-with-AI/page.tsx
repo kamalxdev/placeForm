@@ -17,11 +17,10 @@ function GenerateWithAI() {
       .then((res) => {
         setLoading(false);
         const data=res.data
+        if(data.status===400){
+          alert(data.msg)
+        }
         if(data.status===200){
-          console.log(data.parsedText);
-          if(data.status===400){
-            alert(data.msg)
-          }
           return router.push(`/quiz/v/${data?.quiz?._id}/edit`);
         }
       })

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    const filteredText = text.replace("'''", "").replace("...","").replace("```","");
+    const filteredText = text.replaceAll("```json", " ").replaceAll("``` json", " ").replaceAll("'''", " ").replaceAll("..."," ").replaceAll("```"," ");
     const parsedText = JSON.parse(filteredText);
     const fields= parsedText.questions.map((question: any) =>  {
         return {
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     console.log("Error while generating a response", error);
     return Response.json({
       msg: "Error while generating a response",
-      status: 200,
+      status: 400,
     });
   }
 }
