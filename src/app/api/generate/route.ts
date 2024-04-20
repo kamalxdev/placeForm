@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    const filteredText = text.replace("'''", "").replace("...","");
+    const filteredText = text.replace("'''", "").replace("...","").replace("```","");
     const parsedText = JSON.parse(filteredText);
     const fields= parsedText.questions.map((question: any) =>  {
         return {
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     if(!quiz){
         return Response.json({ msg: "Error while saving quiz", status: 400 });
     }
-    return Response.json({ quiz,status: 200 });
+    return Response.json({ quiz,text,parsedText,filteredText,status: 200 });
   } catch (error) {
     console.log("Error while generating a response", error);
     return Response.json({
