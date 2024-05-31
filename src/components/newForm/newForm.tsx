@@ -125,7 +125,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         aria-label="tabs"
         style="underline"
         borderPosition="bottom"
-        className="mx-10 my-5"
+        className="md:mx-10 my-5 mx-4"
       >
         <Tabs.Item title="Title & Description" className="">
           <Area>
@@ -165,7 +165,7 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
             }}
             className="flex flex-col items-center"
           >
-            <div className="relative w-11/12">
+            <div className="relative w-full md:11/12">
               <div className="">
                 {(fields as iFormField).map((field, index) => {
                   if (

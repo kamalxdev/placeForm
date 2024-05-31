@@ -124,7 +124,7 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
         aria-label="tabs"
         style="underline"
         borderPosition="bottom"
-        className="mx-10 my-5"
+        className="mx-4 my-5 md:mx-10"
       >
         <Tabs.Item title="Title & Description" className="">
           <Area>
@@ -164,7 +164,7 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
             }}
             className="flex flex-col items-center"
           >
-            <div className="relative w-11/12">
+            <div className="relative w-full md:11/12">
               <div className="">
                 {fields.map((field, index) => {
                   return <Quiz key={index} index={index} />

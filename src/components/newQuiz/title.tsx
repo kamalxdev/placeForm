@@ -17,7 +17,17 @@ function Title(props: TitleProps) {
   }
   return (
     <>
-      <h1>QUIZ {props.index+1}</h1>
+      <span className="flex mt-4 md:mt-0 justify-between mx-2">
+        <h1>QUIZ {props.index + 1}</h1>
+        <button
+          type="button"
+          className="field-delete-btn"
+          title="Delete Field"
+          onClick={handleDeleteField}
+        >
+          <Trash size={22} />
+        </button>
+      </span>
       <div className="relative flex m-2 items-center flex-wrap md:flex-nowrap sm:flex-wrap">
         <input
           type="text"
@@ -37,37 +47,6 @@ function Title(props: TitleProps) {
           value={fields[props.index].title}
           required
         />
-        <span className="flex mt-4 md:mt-0 justify-start">
-          <span className=" flex items-center justify-between mr-6">
-            <input
-              type="checkbox"
-              id={`check${props.index}`}
-              className="check-box mr-2"
-              
-              onChange={(e: any) => {
-                setFields((oldFields) =>
-                  oldFields.map((field, index) => {
-                    if (index === props.index) {
-                      return { ...field, required: e.target.checked };
-                    }
-                    return field;
-                  })
-                );
-              }}
-              checked={fields[props.index].required}
-              
-            />{" "}
-            <label htmlFor={`check${props.index}`}>Required</label>
-          </span>
-          <button
-            type="button"
-            className="field-delete-btn"
-            title="Delete Field"
-            onClick={handleDeleteField}
-          >
-            <Trash size={22} />
-          </button>
-        </span>
       </div>
     </>
   );
