@@ -12,7 +12,11 @@ function usePushData( url: string, push: any) {
       .post(url, push)
       .then((res) => {
         setLoading(false);
+        if(res.data?.status==400 && res.data?.message){
+          return setError({title:res.data?.message?.title,description:res.data?.message?.description})
+        }
         setData(res.data);
+
       })
       .catch((err) => {
         setLoading(false);

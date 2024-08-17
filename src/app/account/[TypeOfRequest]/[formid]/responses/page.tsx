@@ -4,7 +4,6 @@ import Error404 from "@/components/errors/404";
 import Loader from "@/components/loader/loader";
 import usePushData from "@/hooks/pushData";
 import axios from "axios";
-import { set } from "mongoose";
 import React from "react";
 
 export default function FormResponses({
@@ -29,36 +28,37 @@ export default function FormResponses({
   const responses = data?.responses;
 
   if (loading || loader) return <Loader />;
-  if (error?.title)
+    
+  if (error)
     return <Error404 title={error.title} description={error.description} />;
 
-
-
-
-
-
-    // to export  responses in an excel file    
+  // to export  responses in an excel file
   async function handleExportExcel() {
+    if(data?.responses.length==0){
+      return alert("No responses found")
+    }
     setLoader(true);
-
-
-
-    let headers = params.TypeOfRequest === "quiz" ? [{title:"Name"},...form?.fields?.map((field: any) => {
-      return { title: field.title };
-    })] : form?.fields?.map((field: any) => {
-      return { title: field.title };
-    });
-
+    
+    let headers =
+      params.TypeOfRequest === "quiz"
+        ? [
+            { title: "Name" },
+            ...form?.fields?.map((field: any) => {
+              return { title: field.title };
+            }),
+          ]
+        : form?.fields?.map((field: any) => {
+            return { title: field.title };
+          });
 
     let response = responses?.map((response: any) => {
-      let res: any = params.TypeOfRequest === "quiz" ? {Name: response?.name || "-"} : {};
+      let res: any =
+        params.TypeOfRequest === "quiz" ? { Name: response?.name || "-" } : {};
       form?.fields?.map((field: any) => {
         res[field.title] = response.response[0][field.uniqueID]?.answer || "-";
       });
       return res;
     });
-
-
 
     const res = await axios.post(
       `/api/download`,
@@ -70,7 +70,6 @@ export default function FormResponses({
         responseType: "blob",
       }
     );
-    
 
     const url = window.URL.createObjectURL(new Blob([res.data]));
 
@@ -79,14 +78,8 @@ export default function FormResponses({
     link.setAttribute("download", `${form?.title}.xlsx`);
     document.body.appendChild(link);
     link.click();
-      setLoader(false);
-
+    setLoader(false);
   }
-
-
-
-
-
 
   return (
     <>
@@ -108,7 +101,7 @@ export default function FormResponses({
             </button>
           </div>
         </div>
-        {data?.responses.length > 0 ? (
+        {data?.responses?.length > 0 ? (
           <div className="mt-6 flex flex-col">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
