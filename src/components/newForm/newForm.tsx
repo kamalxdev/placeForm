@@ -59,7 +59,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   //     return;
   //   }
   // };
-  console.log("fields: ",fields);
   
   const handleSaveDraftButtonClick = async () => {
     let count =0;
@@ -68,7 +67,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         count++
       }else if((fields as iFormField)[index]?.options){
         let optionfield=fields[index]?.options as string[]
-        console.log("options: ",optionfield?.length);
         
         for(let j=0;j< optionfield?.length;j++){
           if(!optionfield[j]){
@@ -110,7 +108,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         count++
       }else if((fields as iFormField)[index]?.options){
         let optionfield=fields[index]?.options as string[]
-        console.log("options: ",optionfield?.length);
         
         for(let j=0;j< optionfield?.length;j++){
           if(!optionfield[j]){

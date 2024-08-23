@@ -15,6 +15,7 @@ import Loader from "@/components/loader/loader";
 import { iFormData } from "@/types/formData";
 import Quiz from "./quiz";
 import randomGenerator from "@/controllers/randomGenerator";
+import { iQuizField } from "@/types/generateField";
 
 function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
   
@@ -51,16 +52,27 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
       (date.getMinutes() <= 9 ? "0" + date.getMinutes() : date.getMinutes())
   );
 
-  const handleSaveButtonClick = async () => {
-    const data = fields;
-    console.log("Save Form", data, quiz);
-    if (!data[0]) {
-      alert("Please add at least one field");
-      return;
-    }
-  };
+  
 
   const handleSaveDraftButtonClick = async () => {
+    let count =0;
+    for (let index = 0; index < fields.length; index++) {
+      if(!fields[index]?.title){
+        count++
+      }else if(fields[index]?.options){
+        let optionfield=fields[index]?.options as string[]
+        
+        for(let j=0;j< optionfield?.length;j++){
+          if(!optionfield[j]){
+            return alert(`Options value of a quiz field "${fields[index]?.title}" should be given.`)
+          }
+        }
+      }
+      
+    }
+    if (count>0){
+      return alert(`There are ${count} empty fields. Delete them and then try again`)
+    }
     setLoading(true);
     await axios
       .post("/api/quiz/publish", {
@@ -84,6 +96,24 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
       });
   };
   const handleButtonClick = async (state:string) => {
+    let count =0;
+    for (let index = 0; index < fields.length; index++) {
+      if(!fields[index]?.title){
+        count++
+      }else if(fields[index]?.options){
+        let optionfield=fields[index]?.options as string[]
+        
+        for(let j=0;j< optionfield?.length;j++){
+          if(!optionfield[j]){
+            return alert(`Options value of a quiz field "${fields[index]?.title}" should be given.`)
+          }
+        }
+      }
+      
+    }
+    if (count>0){
+      return alert(`There are ${count} empty fields. Delete them and then try again`)
+    }
     setLoading(true);
     axios.post("/api/quiz/publish", {
       data: {
@@ -158,10 +188,6 @@ function NewQuizCreater({id,updateform}: { id: string, updateform: iFormData}) {
           disabled={quiz.title && quiz.description ? false : true}
         >
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSaveButtonClick();
-            }}
             className="flex flex-col items-center"
           >
             <div className="relative w-full md:11/12">
