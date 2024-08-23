@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function () {
+export default function TermsAndConditions() {
   return (
     <section className=" text-gray-800">
       <div className="max-w-3xl mx-auto py-12">

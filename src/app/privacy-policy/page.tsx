@@ -1,7 +1,7 @@
 
 
 
-export default function(){
+export default function PrivacyPolicy(){
     return <section>
         <div className="max-w-3xl mx-auto py-12">
         <h1 className="text-4xl font-bold mb-6 text-center ">Privacy Policy</h1>

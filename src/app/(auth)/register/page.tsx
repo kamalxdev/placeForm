@@ -147,7 +147,7 @@ export default function RegisterPage() {
                   </div>
                 </div>
             <div className="mb-6 text-sm text-gray-600">
-                By clicking on "Create Account", you agree to our&nbsp;
+                By clicking on &quot;Create Account&quot;, you agree to our&nbsp;
             <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
             </div>
                 {validateError?.password ? (

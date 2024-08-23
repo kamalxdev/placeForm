@@ -134,7 +134,7 @@ export default function LoginPage() {
                 </div>
               </div>
               <div className="mb-6 text-sm text-gray-600">
-                By clicking on "Get Started", you agree to our&nbsp;
+                By clicking on &quot;Get Started&quot;, you agree to our&nbsp;
             <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
             </div>
               {validateError?.password ? (
