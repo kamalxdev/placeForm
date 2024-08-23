@@ -11,7 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { FormField } from "@/store/atom/makeFormField";
 import { iFormField } from "@/types/generateField";
 import { Tabs } from "keep-react";
@@ -52,16 +52,35 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
       (date.getMinutes() <= 9 ? "0" + date.getMinutes() : date.getMinutes())
   );
 
-  const handleSaveButtonClick = async () => {
-    const data = fields;
-    console.log("Save Form", data, form);
-    if (!data[0]) {
-      alert("Please add at least one field");
-      return;
-    }
-  };
-
+  // const handleSaveButtonClick = async () => {
+  //   const data = fields;  
+  //   if (!data[0]) {
+  //     alert("Please add at least one field");
+  //     return;
+  //   }
+  // };
+  console.log("fields: ",fields);
+  
   const handleSaveDraftButtonClick = async () => {
+    let count =0;
+    for (let index = 0; index < fields.length; index++) {
+      if(!fields[index]?.title){
+        count++
+      }else if((fields as iFormField)[index]?.options){
+        let optionfield=fields[index]?.options as string[]
+        console.log("options: ",optionfield?.length);
+        
+        for(let j=0;j< optionfield?.length;j++){
+          if(!optionfield[j]){
+            return alert(`Options value of a ${(fields as iFormField)[index]?.type} should be given.`)
+          }
+        }
+      }
+      
+    }
+    if (count>0){
+      return alert(`There are ${count} empty fields. Delete them and then try again`)
+    }
     setLoading(true);
     await axios
       .post("/api/form/publish", {
@@ -84,7 +103,26 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         console.log(err);
       });
   };
-  const handleButtonClick = async (state:string) => {
+  const handleSaveButtonClick = async (state:string) => {
+    let count =0;
+    for (let index = 0; index < fields.length; index++) {
+      if(!fields[index]?.title){
+        count++
+      }else if((fields as iFormField)[index]?.options){
+        let optionfield=fields[index]?.options as string[]
+        console.log("options: ",optionfield?.length);
+        
+        for(let j=0;j< optionfield?.length;j++){
+          if(!optionfield[j]){
+            return alert(`Options value of a ${(fields as iFormField)[index]?.type} should be given.`)
+          }
+        }
+      }
+      
+    }
+    if (count>0){
+      return alert(`There are ${count} empty fields. Delete them and then try again`)
+    }
     setLoading(true);
     axios.post("/api/form/publish", {
       data: {
@@ -111,6 +149,8 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   if (loading) {
     return <Loader />;
   }
+  console.log("fields: ",fields);
+  
   return (<>
     <div className="mx-10 my-5">
         <span className="flex flex-col">
@@ -157,16 +197,10 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
         <Tabs.Item
           title="Fields- add fields to your form"
           disabled={form.title && form.description ? false : true}
+          className="flex flex-col items-center"
         >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSaveButtonClick();
-            }}
-            className="flex flex-col items-center"
-          >
             <div className="relative w-full md:11/12">
-              <div className="">
+              <div>
                 {(fields as iFormField).map((field, index) => {
                   if (
                     field?.type === "text" ||
@@ -197,7 +231,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
               </div>
               <ChooseFormFields />
             </div>
-          </form>
         </Tabs.Item>
         <Tabs.Item
           title="Submit- set start and expiry time"
@@ -268,14 +301,14 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-2"
                 type="button"
-                onClick={()=>handleButtonClick("Published")}
+                onClick={()=>handleSaveButtonClick("Published")}
               >
                 Publish Form
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded ml-2"
                 type="button"
-                onClick={()=>handleButtonClick("Live")}
+                onClick={()=>handleSaveButtonClick("Live")}
                 title="No need to set start and expiry time for live form. It will be live as soon as you click it."
               >
                 Live now

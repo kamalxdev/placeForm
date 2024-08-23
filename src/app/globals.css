@@ -10,3 +10,9 @@
 body{
     background-color: #ffffff !important;
 }
+
+
+::-webkit-scrollbar {
+    display:none;
+  }
+  

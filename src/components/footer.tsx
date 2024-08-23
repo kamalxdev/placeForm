@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Footer() {
     const date = new Date();
   return (
-    <div className="realtive mt-5 bottom-0">
+    <div className="relative mt-5 w-full -bottom-0 h-fit">
      <hr />
     <div className="relative mx-auto max-w-7xl">
       <footer className="px-4 py-10">
