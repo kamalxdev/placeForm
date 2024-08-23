@@ -32,12 +32,10 @@ function FormSubmitBTN(props: iprops) {
             // console.log(res.data);
             setLoading(false);
             const { data } = res;
+            alert(data.msg);
             if (data.status == 200) {
-              alert(data.msg);
               return router.push("/");
             }
-            alert(data.msg);
-            return router.push("/");
           })
           .catch((err) => {
             console.log(err);
