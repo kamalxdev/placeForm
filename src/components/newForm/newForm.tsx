@@ -146,7 +146,6 @@ function NewFormCreater({formid,updateform}: { formid: string, updateform: iForm
   if (loading) {
     return <Loader />;
   }
-  console.log("fields: ",fields);
   
   return (<>
     <div className="mx-10 my-5">

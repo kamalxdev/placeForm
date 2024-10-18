@@ -1,7 +1,6 @@
 import { signOut } from "next-auth/react";
 
 export default function SignOUTbtn() {
-  console.log("signing out");
 
   return (
     <button

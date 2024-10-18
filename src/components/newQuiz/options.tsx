@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 
 function Options(props: { index: any; fieldIndex: number; radioName: string }) {
   const [fields, setFields] = useRecoilState<iQuizField>(FormField);
-  console.log("Fields:", fields);
 
   function handleDeleteOption() {
     

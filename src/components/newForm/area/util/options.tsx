@@ -16,7 +16,6 @@ function Options(props: {index:any,fieldIndex:number}) {
       }
       return field
     }))
-    console.log("delete option");
     
   }
   return (
