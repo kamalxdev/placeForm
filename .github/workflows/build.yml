@@ -1,4 +1,4 @@
-name: Build the application and checks error
+name: Build the application and checks error on pull request
 
 on:
   pull_request:
