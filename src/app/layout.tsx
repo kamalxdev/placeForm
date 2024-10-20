@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Archivo } from "next/font/google";
 import "./globals.css";
 
 import NextAuthProvider from "@/provider/nextAuthProvider";
 import Navbar from "@/components/Navbar/navbar";
 import Footer from "@/components/footer";
 import Script from "next/script";
+import connect from "@/db/mongo.config";
 
 
 
 
-const inter = Inter({ subsets: ["latin"] });
+const archivo = Archivo({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
   title: "PlaceForm- Your Ultimate Form and Quiz Creator!",
@@ -39,10 +41,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  connect();
   return (
     <html lang="en">
 
-      <body className={inter.className}>
+      <body className={archivo.className}>
       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285538400653886"/>
         <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
 

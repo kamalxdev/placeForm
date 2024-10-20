@@ -3,10 +3,8 @@ import { authOptions } from "../../auth/[...nextauth]/options";
 import { igetUSER } from "@/types/getUSER";
 import USER from "@/models/user";
 import FORM from "@/models/form";
-import connect from "@/db/mongo.config";
 
 export async function GET(request: Request) {
-  connect();
   const session = await getServerSession(authOptions) as igetUSER;
   try {
     const user = session?.user;

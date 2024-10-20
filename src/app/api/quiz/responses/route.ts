@@ -1,8 +1,6 @@
-import connect from "@/db/mongo.config";
 import { NextRequest, NextResponse } from "next/server";
 import RESPONSES from "@/models/responses";
 
-connect();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import QUIZ from "@/models/quiz";
-import connect from "@/db/mongo.config";
 
 
 export async function POST(req:NextRequest){
     const body = await req.json();
-    connect()
     try {
         const quiz = await QUIZ.findByIdAndUpdate(body.id,{$set:body.data,updated_at:Date.now()});
         if(quiz){

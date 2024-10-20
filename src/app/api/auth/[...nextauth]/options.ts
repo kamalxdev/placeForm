@@ -1,4 +1,3 @@
-import connect from "@/db/mongo.config";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/user";
@@ -24,7 +23,6 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        connect();
         const user = await User.findOne({ email: credentials?.email });
         if (user) {
           return user
@@ -43,7 +41,6 @@ export const authOptions: AuthOptions = {
   // it runs before the user is created in the database for LOGin with Google
   callbacks: {
     async signIn({user}) {
-      connect();
       const email =user.email;
       const checkUSER = await User.findOne({email});
       if (checkUSER) {

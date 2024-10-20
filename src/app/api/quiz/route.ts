@@ -4,9 +4,7 @@ import { igetUSER } from "@/types/getUSER";
 import QUIZ from "@/models/quiz";
 import USER from "@/models/user";
 import RESPONSES from "@/models/responses";
-import connect from "@/db/mongo.config";
 
-connect();
 
 export async function GET(request: Request) {
     const session= await getServerSession(authOptions) as igetUSER;

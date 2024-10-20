@@ -1,9 +1,7 @@
-import connect from "@/db/mongo.config";
 import { NextRequest, NextResponse } from "next/server";
 import QUIZ from "@/models/quiz";
 
 
-connect();
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();

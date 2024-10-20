@@ -1,4 +1,3 @@
-import connect from "@/db/mongo.config";
 import QUIZ from "@/models/quiz";
 import USER from "@/models/user";
 import { getServerSession } from "next-auth/next";
@@ -10,7 +9,6 @@ export async function GET(request: Request) {
   const mode = searchParams.get("mode");
   const userSession = await getServerSession(authOptions);
 
-  connect();
   try {
     const quiz = await QUIZ.findById(id);
     if (!quiz) {

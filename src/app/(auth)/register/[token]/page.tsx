@@ -1,11 +1,9 @@
 
 
-import connect from "@/db/mongo.config";
 import { verifyJWTtoken } from "@/controllers/registerJWTtoken";
 
 import User from "@/models/user";
 import { redirect } from 'next/navigation'
-connect();
 
 
 type iUser = {

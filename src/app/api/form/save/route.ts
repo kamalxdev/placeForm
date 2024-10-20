@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import FORM from "@/models/form";
-import connect from "@/db/mongo.config";
 
 
 export async function POST(req:NextRequest){
     const body = await req.json();
-    connect()
     try {
         const form = await FORM.findByIdAndUpdate(body.id,{$set:body.data,updated_at:Date.now()});
         if(form){

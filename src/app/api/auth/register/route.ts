@@ -1,11 +1,9 @@
-import connect from "@/db/mongo.config";
 import { NextRequest, NextResponse } from "next/server";
 import vine, { errors } from "@vinejs/vine";
 import { registerSchema } from "@/app/validate/userSchema";
 import ErrorReporter from "@/app/validate/errorReporter";
 import bcrypt from "bcryptjs";
 import User from "@/models/user";
-connect();
 
 export async function POST(req: NextRequest) {
   try {

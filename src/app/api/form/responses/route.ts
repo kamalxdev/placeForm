@@ -1,14 +1,11 @@
-import connect from "@/db/mongo.config";
 import { NextRequest, NextResponse } from "next/server";
 import RESPONSES from "@/models/responses";
 import FORM from "@/models/form";
 import { iResponses } from "@/types/responses";
 
-connect();
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    // const form = await Forms.findByIdAndUpdate(body.formid,{$push:{responses:body.response}});
     const form = await FORM.findById(body.formid);
 
     const UserResponse: iResponses = {};

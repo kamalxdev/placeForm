@@ -1,4 +1,3 @@
-import connect from "@/db/mongo.config";
 import FORM from "@/models/form"
 import USER from "@/models/user"
 import { getServerSession } from "next-auth/next";
@@ -15,7 +14,6 @@ export async function GET(request:Request){
     const mode = searchParams.get("mode")
     const userSession= await getServerSession(authOptions)
     
-    connect();
     try{
         const form = await FORM.findById(id)
         if (!form){
