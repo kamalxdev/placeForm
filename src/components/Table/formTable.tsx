@@ -102,7 +102,7 @@ function FormTable() {
               quizzes
             </p>
           </div>
-          <div className="flex  gap-5">
+          <div className="flex gap-5 flex-wrap">
             <button
               type="button"
               onClick={handleNewForm}

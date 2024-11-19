@@ -4,7 +4,7 @@ import {
   DotsThreeOutline,
   Pencil,
   Trash,
-  Copy ,
+  Copy,
   FileArrowUp,
   FileArrowDown,
   HardDrives,
@@ -144,49 +144,37 @@ const TableRow = memo(function TableRow({
             {form.title || "(Untitled)"}
           </Link>
           <div className="text-sm text-gray-700">
-            {"Last updated on  " + form.updated_at.toString()}
+            {"Last updated on  " +
+              form.updated_at.toLocaleString([], {
+                dateStyle: "medium",
+                // timeStyle: "short",
+              })}
           </div>
         </div>
       </TableData>
       <TableData>
         <div>
           <div className="text-sm text-gray-900 ">
-            {form?.start_date
-              ? form?.start_date?.getDate() +
-                "-" +
-                (form?.start_date?.getMonth() + 1) +
-                "-" +
-                form?.start_date?.getFullYear()
-              : "00-00-0000"}
+            {form?.start_date?.toLocaleDateString([], { dateStyle: "short" }) ||
+              "00-00-0000"}
           </div>
           <div className="text-sm text-gray-700">
-            {form.start_date?.getHours() +
-              ":" +
-              form.start_date?.getMinutes() +
-              ":" +
-              form.start_date?.getSeconds() || "00:00:00"}
+            {form.start_date?.toLocaleTimeString([], { timeStyle: "short" }) ||
+              "00:00"}
           </div>
         </div>
       </TableData>
       <TableData>
         <div>
           <div className="text-sm text-gray-900 ">
-            {form?.expiry_date
-              ? form?.expiry_date?.getDate() +
-                "-" +
-                (form?.expiry_date?.getMonth() + 1) +
-                "-" +
-                form?.expiry_date?.getFullYear()
-              : "00-00-0000"}
+            {form?.expiry_date?.toLocaleDateString([], {
+              dateStyle: "short",
+            }) || "00-00-0000"}
           </div>
           <div className="text-sm text-gray-700">
-            {form.expiry_date
-              ? form.expiry_date?.getHours() +
-                ":" +
-                form.expiry_date?.getMinutes() +
-                ":" +
-                form.expiry_date?.getSeconds()
-              : "00:00:00"}
+            {form?.expiry_date?.toLocaleTimeString([], {
+              timeStyle: "short",
+            }) || "00:00"}
           </div>
         </div>
       </TableData>
@@ -234,11 +222,18 @@ const TableRow = memo(function TableRow({
                 </EditIcons>
               )}
               {form.state == "Live" || form.state == "Published" ? (
-                <EditIcons button onClick={()=>{navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/${mode}/m/${form._id}/write`);alert("Link Copied");}
-                }>
+                <EditIcons
+                  button
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${mode}/m/${form._id}/write`
+                    );
+                    alert("Link Copied");
+                  }}
+                >
                   <span>Copy link</span>
                   <span>
-                    <Copy  />
+                    <Copy />
                   </span>
                 </EditIcons>
               ) : null}
