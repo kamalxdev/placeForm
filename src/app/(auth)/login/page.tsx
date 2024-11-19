@@ -113,14 +113,6 @@ export default function LoginPage() {
                     {" "}
                     Password{" "}
                   </label>
-                  <Link
-                    href="#"
-                    title=""
-                    className="text-sm font-semibold text-black hover:underline"
-                  >
-                    {" "}
-                    Forgot password?{" "}
-                  </Link>
                 </div>
                 <div className="mt-2">
                   <input
@@ -158,7 +150,7 @@ export default function LoginPage() {
               </div>
             </div>
           </form>
-          <div className="mt-3 space-y-3">
+          {/* <div className="mt-3 space-y-3">
             <button
               type="button"
               onClick={e=>signIn("google", { callbackUrl: callback||"/dashboard", redirect: true })}
@@ -176,7 +168,7 @@ export default function LoginPage() {
               </span>
               Sign in with Google
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
