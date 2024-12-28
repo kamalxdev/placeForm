@@ -1,24 +1,17 @@
-FROM node:20
-
-# Set the working directory
-WORKDIR /app
-
-# Copy package.json and install dependencies
+#  build stage
+FROM node:20 as Builder
+WORKDIR /build
 COPY package*.json ./
-RUN npm install
-RUN npm install sharp
-
-# Copy all files
+RUN npm ci
 COPY . .
-
-# Accept build-time arguments
 ARG NEXT_PUBLIC_WEBSITE_URL
-
-# Build the Next.js application
+ARG MONGO_URL
 RUN npm run build
 
-# Expose port 3000
-EXPOSE 3000
 
-# Start the app
+# production stage
+
+FROM node:20-alpine as Production
+WORKDIR /app
+COPY --from=Builder /build ./
 CMD ["npm", "run", "start"]
