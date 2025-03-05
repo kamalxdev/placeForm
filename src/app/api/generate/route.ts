@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(
       process.env.GOOGLE_GENERATIVE_TOKEN as string
     );
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const prompt = `Generate a JSON response exclude any unwanted space just give a simple json output in this format {quiztitle: "title", quizdescription: "description", questions: [{title: "question", options: ["option1", "option2", "option3", "option4"], correctOption: index of the option}, ...], which has a quiz title and decription and 10 quiz on the topic '${body.prompt}' `;
 

@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     title: "PlaceForm- Your Ultimate Form and Quiz Creator!",
     description: "Elevate your form creation game with placeForm – the platform that goes beyond expectations. ",
     type: "website",
-    url: process.env.NEXT_PUBLIC_WEBSITE_URL,
+    url: process.env.WEBSITE_URL || "https://placeform.kamalsingh.me/",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/images/logo.png`,
+        url: `${process.env.WEBSITE_URL || "https://placeform.kamalsingh.me/"}/images/logo.png`,
         width: 1200,
         height: 630,
         alt: "PlaceForm",
@@ -47,7 +47,7 @@ export default function RootLayout({
 
       <body className={archivo.className}>
       <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3285538400653886"/>
-        <NextAuthProvider> <Navbar/> {children} <Footer/></NextAuthProvider>
+        <NextAuthProvider> <Navbar/> <div className="h-full">{children}</div> <Footer/></NextAuthProvider>
 
       </body>
     </html>

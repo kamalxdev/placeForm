@@ -226,7 +226,7 @@ const TableRow = memo(function TableRow({
                   button
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${mode}/m/${form._id}/write`
+                      `${window.location.origin}/${mode}/m/${form._id}/write`
                     );
                     alert("Link Copied");
                   }}
