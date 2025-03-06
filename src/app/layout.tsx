@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     url: process.env.WEBSITE_URL || "https://placeform.kamalsingh.me/",
     images: [
       {
-        url: `${process.env.WEBSITE_URL || "https://placeform.kamalsingh.me/"}/images/logo.png`,
+        url: `${process.env.WEBSITE_URL || "https://placeform.kamalsingh.me"}/images/logo.png`,
         width: 1200,
         height: 630,
         alt: "PlaceForm",
