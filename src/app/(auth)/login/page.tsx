@@ -24,8 +24,8 @@ export default function LoginPage() {
   });
   const [AuthError, setAuthError] = React.useState("");
   const [greenbox, setGreenbox] = React.useState(params.get("msg"));
-  const param=useSearchParams();
-  const callback=param.get("callbackUrl");
+  const param = useSearchParams();
+  const callback = param.get("callbackUrl");
 
   async function PostLoginData() {
     setLoading(true);
@@ -78,8 +78,8 @@ export default function LoginPage() {
               <span className="ml-1">{AuthError}</span>
             </div>
           ) : greenbox ? <div className=" mt-4 transition flex items-center justify-center rounded-md w-full h-full p-1 bg-green-400 text-black font-bold">
-          <span className="ml-1">{greenbox}</span>
-        </div> : null}
+            <span className="ml-1">{greenbox}</span>
+          </div> : null}
           <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
@@ -127,8 +127,8 @@ export default function LoginPage() {
               </div>
               <div className="mb-6 text-sm text-gray-600">
                 By clicking on &quot;Get Started&quot;, you agree to our&nbsp;
-            <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
-            </div>
+                <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
+              </div>
               {validateError?.password ? (
                 <ShowAuthError msg={validateError.password} />
               ) : (
@@ -150,10 +150,10 @@ export default function LoginPage() {
               </div>
             </div>
           </form>
-          {/* <div className="mt-3 space-y-3">
+          <div className="mt-3 space-y-3">
             <button
               type="button"
-              onClick={e=>signIn("google", { callbackUrl: callback||"/dashboard", redirect: true })}
+              onClick={e => signIn("google", { callbackUrl: callback || "/dashboard", redirect: true })}
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
             >
               <span className="mr-2 inline-block">
@@ -168,7 +168,7 @@ export default function LoginPage() {
               </span>
               Sign in with Google
             </button>
-          </div> */}
+          </div>
         </div>
       </div>
     </section>

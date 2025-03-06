@@ -4,7 +4,7 @@ import { ArrowRight, Ban } from "lucide-react";
 import Link from "next/link";
 import axios from "axios";
 import ShowAuthError from "@/components/showAuthError";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Spinner } from "keep-react";
 
@@ -45,7 +45,7 @@ export default function RegisterPage() {
         console.log("RegisterWithToken error------>", err);
       });
   }
- 
+
   return (
     <>
       <section>
@@ -146,10 +146,10 @@ export default function RegisterPage() {
                     ></input>
                   </div>
                 </div>
-            <div className="mb-6 text-sm text-gray-600">
-                By clicking on &quot;Create Account&quot;, you agree to our&nbsp;
-            <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
-            </div>
+                <div className="mb-6 text-sm text-gray-600">
+                  By clicking on &quot;Create Account&quot;, you agree to our&nbsp;
+                  <Link href={'/terms-and-conditions'} className="text-blue-500 hover:underline transition-all">Terms & Conditions</Link>.
+                </div>
                 {validateError?.password ? (
                   <ShowAuthError msg={validateError.password} />
                 ) : null}
@@ -169,10 +169,10 @@ export default function RegisterPage() {
                 </div>
               </div>
             </form>
-            {/* <div className="mt-3 space-y-3">
+            <div className="mt-3 space-y-3">
               <button
                 type="button"
-                onClick={e=>signIn("google", {
+                onClick={e => signIn("google", {
                   callbackUrl: "/?registerWithGoogle=true",
                   redirect: false,
                 })}
@@ -190,7 +190,7 @@ export default function RegisterPage() {
                 </span>
                 Sign up with Google
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
