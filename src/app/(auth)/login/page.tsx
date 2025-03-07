@@ -150,7 +150,7 @@ export default function LoginPage() {
               </div>
             </div>
           </form>
-          <div className="mt-3 space-y-3">
+          {/* <div className="mt-3 space-y-3">
             <button
               type="button"
               onClick={e => signIn("google", { callbackUrl: callback || "/dashboard", redirect: true })}
@@ -168,7 +168,7 @@ export default function LoginPage() {
               </span>
               Sign in with Google
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

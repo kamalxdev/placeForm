@@ -169,7 +169,7 @@ export default function RegisterPage() {
                 </div>
               </div>
             </form>
-            <div className="mt-3 space-y-3">
+            {/* <div className="mt-3 space-y-3">
               <button
                 type="button"
                 onClick={e => signIn("google", {
@@ -190,7 +190,7 @@ export default function RegisterPage() {
                 </span>
                 Sign up with Google
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
