@@ -23,9 +23,9 @@ export default function Footer() {
           <p className="text-base font-semibold text-gray-700">
                 © {date.getFullYear()} placeForm. &nbsp;
               </p>
-              <p className="text-base font-semibold text-gray-700">
+              {/* <p className="text-base font-semibold text-gray-700">
               Developed by <Link href="https://www.linkedin.com/in/iamksb/" className='underline font-extrabold'>Kamal Singh</Link>. All rights reserved.
-              </p>
+              </p> */}
 
           </div>
         </div>
